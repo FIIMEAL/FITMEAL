@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FitMeal – Giỏ hàng Dinh dưỡng</title>
+  <!-- Giữ nguyên liên kết CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span>FitMeal</a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="Lotrinhhoa.html">Lộ trình hóa</a>
+      <a href="menu.html">Thực đơn</a>
+      <a href="orders.html">Đơn hàng</a>
+      <a href="contact.html">Liên hệ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="icon-btn" href="cart.html" aria-label="Giỏ hàng">🛒
+        <span class="cart-count" id="cartCount" style="background:#d32f2f; color:#fff; border-radius:50%; padding:2px 6px; font-size:11px; font-weight:bold; position:relative; top:-8px; right:4px;">0</span>
+      </a>
+      <a class="secondary" href="login.html">Đăng nhập</a>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="container cart-page" style="padding-top: 20px; padding-bottom: 40px;">
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb" style="margin-bottom: 16px;">
+    <a href="index.html">Trang chủ</a> <span>/</span> 
+    <a href="menu.html">Thực đơn</a> <span>/</span> 
+    <strong style="color: var(--primary-color, #2e7d32);">Giỏ hàng dinh dưỡng</strong>
+  </div>
+
+  <!-- BƯỚC THANH TOÁN -->
+  <div class="steps" style="margin-bottom: 24px;">
+    <div class="step active">1. Giỏ hàng & Chọn món</div>
+    <div class="step">2. Lộ trình & Thanh toán</div>
+    <div class="step">3. Xác nhận đơn hàng</div>
+  </div>
+
+  <!-- BANNER THÔNG TIN LỘ TRÌNH (TỪ MENU.HTML) -->
+  <div id="roadmapCartBanner" class="roadmap-status-bar" style="display: none; background: #e8f5e9; border: 1px solid #4caf50; padding: 14px 18px; border-radius: 10px; margin-bottom: 20px; color: #1b5e20;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <i class="fa-solid fa-square-poll-vertical" style="font-size: 18px; margin-right: 6px;"></i>
+        <span>Lộ trình đang chọn: <strong id="rmPkgName">Gói ăn</strong> — Tổng chi phí gói: <strong id="rmPkgPrice">0đ</strong></span>
+      </div>
+      <div style="font-size: 14px;">
+        <span>Số suất đã chọn: <strong id="rmSelectedQty">0</strong> / <span id="rmMaxQuota">0</span> suất</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-layout">
+    <!-- CỘT TRÁI: DANH SÁCH MÓN ĂN -->
+    <section class="panel">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #f3f4f6; padding-bottom: 12px;">
+        <div>
+          <h1 style="font-size: 22px; margin: 0; color: #111827;">Danh sách thực đơn giỏ hàng</h1>
+          <span class="sub" style="font-size: 13px; color: #6b7280;">Kiểm tra các khẩu phần ăn và tùy chỉnh trước khi đặt hàng.</span>
+        </div>
+        <button type="button" onclick="clearCart()" style="background: none; border: none; color: #ef4444; font-size: 13px; font-weight: 600; cursor: pointer;">
+          <i class="fa-solid fa-trash-can"></i> Xóa tất cả
+        </button>
+      </div>
+
+      <!-- DANH SÁCH MÓN ĂN DỰNG BẰNG JS -->
+      <div id="cartList"></div>
+
+      <!-- TRẠNG THÁI GIỎ HÀNG TRỐNG -->
+      <div id="empty" style="display:none; text-align:center; padding:50px 20px; color:#7a838c;">
+        <div style="font-size: 48px; margin-bottom: 12px;">🥗</div>
+        <strong style="display:block; font-size: 18px; color: #111827; margin-bottom: 6px;">Giỏ hàng dinh dưỡng đang trống!</strong>
+        <p style="font-size: 14px; margin-bottom: 16px;">Bạn chưa chọn món ăn hoặc lộ trình dinh dưỡng nào.</p>
+        <a class="primary" href="menu.html" style="padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-block;">
+          <i class="fa-solid fa-utensils"></i> Khám phá thực đơn ngay →
+        </a>
+      </div>
+
+      <!-- GHI CHÚ CHO BẾP -->
+      <div id="noteBlock" style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed #e5e7eb;">
+        <label for="cartNote" style="font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; color: #374151;">
+          📝 Ghi chú riêng cho Chuyên viên Dinh dưỡng & Bếp:
+        </label>
+        <textarea id="cartNote" placeholder="Ví dụ: Dị ứng hải sản, không nêm nhiều muối, ít cay, giao trước 11h30..." style="width: 100%; height: 72px; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 13px; font-family: inherit; outline: none; resize: vertical; box-sizing: border-box;"></textarea>
+      </div>
+
+      <!-- ĐIỀU HƯỚNG BỔ SUNG -->
+      <div style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; background: #f9fafb; padding: 12px 16px; border-radius: 8px;">
+        <a class="secondary" href="menu.html" style="border-radius: 8px; padding: 8px 14px; text-decoration: none; font-size: 13px; font-weight: 600;">
+          ← Chọn thêm món khác
+        </a>
+        <small style="color: #4b5563; font-size: 12px;">
+          🛵 Giao khẩu phần ăn tận nơi chuẩn nhiệt bảo quản hàng ngày
+        </small>
+      </div>
+    </section>
+
+    <!-- CỘT PHẢI: TÓM TẮT ĐƠN HÀNG -->
+    <aside class="panel summary-card">
+      <h2 style="font-size: 18px; margin-bottom: 16px; color: #111827; border-bottom: 1px solid #f3f4f6; padding-bottom: 10px;">
+        Tóm tắt đơn hàng
+      </h2>
+
+      <!-- THÔNG TIN DINH DƯỠNG TỔNG HỢP -->
+      <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+        <div style="font-size: 12px; color: #166534; font-weight: 700; margin-bottom: 4px;">📊 Tổng Calo ước tính trong giỏ:</div>
+        <div id="totalCaloText" style="font-size: 15px; font-weight: 800; color: #15803d;">~0 kcal</div>
+      </div>
+
+      <!-- TÍNH TOÁN CHI PHÍ -->
+      <div class="summary-item" style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #4b5563;">
+        <span>Tạm tính giá trị món</span>
+        <span id="subtotal" style="font-weight: 600; color: #111827;">0đ</span>
+      </div>
+
+      <div class="total" style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 1px dashed #e5e7eb;">
+        <span style="font-size: 15px; font-weight: 700;">Tổng thanh toán</span>
+        <strong id="total" style="font-size: 20px; color: #059669;">0đ</strong>
+      </div>
+
+      <!-- NÚT CHUYỂN TRANG THANH TOÁN -->
+      <button type="button" id="btnProceedCheckout" onclick="proceedToOrder()" class="primary full" style="width: 100%; padding: 12px; font-size: 15px; margin-top: 18px; text-align: center; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; display: flex; justify-content: center; align-items: center; gap: 8px;">
+        <span>Tiến hành đặt món</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <div class="secure" style="margin-top: 16px; background: #f9fafb; padding: 10px 12px; border-radius: 8px; font-size: 12px; color: #4b5563; border: 1px solid #f3f4f6; text-align: center;">
+        🛡️ <span>Cam kết chuẩn BMR/TDEE & An toàn thực phẩm 100%</span>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-row">
+    <strong>FitMeal</strong>
+    <small> 2026 FitMeal – Dịch vụ suất ăn dinh dưỡng cá tính hóa.</small>
+  </div>
+</footer>
+
+<!-- JAVASCRIPT LOGIC -->
+<script>
+let userRoadmap = JSON.parse(localStorage.getItem("userRoadmap")) || null;
+
+function fmt(n) { 
+  return Number(n || 0).toLocaleString('vi-VN') + 'đ'; 
+}
+
+function getCart() {
+  return JSON.parse(localStorage.getItem('myCart')) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem('myCart', JSON.stringify(cart));
+  renderCart();
+}
+
+function updateHeaderCartCount() {
+  const cart = getCart();
+  const totalQty = cart.reduce((sum, item) => sum + (parseInt(item.qty) || 0), 0);
+  const cartCountEl = document.getElementById("cartCount");
+  if (cartCountEl) cartCountEl.textContent = totalQty;
+}
+
+function renderCart() {
+  const cart = getCart();
+  const container = document.getElementById('cartList');
+  const emptyBlock = document.getElementById('empty');
+  const noteBlock = document.getElementById('noteBlock');
+  const roadmapBanner = document.getElementById('roadmapCartBanner');
+
+  updateHeaderCartCount();
+
+  // 1. Kiểm tra Lộ trình Dinh dưỡng
+  if (userRoadmap) {
+    roadmapBanner.style.display = "block";
+    document.getElementById("rmPkgName").innerText = userRoadmap.name;
+    document.getElementById("rmPkgPrice").innerText = userRoadmap.isSingle ? "Theo giá món lẻ" : fmt(userRoadmap.price);
+    
+    const totalQty = cart.reduce((sum, item) => sum + (parseInt(item.qty) || 0), 0);
+    document.getElementById("rmSelectedQty").innerText = totalQty;
+    document.getElementById("rmMaxQuota").innerText = userRoadmap.isSingle ? "Không giới hạn" : userRoadmap.maxQuota;
+  } else {
+    roadmapBanner.style.display = "none";
+  }
+
+  // 2. Nếu Giỏ hàng trống
+  if (cart.length === 0) {
+    container.innerHTML = '';
+    emptyBlock.style.display = 'block';
+    noteBlock.style.display = 'none';
+    document.getElementById('subtotal').textContent = '0đ';
+    document.getElementById('total').textContent = '0đ';
+    document.getElementById('totalCaloText').textContent = '~0 kcal';
+    return;
+  }
+
+  emptyBlock.style.display = 'none';
+  noteBlock.style.display = 'block';
+
+  let html = '';
+  let subtotal = 0;
+  let totalCaloSum = 0;
+
+  cart.forEach((item, index) => {
+    const qty = parseInt(item.qty) || 1;
+    // Nếu là gói ăn cố định thì tính tổng theo gói, ngược lại lấy giá món lẻ
+    const itemPrice = (userRoadmap && !userRoadmap.isSingle) ? (userRoadmap.price / (userRoadmap.maxQuota || 1)) : (parseInt(item.price) || 0);
+    const isChecked = item.selected !== false;
+    const lineTotal = itemPrice * qty;
+
+    if (isChecked) {
+      subtotal += lineTotal;
+      // Tính calo ước tính nếu có chuỗi calo dạng "~520 kcal"
+      if (item.desc && item.desc.includes("kcal")) {
+        const caloMatch = item.desc.match(/\d+/);
+        if (caloMatch) totalCaloSum += parseInt(caloMatch[0]) * qty;
+      } else {
+        totalCaloSum += 450 * qty; // Calo trung bình mặc định
+      }
+    }
+
+    html += `
+      <div class="cart-row" style="display:flex; align-items:center; gap:14px; padding:16px 0; border-bottom:1px solid #f3f4f6;">
+        <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleSelect(${index})" style="width:18px; height:18px; cursor:pointer; accent-color:#2e7d32;">
+        
+        <div class="cart-thumb" style="flex-shrink:0;">
+          <img src="${item.img || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=150'}" alt="${item.name}" style="width:64px; height:64px; border-radius:8px; object-fit:cover; border:1px solid #e5e7eb;">
+        </div>
+
+        <div class="cart-name" style="flex:1;">
+          <strong style="font-size:15px; color:#111827; display:block;">${item.name}</strong>
+          <small style="color:#6b7280; font-size:12px; display:block; margin-top:2px;">${item.desc || 'Khẩu phần dinh dưỡng chuẩn y khoa'}</small>
+        </div>
+
+        <div style="min-width:85px; text-align:right; font-size:13px; color:#4b5563;">
+          ${fmt(itemPrice)}
+        </div>
+
+        <div class="cart-qty" style="display:inline-flex; align-items:center; border:1px solid #d1d5db; border-radius:6px; overflow:hidden; background:#fff;">
+          <button type="button" onclick="changeQty(${index}, -1)" style="width:28px; height:28px; border:none; background:#f9fafb; cursor:pointer; font-weight:bold;">−</button>
+          <span style="width:32px; text-align:center; font-weight:600; font-size:13px; color:#111827;">${qty}</span>
+          <button type="button" onclick="changeQty(${index}, 1)" style="width:28px; height:28px; border:none; background:#f9fafb; cursor:pointer; font-weight:bold;">+</button>
+        </div>
+
+        <strong style="color:#059669; font-size:15px; min-width:95px; text-align:right;">
+          ${fmt(lineTotal)}
+        </strong>
+
+        <button type="button" onclick="removeItem(${index})" style="border:none; background:transparent; color:#ef4444; font-size:13px; cursor:pointer; padding:4px 8px; border-radius:4px;" title="Xóa món">
+          <i class="fa-solid fa-xmark" style="font-size: 16px;"></i>
+        </button>
+      </div>`;
+  });
+
+  container.innerHTML = html;
+
+  // Nếu dùng gói ăn cố định thì Subtotal lấy thẳng giá trị gói
+  let finalTotal = (userRoadmap && !userRoadmap.isSingle) ? userRoadmap.price : subtotal;
+
+  document.getElementById('subtotal').textContent = fmt(finalTotal);
+  document.getElementById('total').textContent = fmt(finalTotal);
+  document.getElementById('totalCaloText').textContent = `~${totalCaloSum} kcal`;
+}
+
+function toggleSelect(index) {
+  let cart = getCart();
+  cart[index].selected = !(cart[index].selected !== false);
+  saveCart(cart);
+}
+
+function changeQty(index, delta) {
+  let cart = getCart();
+  let newQty = (cart[index].qty || 1) + delta;
+
+  // Kiểm tra hạn ngạch gói lộ trình
+  if (userRoadmap && !userRoadmap.isSingle && delta > 0) {
+    const currentTotalQty = cart.reduce((sum, item) => sum + (parseInt(item.qty) || 0), 0);
+    if (currentTotalQty + 1 > userRoadmap.maxQuota) {
+      alert(`⚠️ Lộ trình ${userRoadmap.name} chỉ cho phép chọn tối đa ${userRoadmap.maxQuota} suất!`);
+      return;
+    }
+  }
+
+  if (newQty <= 0) {
+    cart.splice(index, 1);
+  } else {
+    cart[index].qty = newQty;
+  }
+  saveCart(cart);
+}
+
+function removeItem(index) {
+  if (confirm("Bạn có chắc muốn xóa món ăn này khỏi giỏ hàng?")) {
+    let cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+  }
+}
+
+function clearCart() {
+  if (confirm("Bạn có chắc chắn muốn XÓA TẤT CẢ sản phẩm trong giỏ hàng?")) {
+    localStorage.removeItem("myCart");
+    renderCart();
+  }
+}
+
+function proceedToOrder() {
+  const cart = getCart();
+  const selectedItems = cart.filter(item => item.selected !== false);
+
+  if (selectedItems.length === 0) {
+    alert("⚠️ Vui lòng tích chọn ít nhất 1 món ăn để tiến hành đặt món!");
+    return;
+  }
+
+  // Cảnh báo nếu chưa chọn đủ quota số lượng suất ăn trong gói
+  if (userRoadmap && !userRoadmap.isSingle) {
+    const totalSelectedQty = selectedItems.reduce((sum, item) => sum + (parseInt(item.qty) || 0), 0);
+    if (totalSelectedQty < userRoadmap.maxQuota) {
+      if (!confirm(`⚠️ Gói ăn ${userRoadmap.name} gồm ${userRoadmap.maxQuota} suất, nhưng bạn mới chọn ${totalSelectedQty} suất. Bạn có muốn tiếp tục thanh toán không?`)) {
+        return;
+      }
+    }
+  }
+
+  // Lưu dữ liệu để trang order.html đọc chuẩn xác
+  const cartNote = document.getElementById('cartNote').value.trim();
+  localStorage.setItem('checkoutItems', JSON.stringify(selectedItems));
+  localStorage.setItem('cartNote', cartNote);
+
+  // Tạo đối tượng buy_now giả lập tương thích order.html cũ
+  const firstItem = selectedItems[0];
+  const totalQty = selectedItems.reduce((sum, item) => sum + (parseInt(item.qty) || 0), 0);
+  let computedSubtotal = (userRoadmap && !userRoadmap.isSingle) ? userRoadmap.price : selectedItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+  localStorage.setItem('foodjourney_buy_now', JSON.stringify({
+    product: {
+      title: selectedItems.length > 1 ? `${firstItem.name} + và ${selectedItems.length - 1} món khác` : firstItem.name
+    },
+    packageCount: totalQty,
+    price: computedSubtotal
+  }));
+
+  // Chuyển sang trang đặt món
+  window.location.href = 'order.html';
+}
+
+// Khởi chạy khi tải trang
+document.addEventListener('DOMContentLoaded', renderCart);
+</script>
+</body>
+</html>

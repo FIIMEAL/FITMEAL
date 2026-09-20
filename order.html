@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FitMeal – Thông tin đặt món</title>
+  <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body style="background: #f1f5f9;">
+<header class="header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span>FitMeal</a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a> <a href="Lotrinhhoa.html">Lộ trình hóa</a><a href="menu.html">Thực đơn</a><a href="orders.html">Đơn hàng</a><a href="contact.html">Liên hệ</a>
+    </nav>
+    <div class="nav-actions"><a class="icon-btn" href="cart.html" aria-label="Giỏ hàng">🛒</a><a class="secondary" href="login.html">Đăng nhập</a></div>
+  </div>
+</header>
+
+<main>
+  <div class="container order-wrap">
+    <a href="cart.html" class="back-link">← Quay lại giỏ hàng</a>
+
+    <div class="order-layout">
+      <section class="panel">
+        <div class="steps" style="margin-bottom: 24px;">
+          <div class="step active">1. Thông tin</div>
+          <div class="step">2. Thanh toán</div>
+          <div class="step">3. Xác nhận</div>
+        </div>
+
+        <h1 style="font-size: 24px; color: #111827; margin-bottom: 8px;">Thông tin giao hàng</h1>
+        <p class="sub" style="margin-bottom: 24px; color: #6b7280;">Nhập thông tin để FitMeal giao món đến bạn nhanh nhất.</p>
+
+        <form id="orderForm" novalidate>
+          <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="field">
+              <label for="fullname" style="font-weight: 600; margin-bottom: 8px; display: block;">Họ và tên <span style="color: red;">*</span></label>
+              <input id="fullname" placeholder="Nguyễn Văn A" style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px;">
+              <small id="fullnameError" style="color: red; margin-top: 5px; display: block;"></small>
+            </div>
+            <div class="field">
+              <label for="phone" style="font-weight: 600; margin-bottom: 8px; display: block;">Số điện thoại <span style="color: red;">*</span></label>
+              <input 
+                id="phone" 
+                type="tel"
+                inputmode="numeric"
+                maxlength="10"
+                placeholder="Ví dụ: 0901234567" style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px;">
+              <small id="phoneError" class="error-message" style="color: red; margin-top: 5px; display: block;"></small>
+            </div>
+            <div class="field full-width" style="grid-column: 1 / -1;">
+              <label for="email" style="font-weight: 600; margin-bottom: 8px; display: block;">Email <span style="color: red;">*</span></label>
+              <input 
+                id="email"
+                placeholder="Ví dụ: example@gmail.com" style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px;">
+              <small id="emailError" style="color: red; margin-top: 5px; display: block;"></small>
+            </div>
+            <div class="field full-width" style="grid-column: 1 / -1;">
+              <label for="address" style="font-weight: 600; margin-bottom: 8px; display: block;">Địa chỉ nhận hàng <span style="color: red;">*</span></label>
+              <input id="address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px;">
+              <small id="addressError" style="color: red; margin-top: 5px; display: block;"></small>
+            </div>
+            <div class="field">
+              <label for="delivery" style="font-weight: 600; margin-bottom: 8px; display: block;">Thời gian nhận món</label>
+              <select id="delivery" style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; background: white;">
+                <option>Giao sớm nhất</option>
+                <option>11:00 – 12:00</option>
+                <option>12:00 – 13:00</option>
+                <option>18:00 – 19:00</option>
+                <option>19:00 – 20:00</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="coupon" style="font-weight: 600; margin-bottom: 8px; display: block;">Mã giảm giá</label>
+              <div class="coupon" style="display: flex; gap: 10px;">
+                <input id="coupon" placeholder="FOOD10" style="flex: 1; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px;">
+                <button type="button" class="secondary" onclick="applyCoupon()" style="padding: 0 15px; border-radius: 8px; background: #f3f4f6; border: 1px solid #d1d5db; cursor: pointer; font-weight: 600;">Áp dụng</button>
+              </div>
+              <small id="couponError" style="color: red; margin-top: 5px; display: block;"></small>
+            </div>
+            <div class="field full-width" style="grid-column: 1 / -1;">
+              <label for="note" style="font-weight: 600; margin-bottom: 8px; display: block;">Ghi chú cho đơn hàng</label>
+              <textarea id="note" rows="3" placeholder="Ví dụ: Gọi trước khi giao..." style="width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-family: inherit; resize: vertical;"></textarea>
+            </div>
+          </div>
+
+          <button class="primary full" type="submit" style="margin-top:25px; width: 100%; padding: 16px; border-radius: 12px; font-size: 16px;">Tiếp tục thanh toán <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></button>
+        </form>
+      </section>
+
+      <aside class="panel summary-card">
+        <h2 style="font-size: 18px; margin-bottom: 16px; color: #111827; border-bottom: 1px solid #f3f4f6; padding-bottom: 10px;">Đơn hàng của bạn</h2>
+
+        <div class="summary-product" style="display: flex; gap: 15px; margin-bottom: 20px; align-items: center;">
+          <div class="thumb" id="summaryThumb" style="width: 70px; height: 70px; border-radius: 10px; background-size: cover; background-position: center; flex-shrink: 0; background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200');"></div>
+          <div style="flex: 1;">
+            <strong id="summaryProductName" style="font-size: 15px; color: #111827;">Đang tải sản phẩm...</strong><br>
+            <small id="summaryPackage" style="color: #6b7280; font-size: 13px;">x1</small>
+          </div>
+          <strong id="summaryProductPrice" style="font-size: 15px; color: #059669;">0đ</strong>
+        </div>
+
+        <div class="summary-item" style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #4b5563;">
+          <span>Tạm tính</span>
+          <span id="subtotal" style="font-weight: 600; color: #111827;">0đ</span>
+        </div>
+        <div class="summary-item" style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #4b5563;">
+          <span>Phí giao hàng</span>
+          <span id="shippingVal" style="font-weight: 600; color: #111827;">20.000đ</span>
+        </div>
+        <div class="summary-item" style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #4b5563;">
+          <span>Giảm giá</span>
+          <span id="discount" style="color: var(--orange, #eab308); font-weight: 600;">0đ</span>
+        </div>
+
+        <div class="total" style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 1px dashed #e5e7eb;">
+          <span style="font-size: 15px; font-weight: 700;">Tổng thanh toán</span>
+          <strong id="grandTotal" style="font-size: 20px; color: #059669;">0đ</strong>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>FitMeal</h4>
+                <p style="font-size: 13px;">Dịch vụ cung cấp suất ăn dinh dưỡng cá tính hóa theo lộ trình BMR/TDEE chuẩn y khoa.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Kênh phân phối</h4>
+                <ul>
+                    <li><i class="fa-brands fa-facebook"></i> Facebook Fanspage</li>
+                    <li><i class="fa-solid fa-motorcycle"></i> GrabFood / ShopeeFood</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Gói dịch vụ</h4>
+                <ul>
+                    <li>Suất lẻ (72.000đ)</li>
+                    <li>Gói 7 ngày (5 suất)</li>
+                    <li>Gói 21 ngày (15 suất)</li>
+                    <li>Gói 30 ngày (20 suất)</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Liên hệ hỗ trợ</h4>
+                <ul>
+                    <li>Hotline: 1900 xxxx</li>
+                    <li>Email: support@support.fitmeal.vn</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> 2026 FitMeal</p>
+        </div>
+    </footer>
+
+
+<script>
+// Tự điền thông tin nếu user đã đăng nhập
+const currentUser = JSON.parse(localStorage.getItem('foodjourney_currentUser'));
+if (currentUser) {
+  if(document.getElementById('fullname')) document.getElementById('fullname').value = currentUser.fullname || '';
+  if(document.getElementById('phone')) document.getElementById('phone').value = currentUser.phone || '';
+  if(document.getElementById('email')) document.getElementById('email').value = currentUser.email || '';
+}
+
+// ===============================
+// KIỂM TRA HỌ VÀ TÊN
+// ===============================
+
+const fullnameInput = document.getElementById('fullname');
+const fullnameError = document.getElementById('fullnameError');
+
+fullnameInput.addEventListener('input', function () {
+  fullnameError.textContent = '';
+});
+
+fullnameInput.addEventListener('blur', function () {
+  if (this.value.trim()) {
+    fullnameError.textContent = '';
+  }
+});
+
+// ===============================
+// KIỂM TRA SỐ ĐIỆN THOẠI
+// ===============================
+
+const phoneInput = document.getElementById('phone');
+const phoneError = document.getElementById('phoneError');
+
+phoneInput.addEventListener('input', function () {
+  // Chỉ cho phép nhập số
+  this.value = this.value.replace(/\D/g, '').slice(0, 10);
+
+  // Xóa thông báo lỗi khi người dùng nhập lại
+  phoneError.textContent = '';
+});
+
+phoneInput.addEventListener('blur', function () {
+  const phone = this.value.trim();
+
+  // Nếu chưa nhập thì KHÔNG báo lỗi
+  if (!phone) {
+    phoneError.textContent = '';
+    return;
+  }
+
+  // Nếu đã nhập nhưng sai thì báo lỗi
+  if (!/^0\d{9}$/.test(phone)) {
+    phoneError.textContent =
+      'Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.';
+  } else {
+    phoneError.textContent = '';
+  }
+});
+
+
+
+// ===============================
+// KIỂM TRA EMAIL
+// ===============================
+
+const emailInput = document.getElementById('email');
+const emailError = document.getElementById('emailError');
+
+emailInput.addEventListener('input', function () {
+  // Xóa thông báo lỗi khi người dùng nhập lại
+  emailError.textContent = '';
+});
+
+emailInput.addEventListener('blur', function () {
+  const email = this.value.trim();
+
+  // Nếu chưa nhập thì KHÔNG báo lỗi
+  if (!email) {
+    emailError.textContent = '';
+    return;
+  }
+
+  const emailRegex =
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  // Nếu đã nhập nhưng sai cú pháp thì báo lỗi
+  if (!emailRegex.test(email)) {
+    emailError.textContent =
+      'Email không hợp lệ. Vui lòng nhập đúng định dạng, ví dụ: example@gmail.com.';
+  } else {
+    emailError.textContent = '';
+  }
+});
+
+
+const buyNowData = JSON.parse(
+  localStorage.getItem('foodjourney_buy_now') || 'null'
+);
+
+let subtotal = 0;
+let deliveryFee = 20000;
+let discountAmount = 0;
+let total = 0;
+
+function formatVND(n) {
+  return Number(n).toLocaleString('vi-VN') + 'đ';
+}
+
+if (buyNowData && buyNowData.product) {
+
+  const product = buyNowData.product;
+  const packageCount = buyNowData.packageCount || 1;
+
+  if (packageCount === 1) {
+    subtotal = Number(product.price);
+  } else {
+    subtotal = Number(buyNowData.price);
+  }
+
+  document.getElementById('summaryProductName').textContent =
+    product.title;
+
+  document.getElementById('summaryPackage').textContent =
+    'x' + packageCount;
+
+  document.getElementById('summaryProductPrice').textContent =
+    formatVND(subtotal);
+}
+
+total = subtotal + deliveryFee - discountAmount;
+
+document.getElementById('subtotal').textContent =
+  formatVND(subtotal);
+
+document.getElementById('grandTotal').textContent =
+  formatVND(total);
+
+document.getElementById('submitTotal').textContent =
+  formatVND(total);
+
+function applyCoupon(){
+  const code = document.getElementById('coupon').value.trim().toUpperCase();
+  const couponError = document.getElementById('couponError');
+
+  // Xóa thông báo cũ
+  couponError.textContent = '';
+
+  // Chưa nhập mã
+  if (!code) {
+    couponError.textContent = 'Vui lòng nhập mã giảm giá.';
+    return;
+  }
+
+  // Nhập mã sai
+  if (code !== 'FOOD10') {
+    couponError.textContent =
+      'Mã giảm giá không hợp lệ hoặc đã hết hạn. Vui lòng kiểm tra lại mã.';
+    return;
+  }
+
+  // Nhập mã đúng
+  const discount = 10000;
+  discountAmount = discount;
+  total = subtotal + deliveryFee - discountAmount;
+
+  document.getElementById('discount').textContent =
+    '-' + formatVND(discount);
+
+  document.getElementById('grandTotal').textContent =
+    formatVND(total);
+
+  document.getElementById('submitTotal').textContent =
+    formatVND(total);
+}
+
+document.getElementById('coupon').addEventListener('input', function () {
+  document.getElementById('couponError').textContent = '';
+});
+
+document.getElementById('orderForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  // Lấy thông tin người dùng nhập
+  const name = document.getElementById('fullname').value.trim();
+  const phone = phoneInput.value.trim();
+  const email = emailInput.value.trim();
+  const address = document.getElementById('address').value.trim();
+
+  // ===============================
+  // KIỂM TRA HỌ VÀ TÊN
+  // ===============================
+
+  if (!name) {
+    fullnameError.textContent = 'Vui lòng nhập họ và tên.';
+    fullnameInput.focus();
+    return;
+  } else {
+    fullnameError.textContent = '';
+  }
+
+  // ===============================
+  // KIỂM TRA SỐ ĐIỆN THOẠI
+  // ===============================
+
+  if (!phone) {
+    phoneError.textContent = 'Vui lòng nhập số điện thoại.';
+    phoneInput.focus();
+    return;
+  }
+
+  if (!/^0\d{9}$/.test(phone)) {
+    phoneError.textContent =
+      'Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.';
+    phoneInput.focus();
+    return;
+  } else {
+    phoneError.textContent = '';
+  }
+
+  // ===============================
+  // KIỂM TRA EMAIL
+  // ===============================
+
+  if (!email) {
+    emailError.textContent = 'Vui lòng nhập email.';
+    emailInput.focus();
+    return;
+  }
+
+  const emailRegex =
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (!emailRegex.test(email)) {
+    emailError.textContent =
+      'Email không hợp lệ. Vui lòng nhập đúng định dạng, ví dụ: example@gmail.com.';
+    emailInput.focus();
+    return;
+  } else {
+    emailError.textContent = '';
+  }
+
+  // ===============================
+  // KIỂM TRA ĐỊA CHỈ
+  // ===============================
+
+  if (!address) {
+    addressError.textContent = 'Vui lòng nhập địa chỉ nhận hàng.';
+    document.getElementById('address').focus();
+    return;
+  } else {
+    addressError.textContent = '';
+  }
+
+  // ===============================
+  // KIỂM TRA ĐĂNG NHẬP
+  // ===============================
+
+  if (!currentUser) {
+    alert('⚠️ Bạn cần đăng nhập trước khi tiến hành đặt món!');
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // ===============================
+  // LẤY THÔNG TIN ĐƠN HÀNG
+  // ===============================
+
+  const delivery = document.getElementById('delivery').value;
+  const note = document.getElementById('note').value.trim();
+
+  const orders =
+    JSON.parse(localStorage.getItem('foodonline_orders') || '[]');
+
+  const now = new Date();
+
+  const order = {
+  id: 'FO' + String(now.getTime()).slice(-8),
+  userId: currentUser.id,
+  name,
+  phone,
+  email,
+  address,
+  delivery,
+  note,
+  total: total,
+  date: now.toLocaleDateString('vi-VN'),
+  time: now.toLocaleTimeString('vi-VN', {
+    hour: '2-digit',
+    minute: '2-digit'
+  }),
+  status: 'Đang xử lý',
+
+  product: buyNowData.product.title,
+  quantity: buyNowData.packageCount || 1,
+  packagePrice: buyNowData.price
+};
+
+  orders.push(order);
+
+  localStorage.setItem(
+    'foodonline_orders',
+    JSON.stringify(orders)
+  );
+
+  localStorage.removeItem('foodjourney_buy_now');
+  
+  alert('🎉 Đặt món thành công! Đơn hàng đã được ghi nhận.');
+
+  window.location.href = 'thanhtoan.html';
+});
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FitMeal – Xác nhận đơn hàng thành công</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span>FitMeal</a>
+    <nav class="nav-links">
+      <a href="index.html">Trang chủ</a>
+      <a href="Lotrinhhoa.html">Lộ trình hóa</a>
+      <a href="menu.html">Thực đơn</a>
+      <a href="orders.html" class="link">Đơn hàng</a>
+      <a href="contact.html">Liên hệ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="icon-btn" href="cart.html" aria-label="Giỏ hàng">🛒</a>
+      <a class="secondary" href="login.html">Tài khoản</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container order-wrap">
+    <div class="order-layout">
+      
+      <!-- CỘT CHÍNH: THEO DÕI ĐƠN HÀNG REALTIME -->
+      <section class="panel">
+        <!-- Thanh tiến trình chuẩn Step 3 Active -->
+        <div class="steps" style="margin-bottom: 24px;">
+          <div class="step">1. Thông tin</div>
+          <div class="step">2. Thanh toán</div>
+          <div class="step active">3. Xác nhận</div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 20px;">
+          <div style="width: 54px; height: 54px; background: var(--green-soft); color: var(--green-dark); border-radius: 50%; display: grid; place-items: center; font-size: 26px; font-weight: bold; flex-shrink: 0;">
+            ✓
+          </div>
+          <div>
+            <span class="status-pill" style="margin-bottom: 4px; display: inline-block;">Đã nhận đơn hàng</span>
+            <h1 style="font-size: 24px; margin: 0;" id="orderCodeHead">Đơn hàng #FO892301</h1>
+          </div>
+        </div>
+
+        <!-- PROGRESS BAR THỰC TẾ (4 BƯỚC GIAO HÀNG) -->
+        <div style="margin-bottom: 28px;">
+          <h3 style="font-size: 15px; margin: 0 0 12px; color: var(--muted);">Trạng thái chế biến & giao hàng:</h3>
+          <div class="order-progress">
+            <div class="progress-dot done"></div>
+            <div class="progress-dot done"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 6px;">
+            <span style="color: var(--green-dark);">1. Đã đặt</span>
+            <span style="color: var(--green-dark);">2. Bếp nhận đơn</span>
+            <span>3. Đang giao món</span>
+            <span>4. Hoàn tất</span>
+          </div>
+        </div>
+
+        <!-- BẢN ĐỒ MÔ PHỎNG LIVE TRACKING -->
+        <div class="map-box" style="min-height: 180px; margin-bottom: 24px;">
+          <div style="text-align: center;">
+            <div style="font-size: 32px; margin-bottom: 6px;">🛵 🛵 🛵</div>
+            <strong>Bếp FitMeal đang chế biến món ăn...</strong><br>
+            <small style="color: var(--muted);">Dự kiến giao tới bạn trong 30 - 40 phút</small>
+          </div>
+        </div>
+
+        <!-- CHI TIẾT NGƯỜI NHẬN & THỜI GIAN -->
+        <div class="info-grid" style="margin-bottom: 24px;">
+          <div class="info-box">
+            <strong>Địa chỉ nhận món:</strong>
+            <span id="dispAddress">123 Nguyễn Văn Bảo, P.4, Q.Gò Vấp, TP.HCM</span>
+          </div>
+          <div class="info-box">
+            <strong>Hình thức thanh toán:</strong>
+            <span id="dispPayment">Thanh toán khi nhận hàng (COD)</span>
+          </div>
+        </div>
+
+        <!-- NÚT HÀNH ĐỘNG THỰC TẾ -->
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a class="primary" href="orders.html" style="flex: 1; text-align: center;">Theo dõi đơn hàng →</a>
+          <a class="secondary" href="index.html" style="flex: 1; text-align: center;">Về trang chủ</a>
+        </div>
+      </section>
+
+      <!-- CỘT TÓM TẮT ĐƠN HÀNG THÀNH CÔNG -->
+      <aside class="panel summary">
+        <h2>Tóm tắt đơn hàng</h2>
+        
+        <div class="summary-product">
+          <div class="thumb"></div>
+          <div>
+            <strong>Combo Ức Gà Healthy</strong><br>
+            <small>Gạo lứt · x1</small>
+          </div>
+          <strong>72.000đ</strong>
+        </div>
+
+        <div class="summary-item" style="margin-top: 14px;"><span>Tạm tính</span><span>72.000đ</span></div>
+        <div class="summary-item"><span>Phí giao hàng</span><span>20.000đ</span></div>
+        <div class="summary-item"><span>Giảm giá</span><span style="color: var(--orange);">-0đ</span></div>
+
+        <div class="total">
+          <span>Tổng đã thanh toán</span>
+          <strong id="dispTotal" style="color: var(--green-dark);">92.000đ</strong>
+        </div>
+
+        <div style="margin-top: 18px; border-top: 1px solid #eef0ef; padding-top: 14px; text-align: center;">
+          <small style="color: var(--muted); display: block; margin-bottom: 8px;">Cần hỗ trợ gấp về đơn hàng này?</small>
+          <a href="tel:19006789" class="secondary" style="width: 100%; font-size: 13px; padding: 10px;">📞 Gọi Hotline: 1900 6789</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-row">
+    <strong>FitMeal</strong>
+    <small>Hỗ trợ đặt món trực tuyến 24/7</small>
+  </div>
+</footer>
+
+<script>
+// Tải thông tin đơn hàng vừa tạo từ LocalStorage
+const lastOrder = JSON.parse(localStorage.getItem('foodjourney_lastOrder'));
+const currentUser = JSON.parse(localStorage.getItem('foodjourney_currentUser'));
+
+if (lastOrder) {
+  if (document.getElementById('orderCodeHead')) document.getElementById('orderCodeHead').textContent = 'Đơn hàng #' + lastOrder.code;
+  if (document.getElementById('dispTotal')) document.getElementById('dispTotal').textContent = lastOrder.total;
+  
+  const payNames = {
+    'momo': 'Ví MoMo (Đã xác nhận)',
+    'qr': 'Chuyển khoản VietQR',
+    'card': 'Thẻ ATM / Visa',
+    'cod': 'Thanh toán khi nhận hàng (COD)'
+  };
+  if (document.getElementById('dispPayment')) document.getElementById('dispPayment').textContent = payNames[lastOrder.paymentMethod] || 'COD';
+}
+
+if (currentUser && currentUser.address) {
+  if (document.getElementById('dispAddress')) document.getElementById('dispAddress').textContent = currentUser.address;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FitMeal – Dịch vụ suất ăn dinh dưỡng cá nhân hóa theo lộ trình</title>
+  <meta name="description" content="Dịch vụ cung cấp suất ăn dinh dưỡng cá nhân hóa. Tính toán lượng BMR/TDEE phù hợp với từng cá nhân.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    .hero-section {
+      background: linear-gradient(135deg, var(--green-soft) 0%, #d1fae5 100%);
+      padding: 80px 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-title {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--green-dark);
+      margin-bottom: 20px;
+    }
+    .hero-subtitle {
+      font-size: 18px;
+      color: #374151;
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+      line-height: 1.6;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    .hero-actions .btn {
+      padding: 14px 28px;
+      font-size: 16px;
+      border-radius: 12px;
+    }
+    .hero-actions .btn-primary {
+      background: var(--green);
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .hero-actions .btn-secondary {
+      background: #fff;
+      color: var(--green-dark);
+      font-weight: bold;
+      border: 1px solid var(--green);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    
+    .value-props {
+      padding: 60px 0;
+      background: #fff;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 40px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .prop-card {
+      background: #f9fafb;
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid #e5e7eb;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .prop-card:hover {
+      transform: translateY(-5px);
+    }
+    .prop-icon {
+      font-size: 40px;
+      color: var(--green);
+      margin-bottom: 15px;
+    }
+    .prop-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #111827;
+    }
+    .prop-desc {
+      font-size: 14px;
+      color: #4b5563;
+    }
+    
+    .packages-section {
+      padding: 60px 0;
+      background: var(--green-soft);
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span>FitMeal</a>
+    <nav class="nav-links">
+      <a href="index.html" style="color: var(--green); font-weight: 700;">Trang chủ</a>
+      <a href="Lotrinhhoa.html">Lộ trình hóa</a>
+      <a href="menu.html">Thực đơn</a>
+      <a href="orders.html">Đơn hàng</a>
+      <a href="contact.html">Liên hệ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="icon-btn" href="cart.html" aria-label="Giỏ hàng">🛒</a>
+      <a class="secondary" href="login.html" style="text-decoration: none;">Đăng nhập</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO BANNER -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">Suất ăn Dinh dưỡng Cá nhân hóa theo Lộ trình</h1>
+      <p class="hero-subtitle">Giải pháp bữa ăn thông minh giúp bạn đạt mục tiêu thể hình: Giảm cân, Giữ dáng, Tăng cơ hay Tăng cân. FitMeal tính toán chuẩn BMR & TDEE thiết kế thực đơn riêng biệt cho bạn.</p>
+      <div class="hero-actions">
+        <a href="Lotrinhhoa.html" class="btn btn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Trải nghiệm Lộ trình hóa</a>
+        <a href="menu.html" class="btn btn-secondary"><i class="fa-solid fa-utensils"></i> Xem Thực đơn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE PROPOSITIONS -->
+  <section class="value-props">
+    <div class="container">
+      <h2 class="section-title">Giá Trị Chúng Tôi Mang Lại</h2>
+      <div class="grid-3">
+        <div class="prop-card">
+          <div class="prop-icon"><i class="fa-solid fa-calculator"></i></div>
+          <div class="prop-title">Tính Toán BMR / TDEE</div>
+          <div class="prop-desc">Đảm bảo cân đối dinh dưỡng và calo phù hợp với từng mục tiêu cá nhân (giảm mỡ, tăng cơ, v.v.).</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-icon"><i class="fa-solid fa-fire-burner"></i></div>
+          <div class="prop-title">Bếp Tiêu Chuẩn</div>
+          <div class="prop-desc">Nấu sạch tại nhà hoặc bếp tiêu chuẩn, ưu tiên nguyên liệu tươi, an toàn, ít phụ gia.</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <div class="prop-title">Phong cách Đa dạng</div>
+          <div class="prop-desc">Món ăn theo quốc gia tùy yêu cầu từ ẩm thực Á, Âu, Thái, Ấn... đến đồ chay quốc tế.</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-icon"><i class="fa-solid fa-truck-fast"></i></div>
+          <div class="prop-title">Giao Hàng Đúng Giờ</div>
+          <div class="prop-desc">Đóng gói tiện lợi, bảo quản tốt. Giao hàng hằng ngày đảm bảo độ tươi mới của món ăn.</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-icon"><i class="fa-solid fa-user-doctor"></i></div>
+          <div class="prop-title">Tư vấn Cá nhân hóa</div>
+          <div class="prop-desc">Theo dõi tiến độ, khảo sát mức độ hài lòng định kỳ, cập nhật lộ trình nếu cần thiết.</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+          <div class="prop-title">Tối Ưu Chi Phí</div>
+          <div class="prop-desc">Gói ăn càng dài ngày càng tiện lợi. Giá hợp lý, tối ưu chi phí cho khách hàng ăn hằng ngày.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="packages-section">
+    <div class="container">
+      <h2 class="section-title">Các Gói Lộ Trình Phổ Biến</h2>
+      <div class="packages-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        
+        <div class="pkg-card" style="background:#fff; border-radius: 20px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center;">
+          <h3 style="font-size:22px; color:var(--green-dark); margin-bottom:10px;">Gói 7 Ngày</h3>
+          <div style="font-size:28px; font-weight:800; color:var(--green); margin-bottom: 5px;">360.000đ</div>
+          <div style="font-size: 13px; color: #6b7280; margin-bottom: 20px;">(72k/suất)</div>
+          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> 5 Suất ăn / tuần</p>
+          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Giao hàng mỗi ngày</p>
+          <a href="Lotrinhhoa.html" class="btn-primary" style="display:inline-block; margin-top:20px; padding:12px 24px; background:var(--green); color:#fff; border-radius:8px; font-weight:600; text-decoration:none;">Bắt đầu ngay</a>
+        </div>
+        
+        <div class="pkg-card" style="background:#fff; border-radius: 20px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 2px solid var(--green); position:relative; text-align: center;">
+          <div style="position:absolute; top:-15px; left:50%; transform:translateX(-50%); background:var(--green); color:#fff; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700;">GIẢM 4% - PHỔ BIẾN NHẤT</div>
+          <h3 style="font-size:22px; color:var(--green-dark); margin-bottom:10px;">Gói 21 Ngày</h3>
+          <div style="font-size:28px; font-weight:800; color:var(--green); margin-bottom: 5px;">1.035.000đ</div>
+          <div style="font-size: 14px; color: #ef4444; margin-bottom: 20px; font-weight: 700;">(Chỉ còn 69k/suất)</div>
+          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> 15 Suất ăn / 3 tuần</p>
+          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Theo dõi Macro chi tiết</p>
+          <a href="Lotrinhhoa.html" class="btn-primary" style="display:inline-block; margin-top:20px; padding:12px 24px; background:var(--green); color:#fff; border-radius:8px; font-weight:600; text-decoration:none;">Bắt đầu ngay</a>
+        </div>
+        
+        <div class="pkg-card" style="background:#fff; border-radius: 20px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; position:relative;">
+          <div style="position:absolute; top:-15px; left:50%; transform:translateX(-50%); background:#eab308; color:#fff; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700;">GIẢM 7% - TIẾT KIỆM</div>
+          <h3 style="font-size:22px; color:var(--green-dark); margin-bottom:10px;">Gói 30 Ngày</h3>
+          <div style="font-size:28px; font-weight:800; color:var(--green); margin-bottom: 5px;">1.340.000đ</div>
+          <div style="font-size: 14px; color: #eab308; margin-bottom: 20px; font-weight: 700;">(Chỉ còn 67k/suất)</div>
+          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> 20 Suất ăn / tháng</p>
+          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Kèm cặp cùng Chuyên gia</p>
+          <a href="Lotrinhhoa.html" class="btn-primary" style="display:inline-block; margin-top:20px; padding:12px 24px; background:var(--green); color:#fff; border-radius:8px; font-weight:600; text-decoration:none;">Bắt đầu ngay</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- THỰC ĐƠN TIÊU BIỂU (CHẠY NGANG) -->
+<section style="background: #fff; padding: 60px 0; overflow: hidden;">
+    <div style="max-width: 1160px; margin: 0 auto; padding: 0 20px;">
+        <h2 style="font-size: 32px; font-weight: 800; color: #111827; text-align: center; margin-bottom: 10px;">Thực Đơn Đa Dạng Khắp Châu Lục</h2>
+        <p style="text-align: center; color: #6b7280; font-size: 16px; margin-bottom: 40px;">Khám phá các món ăn Dinh dưỡng chuẩn vị từ Á sang Âu.</p>
+    </div>
+    <div class="marquee-wrapper" style="width: 100%; display: flex; overflow: hidden; white-space: nowrap;">
+        <div class="marquee-content" style="display: flex; gap: 24px; padding-left: 24px; animation: marquee 25s linear infinite;">
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500" alt="Châu Úc" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+                <div style="padding: 15px; text-align: center; white-space: normal;">
+                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Ức Gà Nướng Macca</strong>
+                    <span style="font-size: 13px; color: var(--muted);">Châu Đại Dương</span>
+                </div>
+            </div>
+            
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500" alt="Chay" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+                <div style="padding: 15px; text-align: center; white-space: normal;">
+                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Bowl Hạt Quinoa Chay</strong>
+                    <span style="font-size: 13px; color: var(--muted);">Châu Á (Thuần Chay)</span>
+                </div>
+            </div>
+
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500" alt="Châu Âu" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+                <div style="padding: 15px; text-align: center; white-space: normal;">
+                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Steak Bò Mỹ Salad</strong>
+                    <span style="font-size: 13px; color: var(--muted);">Châu Âu / Mỹ</span>
+                </div>
+            </div>
+
+            <!-- Double the items for seamless infinite scroll effect -->
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500" alt="Châu Úc" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+                <div style="padding: 15px; text-align: center; white-space: normal;">
+                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Ức Gà Nướng Macca</strong>
+                    <span style="font-size: 13px; color: var(--muted);">Châu Đại Dương</span>
+                </div>
+            </div>
+            
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500" alt="Chay" style="width: 100%; height: 220px; object-fit: cover; display: block;">
+                <div style="padding: 15px; text-align: center; white-space: normal;">
+                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Bowl Hạt Quinoa Chay</strong>
+                    <span style="font-size: 13px; color: var(--muted);">Châu Á (Thuần Chay)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+    
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="menu.html" class="btn-primary" style="padding: 12px 30px; font-size: 16px; background: white; color: var(--green); border: 2px solid var(--green); border-radius: 999px;">Xem Toàn Bộ Thực Đơn &rarr;</a>
+    </div>
+</section>
+
+<!-- BẢN ĐỒ / LIÊN HỆ -->
+<section style="max-width: 1160px; margin: 0 auto 50px auto; padding: 0 20px;">
+    <h2 style="font-size: 32px; font-weight: 800; color: #111827; text-align: center; margin-bottom: 10px;">Hệ Thống Bếp Trung Tâm</h2>
+    <p style="text-align: center; color: #6b7280; font-size: 16px; margin-bottom: 40px;">Giao hàng siêu tốc trong vòng 30 phút từ bếp trung tâm của chúng tôi.</p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        <!-- Thông tin liên hệ -->
+        <div style="padding: 40px; background: var(--green); color: white;">
+            <h3 style="font-size: 24px; margin-bottom: 20px; font-weight: 700;">FitMeal Kitchen</h3>
+            
+            <div style="margin-bottom: 25px; display: flex; align-items: flex-start; gap: 15px;">
+                <i class="fa-solid fa-location-dot" style="font-size: 24px; margin-top: 5px;"></i>
+                <div>
+                    <strong style="display: block; font-size: 16px; margin-bottom: 5px;">Địa chỉ:</strong>
+                    <span style="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.9);">Số 1, Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</span>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 25px; display: flex; align-items: flex-start; gap: 15px;">
+                <i class="fa-solid fa-clock" style="font-size: 24px; margin-top: 5px;"></i>
+                <div>
+                    <strong style="display: block; font-size: 16px; margin-bottom: 5px;">Giờ hoạt động:</strong>
+                    <span style="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.9);">Thứ 2 - Chủ Nhật<br>06:00 - 20:00</span>
+                </div>
+            </div>
+            
+            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                <i class="fa-solid fa-phone" style="font-size: 24px; margin-top: 5px;"></i>
+                <div>
+                    <strong style="display: block; font-size: 16px; margin-bottom: 5px;">Hotline Cố Vấn:</strong>
+                    <span style="font-size: 18px; font-weight: bold;">1900 1234</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Google Map Iframe -->
+        <div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.517826555198!2d106.70146031533423!3d10.771595992323326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f40a3b49e59%3A0xa1bd14e483a602db!2sNguyen%20Hue%2C%20Ben%20Nghe%2C%20District%201%2C%20Ho%20Chi%20Minh%20City!5e0!3m2!1sen!2s!4v1652336302324!5m2!1sen!2s" width="100%" height="100%" style="border:0; min-height: 400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-container" style="max-width: 1160px; margin: auto; padding: 40px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; border-top: 1px solid #e5e7eb;">
+      <div class="footer-col">
+          <h4 style="font-size: 18px; color: #111827; margin-bottom: 15px;">FitMeal</h4>
+          <p style="font-size: 13px; color: #6b7280;">Dịch vụ cung cấp suất ăn dinh dưỡng cá tính hóa theo lộ trình BMR/TDEE chuẩn y khoa.</p>
+      </div>
+      <div class="footer-col">
+          <h4 style="font-size: 18px; color: #111827; margin-bottom: 15px;">Kênh phân phối</h4>
+          <ul style="list-style: none; padding: 0; color: #6b7280; font-size: 14px;">
+              <li style="margin-bottom: 8px;"><i class="fa-brands fa-facebook"></i> Facebook Fanspage</li>
+              <li style="margin-bottom: 8px;"><i class="fa-brands fa-whatsapp"></i> Zalo OA</li>
+              <li><i class="fa-solid fa-motorcycle"></i> GrabFood / ShopeeFood</li>
+          </ul>
+      </div>
+      <div class="footer-col">
+          <h4 style="font-size: 18px; color: #111827; margin-bottom: 15px;">Gói dịch vụ</h4>
+          <ul style="list-style: none; padding: 0; color: #6b7280; font-size: 14px;">
+              <li style="margin-bottom: 8px;">Gói 7 ngày (5 suất)</li>
+              <li style="margin-bottom: 8px;">Gói 21 ngày (15 suất)</li>
+              <li>Gói 30 ngày (20 suất)</li>
+          </ul>
+      </div>
+      <div class="footer-col">
+          <h4 style="font-size: 18px; color: #111827; margin-bottom: 15px;">Liên hệ hỗ trợ</h4>
+          <ul style="list-style: none; padding: 0; color: #6b7280; font-size: 14px;">
+              <li style="margin-bottom: 8px;">Hotline: 1900 xxxx</li>
+              <li>Email: support@fitmeal.vn</li>
+          </ul>
+      </div>
+  </div>
+  <div class="footer-bottom" style="text-align: center; padding: 20px; background: #f9fafb; color: #9ca3af; font-size: 13px;">
+      <p>© 2026 FitMeal. Tất cả quyền được bảo lưu.</p>
+  </div>
+</footer>
+<script>
+// Chatbot logic and CSS injected directly to avoid local file CORS issues
+const chatbotStyles = `
+<style>
+.chatbot-toggler { position: fixed; bottom: 30px; right: 30px; outline: none; border: none; height: 60px; width: 60px; display: flex; cursor: pointer; align-items: center; justify-content: center; border-radius: 50%; background: var(--green, #16a34a); color: #fff; transition: all 0.2s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 99999; }
+.chatbot-toggler:hover { transform: scale(1.05); }
+.chatbot-toggler i { font-size: 28px; transition: all 0.2s; }
+.chatbot-toggler .fa-xmark { display: none; }
+.chatbot-toggler.show-chatbot .fa-message { display: none; }
+.chatbot-toggler.show-chatbot .fa-xmark { display: block; }
+.chatbot-window { position: fixed; right: 30px; bottom: 100px; width: 380px; background: #fff; border-radius: 15px; overflow: hidden; opacity: 0; pointer-events: none; transform: scale(0.5); transform-origin: bottom right; box-shadow: 0 15px 40px rgba(0,0,0,0.15); transition: all 0.1s ease; z-index: 99999; }
+.show-chatbot .chatbot-window { opacity: 1; pointer-events: auto; transform: scale(1); }
+.chatbot-header { background: var(--green, #16a34a); padding: 16px 20px; text-align: center; color: #fff; font-size: 1.2rem; font-weight: 700; position: relative; }
+.chatbot-header span { display: block; font-size: 0.85rem; font-weight: 400; opacity: 0.8; margin-top: 5px; }
+.chat-box { height: 400px; overflow-y: auto; padding: 20px 20px 10px; display: flex; flex-direction: column; gap: 15px; background: #f9f9f9; list-style: none; margin: 0; }
+.chat-box::-webkit-scrollbar { width: 6px; }
+.chat-box::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+.chat { display: flex; gap: 12px; }
+.chat.incoming { justify-content: flex-start; }
+.chat.outgoing { justify-content: flex-end; }
+.chat img.ai-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background: #e8f5e9; padding: 2px; border: 1px solid #c8e6c9; }
+.chat p { color: #333; max-width: 75%; white-space: pre-wrap; font-size: 0.95rem; padding: 12px 16px; border-radius: 15px 15px 15px 3px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); line-height: 1.5; margin: 0; }
+.chat.outgoing p { background: var(--green, #16a34a); color: #fff; border-radius: 15px 15px 3px 15px; box-shadow: none; }
+.chat-input { display: flex; gap: 10px; background: #fff; padding: 15px 20px; border-top: 1px solid #e0e0e0; align-items: center; }
+.chat-input textarea { height: 45px; width: 100%; border: none; outline: none; resize: none; background: #f1f1f1; border-radius: 20px; padding: 12px 15px; font-size: 0.95rem; font-family: inherit; }
+.chat-input span { align-self: flex-end; color: var(--green, #16a34a); cursor: pointer; font-size: 1.5rem; margin-bottom: 5px; transition: transform 0.2s; }
+.chat-input span:hover { transform: scale(1.1); }
+</style>
+`;
+const chatbotHTML = `
+<div class="chatbot-toggler-container">
+    <button class="chatbot-toggler"><i class="fa-solid fa-robot"></i><i class="fa-solid fa-xmark"></i></button>
+    <div class="chatbot-window">
+        <header class="chatbot-header">FitMeal AI Assistant<span>Trợ lý dinh dưỡng cá nhân 24/7</span></header>
+        <ul class="chat-box">
+            <li class="chat incoming">
+                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="AI" class="ai-avatar">
+                <p>Xin chào! 👋 Mình là Trợ lý AI của FitMeal. Mình có thể giúp gì cho mục tiêu dinh dưỡng và sức khỏe của bạn hôm nay?</p>
+            </li>
+        </ul>
+        <div class="chat-input">
+            <textarea placeholder="Nhập tin nhắn..." spellcheck="false" required></textarea>
+            <span id="send-btn" class="fa-solid fa-paper-plane"></span>
+        </div>
+    </div>
+</div>
+`;
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.insertAdjacentHTML('beforeend', chatbotStyles + chatbotHTML);
+    const toggler = document.querySelector(".chatbot-toggler");
+    const container = document.querySelector(".chatbot-toggler-container");
+    const chatbox = document.querySelector(".chat-box");
+    const chatInput = document.querySelector(".chat-input textarea");
+    const sendBtn = document.querySelector("#send-btn");
+    
+    toggler.addEventListener("click", () => container.classList.toggle("show-chatbot"));
+    
+    const createLi = (msg, cls) => {
+        const li = document.createElement("li");
+        li.className = "chat " + cls;
+        li.innerHTML = cls === "outgoing" ? "<p></p>" : "<img src='https://cdn-icons-png.flaticon.com/512/4712/4712035.png' class='ai-avatar'><p></p>";
+        li.querySelector("p").textContent = msg;
+        return li;
+    };
+    
+    const getBotResponse = (input) => {
+        const lowerInput = input.toLowerCase();
+        
+        if (lowerInput.includes('chào') || lowerInput.includes('hello') || lowerInput.includes('hi')) return "Chào bạn! Mình là trợ lý ảo AI của FitMeal. Mình có thể giúp gì cho bạn hôm nay?";
+        if (lowerInput.includes('giá') || lowerInput.includes('nhiêu') || lowerInput.includes('tiền')) return "Giá món ăn lẻ đồng giá 72.000đ/suất. Nếu bạn mua theo Gói (7, 21, 30 ngày) giá sẽ ưu đãi hơn, chỉ từ 67.000đ/suất nhé! Bạn muốn đặt thử không?";
+        if (lowerInput.includes('thực đơn') || lowerInput.includes('món ăn') || lowerInput.includes('menu') || lowerInput.includes('đồ ăn')) return "Thực đơn của FitMeal rất đa dạng, từ món Việt, Á, Âu, Mỹ đến các món chay. Tất cả đều được tính toán Calo kỹ lưỡng. Bạn lướt xem các món ở bên dưới nha!";
+        if (lowerInput.includes('giảm cân') || lowerInput.includes('giảm mỡ') || lowerInput.includes('giảm béo')) return "Tuyệt vời! FitMeal có các lộ trình thiết kế riêng cho mục tiêu giảm cân. Hệ thống sẽ tự động loại bỏ các món nhiều Calo và thay thế bằng món ít Calo (như Salad, ức gà) để giúp bạn đạt mục tiêu nhanh nhất.";
+        if (lowerInput.includes('tăng cân') || lowerInput.includes('tăng cơ')) return "Để tăng cân/tăng cơ, FitMeal sẽ tăng cường các khẩu phần giàu Protein (như thêm thịt bò, cá hồi) và tinh bột tốt. Bạn hãy dùng thử tính năng 'Lộ trình hóa' nha!";
+        if (lowerInput.includes('đặt hàng') || lowerInput.includes('mua') || lowerInput.includes('đặt món')) return "Bạn nhấp vào món ăn bất kỳ để xem chi tiết, sau đó nhấn 'Thêm vào giỏ' hoặc 'Đặt ngay'. Hoặc bạn có thể qua trang 'Lộ trình' để tính TDEE và chọn gói dài ngày nha!";
+        if (lowerInput.includes('ngon') || lowerInput.includes('sạch') || lowerInput.includes('chất lượng')) return "Cảm ơn bạn! FitMeal cam kết 100% nguyên liệu tươi sạch chuẩn VietGAP, chế biến không bột ngọt, đảm bảo ngon miệng và tốt cho sức khỏe ạ.";
+        
+        // Fallback smarter
+        return "Xin lỗi, hiện tại mình chưa hiểu rõ ý bạn. Bạn có thể hỏi cụ thể hơn về 'giá cả', 'cách đặt hàng', 'thực đơn' hoặc 'giảm cân/tăng cân' được không? Nếu cần, chuyên viên dinh dưỡng của FitMeal sẽ gọi điện hỗ trợ bạn trực tiếp!";
+    };
+
+    const handleChat = () => {
+        const userMessage = chatInput.value.trim();
+        if(!userMessage) return;
+        chatInput.value = "";
+        chatbox.appendChild(createLi(userMessage, "outgoing"));
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+        setTimeout(() => {
+            const incoming = createLi("Đang nhập tin nhắn...", "incoming");
+            chatbox.appendChild(incoming);
+            chatbox.scrollTo(0, chatbox.scrollHeight);
+            setTimeout(() => {
+                incoming.querySelector("p").innerHTML = getBotResponse(userMessage);
+                chatbox.scrollTo(0, chatbox.scrollHeight);
+            }, 1000);
+        }, 600);
+    };
+    sendBtn.addEventListener("click", handleChat);
+    chatInput.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleChat(); }
+    });
+});
+</script>
+</body>
+</html>
