@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://fiimeal.github.io/FITMEAL/sitemap.xml
