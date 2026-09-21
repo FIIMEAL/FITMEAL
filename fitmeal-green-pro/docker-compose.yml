@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: fitmeal-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fitmeal
+      POSTGRES_USER: fitmeal
+      POSTGRES_PASSWORD: fitmeal
+    ports:
+      - "5432:5432"
+    volumes:
+      - fitmeal_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fitmeal -d fitmeal"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: fitmeal-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:8080}
+      DATABASE_URL: postgres://fitmeal:fitmeal@db:5432/fitmeal
+      SESSION_DAYS: ${SESSION_DAYS:-30}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@fitmeal.vn}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env}
+      VNPAY_TMN_CODE: ${VNPAY_TMN_CODE:-}
+      VNPAY_HASH_SECRET: ${VNPAY_HASH_SECRET:-}
+      VNPAY_PAYMENT_URL: ${VNPAY_PAYMENT_URL:-https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
+      VNPAY_RETURN_URL: ${VNPAY_RETURN_URL:-http://localhost:8080/api/payments/vnpay/return}
+      VNPAY_IPN_URL: ${VNPAY_IPN_URL:-http://localhost:8080/api/payments/vnpay/ipn}
+      VNPAY_ORDER_TYPE: ${VNPAY_ORDER_TYPE:-other}
+      VNPAY_LOCALE: ${VNPAY_LOCALE:-vn}
+      VNPAY_EXPIRE_MINUTES: ${VNPAY_EXPIRE_MINUTES:-15}
+    ports:
+      - "8080:8080"
+
+volumes:
+  fitmeal_pgdata:
