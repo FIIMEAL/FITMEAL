@@ -1,459 +1,549 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FITMEAL DHTMDT20C – Dịch vụ suất ăn dinh dưỡng cá nhân hóa</title>
-  <meta name="description" content="FITMEAL DHTMDT20C – Dịch vụ suất ăn dinh dưỡng cá nhân hóa, thực đơn lành mạnh và lộ trình BMR/TDEE phù hợp từng cá nhân.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="style1.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <style>
-    .hero-section {
-      background: linear-gradient(135deg, var(--green-soft) 0%, #d1fae5 100%);
-      padding: 80px 0;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-title {
-      font-size: 42px;
-      font-weight: 800;
-      color: var(--green-dark);
-      margin-bottom: 20px;
-    }
-    .hero-subtitle {
-      font-size: 18px;
-      color: #374151;
-      max-width: 700px;
-      margin: 0 auto 40px auto;
-      line-height: 1.6;
-    }
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-    }
-    .hero-actions .btn {
-      padding: 14px 28px;
-      font-size: 16px;
-      border-radius: 12px;
-    }
-    .hero-actions .btn-primary {
-      background: var(--green);
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .hero-actions .btn-secondary {
-      background: #fff;
-      color: var(--green-dark);
-      font-weight: bold;
-      border: 1px solid var(--green);
-      cursor: pointer;
-      text-decoration: none;
-    }
-    
-    .value-props {
-      padding: 60px 0;
-      background: #fff;
-    }
-    .section-title {
-      text-align: center;
-      font-size: 28px;
-      font-weight: 800;
-      color: #111827;
-      margin-bottom: 40px;
-    }
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-    }
-    .prop-card {
-      background: #f9fafb;
-      padding: 30px;
-      border-radius: 20px;
-      border: 1px solid #e5e7eb;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-    .prop-card:hover {
-      transform: translateY(-5px);
-    }
-    .prop-icon {
-      font-size: 40px;
-      color: var(--green);
-      margin-bottom: 15px;
-    }
-    .prop-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #111827;
-    }
-    .prop-desc {
-      font-size: 14px;
-      color: #4b5563;
-    }
-    
-    .packages-section {
-      padding: 60px 0;
-      background: var(--green-soft);
-    }
-  </style>
-</head>
-<body>
-<header class="header">
-  <div class="container nav">
-    <a class="brand" href="index.html"><span class="brand-mark">F</span>FitMeal</a>
-    <nav class="nav-links">
-      <a href="index.html" style="color: var(--green); font-weight: 700;">Trang chủ</a>
-      <a href="Lotrinhhoa.html">Lộ trình hóa</a>
-      <a href="menu.html">Thực đơn</a>
-      <a href="orders.html">Đơn hàng</a>
-      <a href="contact.html">Liên hệ</a>
-    </nav>
-    <div class="nav-actions">
-      <a class="icon-btn" href="cart.html" aria-label="Giỏ hàng">🛒</a>
-      <a class="secondary" href="login.html" style="text-decoration: none;">Đăng nhập</a>
-    </div>
-  </div>
-</header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMeal DHTMDT20C – Suất Ăn Dinh Dưỡng Cá Nhân Hóa</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- BỔ SUNG META TAGS SEO & THÔNG TIN NHÓM / LỚP -->
+<meta name="description" content="FitMeal DHTMDT20C - Dịch vụ suất ăn dinh dưỡng cá nhân hóa tính toán chuẩn BMR & TDEE. Đồ án môn học do Quang Hưng và những người bạn lớp DHTMDT20C thực hiện.">
+<meta name="keywords" content="FitMeal, FitMeal DHTMDT20C, Quang Hưng, Quang Hưng và những người bạn, DHTMDT20C, suất ăn dinh dưỡng, tính BMR, tính TDEE, thực đơn giảm cân, suất ăn tăng cơ, healthy food, đồ án TMĐT">
+<meta name="author" content="Quang Hưng và những người bạn - Lớp DHTMDT20C">
+<meta name="robots" content="index, follow">
 
-<main>
-  <!-- HERO BANNER -->
-  <section class="hero-section">
-    <div class="container">
-      <h1 class="hero-title">Suất ăn Dinh dưỡng Cá nhân hóa theo Lộ trình</h1>
-      <p class="hero-subtitle">Giải pháp bữa ăn thông minh giúp bạn đạt mục tiêu thể hình: Giảm cân, Giữ dáng, Tăng cơ hay Tăng cân. FitMeal tính toán chuẩn BMR & TDEE thiết kế thực đơn riêng biệt cho bạn.</p>
-      <div class="hero-actions">
-        <a href="Lotrinhhoa.html" class="btn btn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Trải nghiệm Lộ trình hóa</a>
-        <a href="menu.html" class="btn btn-secondary"><i class="fa-solid fa-utensils"></i> Xem Thực đơn</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- VALUE PROPOSITIONS -->
-  <section class="value-props">
-    <div class="container">
-      <h2 class="section-title">Giá Trị Chúng Tôi Mang Lại</h2>
-      <div class="grid-3">
-        <div class="prop-card">
-          <div class="prop-icon"><i class="fa-solid fa-calculator"></i></div>
-          <div class="prop-title">Tính Toán BMR / TDEE</div>
-          <div class="prop-desc">Đảm bảo cân đối dinh dưỡng và calo phù hợp với từng mục tiêu cá nhân (giảm mỡ, tăng cơ, v.v.).</div>
-        </div>
-        <div class="prop-card">
-          <div class="prop-icon"><i class="fa-solid fa-fire-burner"></i></div>
-          <div class="prop-title">Bếp Tiêu Chuẩn</div>
-          <div class="prop-desc">Nấu sạch tại nhà hoặc bếp tiêu chuẩn, ưu tiên nguyên liệu tươi, an toàn, ít phụ gia.</div>
-        </div>
-        <div class="prop-card">
-          <div class="prop-icon"><i class="fa-solid fa-earth-americas"></i></div>
-          <div class="prop-title">Phong cách Đa dạng</div>
-          <div class="prop-desc">Món ăn theo quốc gia tùy yêu cầu từ ẩm thực Á, Âu, Thái, Ấn... đến đồ chay quốc tế.</div>
-        </div>
-        <div class="prop-card">
-          <div class="prop-icon"><i class="fa-solid fa-truck-fast"></i></div>
-          <div class="prop-title">Giao Hàng Đúng Giờ</div>
-          <div class="prop-desc">Đóng gói tiện lợi, bảo quản tốt. Giao hàng hằng ngày đảm bảo độ tươi mới của món ăn.</div>
-        </div>
-        <div class="prop-card">
-          <div class="prop-icon"><i class="fa-solid fa-user-doctor"></i></div>
-          <div class="prop-title">Tư vấn Cá nhân hóa</div>
-          <div class="prop-desc">Theo dõi tiến độ, khảo sát mức độ hài lòng định kỳ, cập nhật lộ trình nếu cần thiết.</div>
-        </div>
-        <div class="prop-card">
-          <div class="prop-icon"><i class="fa-solid fa-piggy-bank"></i></div>
-          <div class="prop-title">Tối Ưu Chi Phí</div>
-          <div class="prop-desc">Gói ăn càng dài ngày càng tiện lợi. Giá hợp lý, tối ưu chi phí cho khách hàng ăn hằng ngày.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PACKAGES -->
-  <section class="packages-section">
-    <div class="container">
-      <h2 class="section-title">Các Gói Lộ Trình Phổ Biến</h2>
-      <div class="packages-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-        
-        <div class="pkg-card" style="background:#fff; border-radius: 20px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center;">
-          <h3 style="font-size:22px; color:var(--green-dark); margin-bottom:10px;">Gói 7 Ngày</h3>
-          <div style="font-size:28px; font-weight:800; color:var(--green); margin-bottom: 5px;">360.000đ</div>
-          <div style="font-size: 13px; color: #6b7280; margin-bottom: 20px;">(72k/suất)</div>
-          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> 5 Suất ăn / tuần</p>
-          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Giao hàng mỗi ngày</p>
-          <a href="Lotrinhhoa.html" class="btn-primary" style="display:inline-block; margin-top:20px; padding:12px 24px; background:var(--green); color:#fff; border-radius:8px; font-weight:600; text-decoration:none;">Bắt đầu ngay</a>
-        </div>
-        
-        <div class="pkg-card" style="background:#fff; border-radius: 20px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 2px solid var(--green); position:relative; text-align: center;">
-          <div style="position:absolute; top:-15px; left:50%; transform:translateX(-50%); background:var(--green); color:#fff; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700;">GIẢM 4% - PHỔ BIẾN NHẤT</div>
-          <h3 style="font-size:22px; color:var(--green-dark); margin-bottom:10px;">Gói 21 Ngày</h3>
-          <div style="font-size:28px; font-weight:800; color:var(--green); margin-bottom: 5px;">1.035.000đ</div>
-          <div style="font-size: 14px; color: #ef4444; margin-bottom: 20px; font-weight: 700;">(Chỉ còn 69k/suất)</div>
-          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> 15 Suất ăn / 3 tuần</p>
-          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Theo dõi Macro chi tiết</p>
-          <a href="Lotrinhhoa.html" class="btn-primary" style="display:inline-block; margin-top:20px; padding:12px 24px; background:var(--green); color:#fff; border-radius:8px; font-weight:600; text-decoration:none;">Bắt đầu ngay</a>
-        </div>
-        
-        <div class="pkg-card" style="background:#fff; border-radius: 20px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; position:relative;">
-          <div style="position:absolute; top:-15px; left:50%; transform:translateX(-50%); background:#eab308; color:#fff; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700;">GIẢM 7% - TIẾT KIỆM</div>
-          <h3 style="font-size:22px; color:var(--green-dark); margin-bottom:10px;">Gói 30 Ngày</h3>
-          <div style="font-size:28px; font-weight:800; color:var(--green); margin-bottom: 5px;">1.340.000đ</div>
-          <div style="font-size: 14px; color: #eab308; margin-bottom: 20px; font-weight: 700;">(Chỉ còn 67k/suất)</div>
-          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> 20 Suất ăn / tháng</p>
-          <p style="color: #4b5563; font-size:15px; margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> Kèm cặp cùng Chuyên gia</p>
-          <a href="Lotrinhhoa.html" class="btn-primary" style="display:inline-block; margin-top:20px; padding:12px 24px; background:var(--green); color:#fff; border-radius:8px; font-weight:600; text-decoration:none;">Bắt đầu ngay</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- THỰC ĐƠN TIÊU BIỂU (CHẠY NGANG) -->
-<section style="background: #fff; padding: 60px 0; overflow: hidden;">
-    <div style="max-width: 1160px; margin: 0 auto; padding: 0 20px;">
-        <h2 style="font-size: 32px; font-weight: 800; color: #111827; text-align: center; margin-bottom: 10px;">Thực Đơn Đa Dạng Khắp Châu Lục</h2>
-        <p style="text-align: center; color: #6b7280; font-size: 16px; margin-bottom: 40px;">Khám phá các món ăn Dinh dưỡng chuẩn vị từ Á sang Âu.</p>
-    </div>
-    <div class="marquee-wrapper" style="width: 100%; display: flex; overflow: hidden; white-space: nowrap;">
-        <div class="marquee-content" style="display: flex; gap: 24px; padding-left: 24px; animation: marquee 25s linear infinite;">
-            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
-                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500" alt="Châu Úc" style="width: 100%; height: 220px; object-fit: cover; display: block;">
-                <div style="padding: 15px; text-align: center; white-space: normal;">
-                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Ức Gà Nướng Macca</strong>
-                    <span style="font-size: 13px; color: var(--muted);">Châu Đại Dương</span>
-                </div>
-            </div>
-            
-            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500" alt="Chay" style="width: 100%; height: 220px; object-fit: cover; display: block;">
-                <div style="padding: 15px; text-align: center; white-space: normal;">
-                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Bowl Hạt Quinoa Chay</strong>
-                    <span style="font-size: 13px; color: var(--muted);">Châu Á (Thuần Chay)</span>
-                </div>
-            </div>
-
-            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
-                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500" alt="Châu Âu" style="width: 100%; height: 220px; object-fit: cover; display: block;">
-                <div style="padding: 15px; text-align: center; white-space: normal;">
-                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Steak Bò Mỹ Salad</strong>
-                    <span style="font-size: 13px; color: var(--muted);">Châu Âu / Mỹ</span>
-                </div>
-            </div>
-
-            <!-- Double the items for seamless infinite scroll effect -->
-            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
-                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500" alt="Châu Úc" style="width: 100%; height: 220px; object-fit: cover; display: block;">
-                <div style="padding: 15px; text-align: center; white-space: normal;">
-                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Ức Gà Nướng Macca</strong>
-                    <span style="font-size: 13px; color: var(--muted);">Châu Đại Dương</span>
-                </div>
-            </div>
-            
-            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; min-width: 280px;" onmouseover="this.parentElement.style.animationPlayState='paused'; this.style.transform='translateY(-5px)'" onmouseout="this.parentElement.style.animationPlayState='running'; this.style.transform='translateY(0)'" onclick="location.href='menu.html'">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500" alt="Chay" style="width: 100%; height: 220px; object-fit: cover; display: block;">
-                <div style="padding: 15px; text-align: center; white-space: normal;">
-                    <strong style="display: block; font-size: 16px; color: var(--green-dark);">Bowl Hạt Quinoa Chay</strong>
-                    <span style="font-size: 13px; color: var(--muted);">Châu Á (Thuần Chay)</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Open Graph (OG Tags) - Hiển thị đẹp mắt khi chia sẻ Zalo / Facebook -->
+<meta property="og:title" content="FitMeal DHTMDT20C – Suất Ăn Dinh Dưỡng Cá Nhân Hóa | Nhóm Quang Hưng">
+<meta property="og:description" content="Giải pháp bữa ăn thông minh chuẩn BMR & TDEE. Sản phẩm đồ án do Quang Hưng và những người bạn lớp DHTMDT20C phát triển.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fiimeal.github.io/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=80">
     <style>
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .bg-emerald-gradient { background: linear-gradient(135deg, #059669 0%, #10b981 100%); }
     </style>
-    
-    <div style="text-align: center; margin-top: 40px;">
-        <a href="menu.html" class="btn-primary" style="padding: 12px 30px; font-size: 16px; background: white; color: var(--green); border: 2px solid var(--green); border-radius: 999px;">Xem Toàn Bộ Thực Đơn &rarr;</a>
-    </div>
-</section>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
 
-<!-- BẢN ĐỒ / LIÊN HỆ -->
-<section style="max-width: 1160px; margin: 0 auto 50px auto; padding: 0 20px;">
-    <h2 style="font-size: 32px; font-weight: 800; color: #111827; text-align: center; margin-bottom: 10px;">Hệ Thống Bếp Trung Tâm</h2>
-    <p style="text-align: center; color: #6b7280; font-size: 16px; margin-bottom: 40px;">Giao hàng siêu tốc trong vòng 30 phút từ bếp trung tâm của chúng tôi.</p>
-    
-    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-        <!-- Thông tin liên hệ -->
-        <div style="padding: 40px; background: var(--green); color: white;">
-            <h3 style="font-size: 24px; margin-bottom: 20px; font-weight: 700;">FitMeal Kitchen</h3>
-            
-            <div style="margin-bottom: 25px; display: flex; align-items: flex-start; gap: 15px;">
-                <i class="fa-solid fa-location-dot" style="font-size: 24px; margin-top: 5px;"></i>
-                <div>
-                    <strong style="display: block; font-size: 16px; margin-bottom: 5px;">Địa chỉ:</strong>
-                    <span style="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.9);">Số 1, Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</span>
-                </div>
-            </div>
-            
-            <div style="margin-bottom: 25px; display: flex; align-items: flex-start; gap: 15px;">
-                <i class="fa-solid fa-clock" style="font-size: 24px; margin-top: 5px;"></i>
-                <div>
-                    <strong style="display: block; font-size: 16px; margin-bottom: 5px;">Giờ hoạt động:</strong>
-                    <span style="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.9);">Thứ 2 - Chủ Nhật<br>06:00 - 20:00</span>
-                </div>
-            </div>
-            
-            <div style="display: flex; align-items: flex-start; gap: 15px;">
-                <i class="fa-solid fa-phone" style="font-size: 24px; margin-top: 5px;"></i>
-                <div>
-                    <strong style="display: block; font-size: 16px; margin-bottom: 5px;">Hotline Cố Vấn:</strong>
-                    <span style="font-size: 18px; font-weight: bold;">1900 1234</span>
+    <!-- 1. HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-emerald-200 group-hover:bg-emerald-700 transition">
+                        <i class="fa-solid font-bowl-rice">F</i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-tight text-slate-900">Fit<span class="text-emerald-600">Meal</span></span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                    <a href="index.html" class="text-emerald-600 hover:text-emerald-700 transition">Trang Chủ</a>
+                    <a href="#bmr-calculator" class="hover:text-emerald-600 transition">Tính BMR/TDEE</a>
+                    <a href="menu.html" class="hover:text-emerald-600 transition">Thực Đơn</a>
+                    <a href="#plans" class="hover:text-emerald-600 transition">Gói Dịch Vụ</a>
+                    <a href="#kitchen" class="hover:text-emerald-600 transition">Bếp Trung Tâm</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="flex items-center gap-4">
+                    <a href="cart.html" class="relative p-2.5 text-slate-600 hover:text-emerald-600 hover:bg-slate-100 rounded-full transition" title="Giỏ hàng">
+                        <i class="fa-solid fa-cart-shopping text-lg"></i>
+                        <span class="absolute top-1 right-1 bg-emerald-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </a>
+                    <a href="login.html" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-xl shadow-sm hover:shadow transition">
+                        <i class="fa-regular fa-user"></i> Đăng Nhập
+                    </a>
                 </div>
             </div>
         </div>
-        
-        <!-- Google Map Iframe -->
-        <div>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.517826555198!2d106.70146031533423!3d10.771595992323326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f40a3b49e59%3A0xa1bd14e483a602db!2sNguyen%20Hue%2C%20Ben%20Nghe%2C%20District%201%2C%20Ho%20Chi%20Minh%20City!5e0!3m2!1sen!2s!4v1652336302324!5m2!1sen!2s" width="100%" height="100%" style="border:0; min-height: 400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </div>
-</section>
+    </header>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-container" style="max-width: 1160px; margin: auto; padding: 40px 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; border-top: 1px solid #e5e7eb;">
-      <div class="footer-col">
-          <h4 style="font-size: 18px; color: #111827; margin-bottom: 15px;">FitMeal</h4>
-          <p style="font-size: 13px; color: #6b7280;">Dịch vụ cung cấp suất ăn dinh dưỡng cá tính hóa theo lộ trình BMR/TDEE chuẩn y khoa.</p>
-      </div>
-      <div class="footer-col">
-          <h4 style="font-size: 18px; color: #111827; margin-bottom: 15px;">Kênh phân phối</h4>
-          <ul style="list-style: none; padding: 0; color: #6b7280; font-size: 14px;">
-              <li style="margin-bottom: 8px;"><i class="fa-brands fa-facebook"></i> Facebook Fanspage</li>
-              <li style="margin-bottom: 8px;"><i class="fa-brands fa-whatsapp"></i> Zalo OA</li>
-              <li><i class="fa-solid fa-motorcycle"></i> GrabFood / ShopeeFood</li>
-          </ul>
-      </div>
-      <div class="footer-col">
-          <h4 style="font-size: 18px; color: #111827; margin-bottom: 15px;">Gói dịch vụ</h4>
-          <ul style="list-style: none; padding: 0; color: #6b7280; font-size: 14px;">
-              <li style="margin-bottom: 8px;">Gói 7 ngày (5 suất)</li>
-              <li style="margin-bottom: 8px;">Gói 21 ngày (15 suất)</li>
-              <li>Gói 30 ngày (20 suất)</li>
-          </ul>
-      </div>
-      <div class="footer-col">
-          <h4 style="font-size: 18px; color: #111827; margin-bottom: 15px;">Liên hệ hỗ trợ</h4>
-          <ul style="list-style: none; padding: 0; color: #6b7280; font-size: 14px;">
-              <li style="margin-bottom: 8px;">Hotline: 1900 xxxx</li>
-              <li>Email: support@fitmeal.vn</li>
-          </ul>
-      </div>
-  </div>
-  <div class="footer-bottom" style="text-align: center; padding: 20px; background: #f9fafb; color: #9ca3af; font-size: 13px;">
-      <p>© 2026 FitMeal. Tất cả quyền được bảo lưu.</p>
-  </div>
-</footer>
-<script>
-// Chatbot logic and CSS injected directly to avoid local file CORS issues
-const chatbotStyles = `
-<style>
-.chatbot-toggler { position: fixed; bottom: 30px; right: 30px; outline: none; border: none; height: 60px; width: 60px; display: flex; cursor: pointer; align-items: center; justify-content: center; border-radius: 50%; background: var(--green, #16a34a); color: #fff; transition: all 0.2s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 99999; }
-.chatbot-toggler:hover { transform: scale(1.05); }
-.chatbot-toggler i { font-size: 28px; transition: all 0.2s; }
-.chatbot-toggler .fa-xmark { display: none; }
-.chatbot-toggler.show-chatbot .fa-message { display: none; }
-.chatbot-toggler.show-chatbot .fa-xmark { display: block; }
-.chatbot-window { position: fixed; right: 30px; bottom: 100px; width: 380px; background: #fff; border-radius: 15px; overflow: hidden; opacity: 0; pointer-events: none; transform: scale(0.5); transform-origin: bottom right; box-shadow: 0 15px 40px rgba(0,0,0,0.15); transition: all 0.1s ease; z-index: 99999; }
-.show-chatbot .chatbot-window { opacity: 1; pointer-events: auto; transform: scale(1); }
-.chatbot-header { background: var(--green, #16a34a); padding: 16px 20px; text-align: center; color: #fff; font-size: 1.2rem; font-weight: 700; position: relative; }
-.chatbot-header span { display: block; font-size: 0.85rem; font-weight: 400; opacity: 0.8; margin-top: 5px; }
-.chat-box { height: 400px; overflow-y: auto; padding: 20px 20px 10px; display: flex; flex-direction: column; gap: 15px; background: #f9f9f9; list-style: none; margin: 0; }
-.chat-box::-webkit-scrollbar { width: 6px; }
-.chat-box::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
-.chat { display: flex; gap: 12px; }
-.chat.incoming { justify-content: flex-start; }
-.chat.outgoing { justify-content: flex-end; }
-.chat img.ai-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background: #e8f5e9; padding: 2px; border: 1px solid #c8e6c9; }
-.chat p { color: #333; max-width: 75%; white-space: pre-wrap; font-size: 0.95rem; padding: 12px 16px; border-radius: 15px 15px 15px 3px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); line-height: 1.5; margin: 0; }
-.chat.outgoing p { background: var(--green, #16a34a); color: #fff; border-radius: 15px 15px 3px 15px; box-shadow: none; }
-.chat-input { display: flex; gap: 10px; background: #fff; padding: 15px 20px; border-top: 1px solid #e0e0e0; align-items: center; }
-.chat-input textarea { height: 45px; width: 100%; border: none; outline: none; resize: none; background: #f1f1f1; border-radius: 20px; padding: 12px 15px; font-size: 0.95rem; font-family: inherit; }
-.chat-input span { align-self: flex-end; color: var(--green, #16a34a); cursor: pointer; font-size: 1.5rem; margin-bottom: 5px; transition: transform 0.2s; }
-.chat-input span:hover { transform: scale(1.1); }
-</style>
-`;
-const chatbotHTML = `
-<div class="chatbot-toggler-container">
-    <button class="chatbot-toggler"><i class="fa-solid fa-robot"></i><i class="fa-solid fa-xmark"></i></button>
-    <div class="chatbot-window">
-        <header class="chatbot-header">FitMeal AI Assistant<span>Trợ lý dinh dưỡng cá nhân 24/7</span></header>
-        <ul class="chat-box">
-            <li class="chat incoming">
-                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="AI" class="ai-avatar">
-                <p>Xin chào! 👋 Mình là Trợ lý AI của FitMeal. Mình có thể giúp gì cho mục tiêu dinh dưỡng và sức khỏe của bạn hôm nay?</p>
-            </li>
-        </ul>
-        <div class="chat-input">
-            <textarea placeholder="Nhập tin nhắn..." spellcheck="false" required></textarea>
-            <span id="send-btn" class="fa-solid fa-paper-plane"></span>
+    <!-- 2. HERO BANNER SECTION -->
+    <section class="relative bg-emerald-gradient text-white py-20 lg:py-28 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-center lg:text-left">
+                    <span class="inline-block px-4 py-1.5 bg-emerald-800/40 border border-emerald-400/30 backdrop-blur-md rounded-full text-xs font-semibold text-emerald-100 tracking-wide uppercase">
+                        🌱 Giải pháp bữa ăn thông minh
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+                        Suất Ăn Dinh Dưỡng Cá Nhân Hóa Theo Lộ Trình
+                    </h1>
+                    <p class="text-emerald-50 text-base sm:text-lg max-w-2xl leading-relaxed font-normal">
+                        Giúp bạn đạt mục tiêu thể hình: <strong>Giảm cân, Giữ dáng, Tăng cơ hay Tăng cân</strong>. FitMeal tự động tính toán chuẩn chỉ số BMR & TDEE để thiết kế thực đơn khoa học dành riêng cho bạn.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <a href="#bmr-calculator" class="px-7 py-3.5 bg-white text-emerald-800 font-bold text-base rounded-xl shadow-lg hover:bg-slate-100 transition text-center">
+                            <i class="fa-solid fa-calculator mr-2"></i>Tính BMR / TDEE Ngay
+                        </a>
+                        <a href="menu.html" class="px-7 py-3.5 bg-emerald-700/60 hover:bg-emerald-700 border border-emerald-400/30 text-white font-semibold text-base rounded-xl backdrop-blur-md transition text-center">
+                            Xem Thực Đơn Khắp Châu Lục <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Hero Image Showcase -->
+                <div class="relative flex justify-center">
+                    <div class="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-3xl shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="FitMeal Healthy Bowl" class="rounded-2xl object-cover w-full h-72 shadow-md">
+                        <div class="mt-4 flex justify-between items-center text-white text-sm">
+                            <div>
+                                <p class="font-bold">Bowl Hạt Quinoa Chay</p>
+                                <p class="text-xs text-emerald-100">Chuẩn Ẩm Thực Châu Á • 480 kcal</p>
+                            </div>
+                            <span class="bg-emerald-500/80 px-3 py-1 rounded-full text-xs font-semibold">Thuần Chay</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-`;
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.insertAdjacentHTML('beforeend', chatbotStyles + chatbotHTML);
-    const toggler = document.querySelector(".chatbot-toggler");
-    const container = document.querySelector(".chatbot-toggler-container");
-    const chatbox = document.querySelector(".chat-box");
-    const chatInput = document.querySelector(".chat-input textarea");
-    const sendBtn = document.querySelector("#send-btn");
-    
-    toggler.addEventListener("click", () => container.classList.toggle("show-chatbot"));
-    
-    const createLi = (msg, cls) => {
-        const li = document.createElement("li");
-        li.className = "chat " + cls;
-        li.innerHTML = cls === "outgoing" ? "<p></p>" : "<img src='https://cdn-icons-png.flaticon.com/512/4712/4712035.png' class='ai-avatar'><p></p>";
-        li.querySelector("p").textContent = msg;
-        return li;
-    };
-    
-    const getBotResponse = (input) => {
-        const lowerInput = input.toLowerCase();
-        
-        if (lowerInput.includes('chào') || lowerInput.includes('hello') || lowerInput.includes('hi')) return "Chào bạn! Mình là trợ lý ảo AI của FitMeal. Mình có thể giúp gì cho bạn hôm nay?";
-        if (lowerInput.includes('giá') || lowerInput.includes('nhiêu') || lowerInput.includes('tiền')) return "Giá món ăn lẻ đồng giá 72.000đ/suất. Nếu bạn mua theo Gói (7, 21, 30 ngày) giá sẽ ưu đãi hơn, chỉ từ 67.000đ/suất nhé! Bạn muốn đặt thử không?";
-        if (lowerInput.includes('thực đơn') || lowerInput.includes('món ăn') || lowerInput.includes('menu') || lowerInput.includes('đồ ăn')) return "Thực đơn của FitMeal rất đa dạng, từ món Việt, Á, Âu, Mỹ đến các món chay. Tất cả đều được tính toán Calo kỹ lưỡng. Bạn lướt xem các món ở bên dưới nha!";
-        if (lowerInput.includes('giảm cân') || lowerInput.includes('giảm mỡ') || lowerInput.includes('giảm béo')) return "Tuyệt vời! FitMeal có các lộ trình thiết kế riêng cho mục tiêu giảm cân. Hệ thống sẽ tự động loại bỏ các món nhiều Calo và thay thế bằng món ít Calo (như Salad, ức gà) để giúp bạn đạt mục tiêu nhanh nhất.";
-        if (lowerInput.includes('tăng cân') || lowerInput.includes('tăng cơ')) return "Để tăng cân/tăng cơ, FitMeal sẽ tăng cường các khẩu phần giàu Protein (như thêm thịt bò, cá hồi) và tinh bột tốt. Bạn hãy dùng thử tính năng 'Lộ trình hóa' nha!";
-        if (lowerInput.includes('đặt hàng') || lowerInput.includes('mua') || lowerInput.includes('đặt món')) return "Bạn nhấp vào món ăn bất kỳ để xem chi tiết, sau đó nhấn 'Thêm vào giỏ' hoặc 'Đặt ngay'. Hoặc bạn có thể qua trang 'Lộ trình' để tính TDEE và chọn gói dài ngày nha!";
-        if (lowerInput.includes('ngon') || lowerInput.includes('sạch') || lowerInput.includes('chất lượng')) return "Cảm ơn bạn! FitMeal cam kết 100% nguyên liệu tươi sạch chuẩn VietGAP, chế biến không bột ngọt, đảm bảo ngon miệng và tốt cho sức khỏe ạ.";
-        
-        // Fallback smarter
-        return "Xin lỗi, hiện tại mình chưa hiểu rõ ý bạn. Bạn có thể hỏi cụ thể hơn về 'giá cả', 'cách đặt hàng', 'thực đơn' hoặc 'giảm cân/tăng cân' được không? Nếu cần, chuyên viên dinh dưỡng của FitMeal sẽ gọi điện hỗ trợ bạn trực tiếp!";
-    };
+    </section>
 
-    const handleChat = () => {
-        const userMessage = chatInput.value.trim();
-        if(!userMessage) return;
-        chatInput.value = "";
-        chatbox.appendChild(createLi(userMessage, "outgoing"));
-        chatbox.scrollTo(0, chatbox.scrollHeight);
-        setTimeout(() => {
-            const incoming = createLi("Đang nhập tin nhắn...", "incoming");
-            chatbox.appendChild(incoming);
-            chatbox.scrollTo(0, chatbox.scrollHeight);
-            setTimeout(() => {
-                incoming.querySelector("p").innerHTML = getBotResponse(userMessage);
-                chatbox.scrollTo(0, chatbox.scrollHeight);
-            }, 1000);
-        }, 600);
-    };
-    sendBtn.addEventListener("click", handleChat);
-    chatInput.addEventListener("keydown", (e) => {
-        if(e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleChat(); }
-    });
-});
-</script>
+    <!-- 3. INTERACTIVE BMR & TDEE CALCULATOR SECTION -->
+    <section id="bmr-calculator" class="py-16 bg-white border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <h2 class="text-3xl font-bold text-slate-900">Tính Toán BMR / TDEE & Gợi Ý Thực Đơn</h2>
+                <p class="text-slate-600 mt-2 text-sm sm:text-base">Nhập chỉ số cơ thể để FitMeal thiết kế mức Năng lượng & Calo phù hợp với mục tiêu thể hình của bạn.</p>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-sm">
+                <form id="bmrForm" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Giới tính</label>
+                        <select id="gender" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Tuổi</label>
+                        <input type="number" id="age" value="25" min="15" max="80" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Chiều cao (cm)</label>
+                        <input type="number" id="height" value="170" min="120" max="220" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Cân nặng (kg)</label>
+                        <input type="number" id="weight" value="65" min="30" max="150" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Mức độ vận động</label>
+                        <select id="activity" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            <option value="1.2">Ít vận động (Nhân viên văn phòng)</option>
+                            <option value="1.375">Vận động nhẹ (Tập 1-3 buổi/tuần)</option>
+                            <option value="1.55" selected>Vận động vừa (Tập 3-5 buổi/tuần)</option>
+                            <option value="1.725">Vận động nặng (Tập 6-7 buổi/tuần)</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Mục tiêu cá nhân</label>
+                        <select id="goal" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            <option value="weight_loss">Giảm Cân (Thâm hụt Calo)</option>
+                            <option value="maintain" selected>Giữ Dáng (Cân bằng Calo)</option>
+                            <option value="muscle_gain">Tăng Cơ (Tăng Đạm/Macro)</option>
+                            <option value="weight_gain">Tăng Cân (Dư thừa Calo lành mạnh)</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-4 mt-2">
+                        <button type="button" onclick="calculateBMR()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base rounded-xl shadow-md transition">
+                            <i class="fa-solid fa-calculator mr-2"></i>Xem Kết Quả Khuyên Dùng
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Results Output Box -->
+                <div id="resultBox" class="hidden mt-8 p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-slate-800 space-y-4">
+                    <div class="grid sm:grid-cols-3 gap-4 text-center">
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                            <span class="text-xs text-slate-500 font-semibold block uppercase">Chỉ số BMR</span>
+                            <span id="bmrVal" class="text-2xl font-bold text-emerald-700">0</span> <span class="text-xs">kcal/ngày</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                            <span class="text-xs text-slate-500 font-semibold block uppercase">Chỉ số TDEE</span>
+                            <span id="tdeeVal" class="text-2xl font-bold text-emerald-700">0</span> <span class="text-xs">kcal/ngày</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                            <span class="text-xs text-slate-500 font-semibold block uppercase">Mục tiêu Năng lượng</span>
+                            <span id="targetVal" class="text-2xl font-bold text-emerald-700">0</span> <span class="text-xs">kcal/ngày</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-between bg-white p-4 rounded-xl border border-emerald-100 gap-4">
+                        <p class="text-sm text-slate-700" id="recommendationText">Dựa trên mục tiêu của bạn, gói dịch vụ đề xuất là...</p>
+                        <a href="#plans" class="px-5 py-2.5 bg-emerald-600 text-white text-xs font-bold rounded-xl hover:bg-emerald-700 transition whitespace-nowrap">
+                            Chọn Gói Lộ Trình Phù Hợp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. QUY TRÌNH 4 BƯỚC (HOW IT WORKS) -->
+    <section class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">Quy Trình Phục Vụ 4 Bước Tối Ưu</h2>
+                <p class="text-slate-600 mt-2 text-sm">Đơn giản hóa hành trình ăn uống lành mạnh của bạn mỗi ngày.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center space-y-3 relative shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 font-bold text-lg rounded-2xl flex items-center justify-center mx-auto">1</div>
+                    <h3 class="font-bold text-slate-900">Tính Chỉ Số BMR/TDEE</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Xác định chuẩn xác nhu cầu năng lượng và các chỉ số Macro cá nhân.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center space-y-3 relative shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 font-bold text-lg rounded-2xl flex items-center justify-center mx-auto">2</div>
+                    <h3 class="font-bold text-slate-900">Chọn Gói Lộ Trình</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Đăng ký gói 7, 21 hoặc 30 ngày linh hoạt theo mục tiêu giảm cân hay tăng cơ.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center space-y-3 relative shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 font-bold text-lg rounded-2xl flex items-center justify-center mx-auto">3</div>
+                    <h3 class="font-bold text-slate-900">Bếp Tiêu Chuẩn Nấu</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Chế biến nguyên liệu tươi sạch, ít phụ gia và đóng gói tiện lợi mỗi sáng.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center space-y-3 relative shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 font-bold text-lg rounded-2xl flex items-center justify-center mx-auto">4</div>
+                    <h3 class="font-bold text-slate-900">Giao Hàng Tận Nơi</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Suất ăn giao siêu tốc đúng giờ giúp duy trì thói quen ăn uống khoa học.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. FEATURED MENU PREVIEW -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Thực Đơn Đa Dạng Khắp Châu Lục</span>
+                    <h2 class="text-3xl font-bold text-slate-900 mt-1">Khám Phá Món Ăn Dinh Dưỡng Chuẩn Vị</h2>
+                </div>
+                <a href="menu.html" class="inline-flex items-center text-sm font-bold text-emerald-600 hover:text-emerald-700 transition">
+                    Xem Toàn Bộ Thực Đơn <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg transition group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Ức gà nướng macca" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        <span class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full">Châu Đại Dương</span>
+                    </div>
+                    <div class="p-5 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-lg">Ức Gà Nướng Macca</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Ức gà áp chảo phủ hạt macca giòn béo, ăn kèm rau củ luộc và sốt thảo mộc.</p>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-100 text-xs font-semibold text-slate-600">
+                            <span><i class="fa-solid fa-fire text-amber-500 mr-1"></i>520 kcal</span>
+                            <span>Đạm: 42g | Béo: 14g</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg transition group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80" alt="Bowl Hạt Quinoa Chay" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        <span class="absolute top-3 left-3 bg-emerald-700/90 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full">Châu Á (Thuần Chay)</span>
+                    </div>
+                    <div class="p-5 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-lg">Bowl Hạt Quinoa Chay</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Hạt Quinoa giàu xơ phối cùng đậu hũ nướng, bơ tươi và nấm đùi gà áp chảo.</p>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-100 text-xs font-semibold text-slate-600">
+                            <span><i class="fa-solid fa-fire text-amber-500 mr-1"></i>410 kcal</span>
+                            <span>Đạm: 18g | Béo: 10g</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg transition group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="Steak Bò Mỹ Salad" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        <span class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-semibold px-3 py-1 rounded-full">Châu Âu / Mỹ</span>
+                    </div>
+                    <div class="p-5 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-lg">Steak Bò Mỹ Salad</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Thịt bò Mỹ mề mềm áp chảo sốt tiêu đen, ăn kèm xà lách xoong và cà chua bi.</p>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-100 text-xs font-semibold text-slate-600">
+                            <span><i class="fa-solid fa-fire text-amber-500 mr-1"></i>580 kcal</span>
+                            <span>Đạm: 48g | Béo: 18g</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SUBSCRIPTION PACKAGES SECTION -->
+    <section id="plans" class="py-16 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Tiết Kiệm & Tối Ưu Chi Phí</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-1">Các Gói Lộ Trình Phổ Biến</h2>
+                <p class="text-slate-600 mt-2 text-sm">Đăng ký lộ trình dài ngày để nhận thêm ưu đãi và hỗ trợ tư vấn dinh dưỡng.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Package 7 Days -->
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition relative flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">Gói 7 Ngày</h3>
+                        <p class="text-xs text-slate-500 mt-1">Phù hợp trải nghiệm dịch vụ</p>
+                        <div class="my-6">
+                            <span class="text-3xl font-extrabold text-slate-900">360.000đ</span>
+                            <span class="text-xs text-slate-500 block mt-1">(72.000đ / suất)</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> 5 Suất ăn / tuần</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Giao hàng mỗi ngày tận nơi</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Tự chọn món theo sở thích</li>
+                        </ul>
+                    </div>
+                    <a href="checkout.html?plan=7days" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm rounded-xl transition text-center block">
+                        Bắt Đầu Ngay
+                    </a>
+                </div>
+
+                <!-- Package 21 Days (Popular) -->
+                <div class="bg-white rounded-3xl p-8 border-2 border-emerald-500 shadow-xl relative flex flex-col justify-between scale-105">
+                    <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[11px] font-extrabold px-4 py-1 rounded-full uppercase tracking-wider">
+                        GIẢM 4% - PHỔ BIẾN NHẤT
+                    </span>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 mt-2">Gói 21 Ngày</h3>
+                        <p class="text-xs text-slate-500 mt-1">Hình thành thói quen ăn uống</p>
+                        <div class="my-6">
+                            <span class="text-3xl font-extrabold text-emerald-700">1.035.000đ</span>
+                            <span class="text-xs text-slate-500 block mt-1">(Chỉ còn 69.000đ / suất)</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> 15 Suất ăn / 3 tuần</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Theo dõi chỉ số Macro chi tiết</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Tùy chỉnh lịch giao hàng linh hoạt</li>
+                        </ul>
+                    </div>
+                    <a href="checkout.html?plan=21days" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl shadow-md transition text-center block">
+                        Bắt Đầu Ngay
+                    </a>
+                </div>
+
+                <!-- Package 30 Days (Best Value) -->
+                <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition relative flex flex-col justify-between">
+                    <span class="absolute -top-3 right-6 bg-amber-500 text-white text-[10px] font-bold px-3 py-0.5 rounded-full uppercase">
+                        GIẢM 7% - TIẾT KIỆM
+                    </span>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">Gói 30 Ngày</h3>
+                        <p class="text-xs text-slate-500 mt-1">Cam kết thay đổi vóc dáng toàn diện</p>
+                        <div class="my-6">
+                            <span class="text-3xl font-extrabold text-slate-900">1.340.000đ</span>
+                            <span class="text-xs text-slate-500 block mt-1">(Chỉ còn 67.000đ / suất)</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> 20 Suất ăn / tháng</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Kèm cặp 1:1 cùng Chuyên gia</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Miễn phí tư vấn đổi thực đơn</li>
+                        </ul>
+                    </div>
+                    <a href="checkout.html?plan=30days" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm rounded-xl transition text-center block">
+                        Bắt Đầu Ngay
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CORE VALUES SECTION -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">Giá Trị Chúng Tôi Mang Lại</h2>
+                <p class="text-slate-600 mt-2 text-sm">FitMeal không chỉ cung cấp bữa ăn, mà là người đồng hành sức khỏe của bạn.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition">
+                    <i class="fa-solid fa-calculator text-2xl text-emerald-600 mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base mb-1">Tính Toán BMR / TDEE</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Đảm bảo cân đối dinh dưỡng và calo phù hợp với từng mục tiêu cá nhân (giảm mỡ, tăng cơ).</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition">
+                    <i class="fa-solid fa-kitchen-set text-2xl text-emerald-600 mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base mb-1">Bếp Tiêu Chuẩn</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Nấu sạch tại bếp tiêu chuẩn, ưu tiên nguyên liệu tươi, an toàn, ít phụ gia.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition">
+                    <i class="fa-solid fa-utensils text-2xl text-emerald-600 mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base mb-1">Phong Cách Đa Dạng</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Món ăn theo quốc gia tùy yêu cầu từ ẩm thực Á, Âu, Thái, Ấn... đến đồ chay quốc tế.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition">
+                    <i class="fa-solid fa-truck-fast text-2xl text-emerald-600 mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base mb-1">Giao Hàng Đúng Giờ</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Đóng gói tiện lợi, bảo quản tốt. Giao hàng hằng ngày đảm bảo độ tươi mới của món ăn.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition">
+                    <i class="fa-solid fa-user-doctor text-2xl text-emerald-600 mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base mb-1">Tư Vấn Cá Nhân Hóa</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Theo dõi tiến độ, khảo sát mức độ hài lòng định kỳ, cập nhật lộ trình nếu cần thiết.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition">
+                    <i class="fa-solid fa-piggy-bank text-2xl text-emerald-600 mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base mb-1">Tối Ưu Chi Phí</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Gói ăn càng dài ngày càng tiện lợi. Giá hợp lý, tối ưu chi phí cho khách hàng ăn hằng ngày.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. KITCHEN LOCATION & GOOGLE MAPS EMBED -->
+    <section id="kitchen" class="py-16 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div>
+                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Hệ Thống Bếp Trung Tâm</span>
+                        <h2 class="text-3xl font-bold text-slate-900 mt-1">FitMeal Kitchen</h2>
+                        <p class="text-slate-600 mt-2 text-sm">Giao hàng siêu tốc trong vòng 30 phút từ bếp trung tâm của chúng tôi.</p>
+                    </div>
+
+                    <div class="space-y-4 text-sm text-slate-700">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-emerald-600 mt-1"></i>
+                            <div>
+                                <strong>Địa chỉ:</strong> Số 1, Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-clock text-emerald-600 mt-1"></i>
+                            <div>
+                                <strong>Giờ hoạt động:</strong> Thứ 2 - Chủ Nhật (06:00 - 20:00)
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-phone text-emerald-600 mt-1"></i>
+                            <div>
+                                <strong>Hotline Cố Vấn:</strong> <a href="tel:19001234" class="text-emerald-700 font-bold hover:underline">1900 1234</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Maps Embedded Iframe -->
+                <div class="w-full h-80 rounded-3xl overflow-hidden shadow-lg border border-slate-200">
+                    <iframe 
+                        title="Vị trí Bếp Trung Tâm FitMeal"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.517822780389!2d106.7017555757032!3d10.77159025928374!2m3!1f00!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f411b333333%3A0x1111111111111111!2zTmd1eeG7hW4gSHXhu4csIFF14bqtbiAxLCBUUC4gSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2svn!4v1700000000000!5m2!1svi!2svn" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FOOTER -->
+    <footer id="contact" class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-4">
+                    <a href="index.html" class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-white font-bold text-lg">F</div>
+                        <span class="text-xl font-bold text-white">Fit<span class="text-emerald-500">Meal</span></span>
+                    </a>
+                    <p class="text-xs leading-relaxed">Dịch vụ suất ăn dinh dưỡng cá nhân hóa dựa trên tính toán chuẩn BMR & TDEE khoa học.</p>
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-bold mb-4">Điều Hướng</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="index.html" class="hover:text-white transition">Trang Chủ</a></li>
+                        <li><a href="#bmr-calculator" class="hover:text-white transition">Tính BMR/TDEE</a></li>
+                        <li><a href="menu.html" class="hover:text-white transition">Thực Đơn Đa Dạng</a></li>
+                        <li><a href="#plans" class="hover:text-white transition">Các Gói Lộ Trình</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-bold mb-4">Hỗ Trợ Khách Hàng</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="login.html" class="hover:text-white transition">Tài Khoản Cá Nhân</a></li>
+                        <li><a href="cart.html" class="hover:text-white transition">Giỏ Hàng & Thanh Toán</a></li>
+                        <li><a href="#kitchen" class="hover:text-white transition">Liên Hệ Bếp Trung Tâm</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-bold mb-4">Kết Nối</h4>
+                    <p class="text-xs mb-3">Hotline: <strong class="text-white">1900 1234</strong></p>
+                    <div class="flex gap-3 text-slate-300">
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition"><i class="fa-brands fa-facebook-f text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition"><i class="fa-brands fa-instagram text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition"><i class="fa-brands fa-tiktok text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+                &copy; 2026 FitMeal DHTMDT20C. Tất cả quyền được bảo lưu.
+            </div>
+        </div>
+    </footer>
+
+    <!-- 10. JAVASCRIPT FOR INTERACTIVE BMR/TDEE CALCULATOR -->
+    <script>
+        function calculateBMR() {
+            const gender = document.getElementById('gender').value;
+            const age = parseFloat(document.getElementById('age').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const activity = parseFloat(document.getElementById('activity').value);
+            const goal = document.getElementById('goal').value;
+
+            if (!age || !height || !weight) {
+                alert("Vui lòng nhập đầy đủ các chỉ số cơ thể!");
+                return;
+            }
+
+            // Mifflin-St Jeor Equation
+            let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+            if (gender === 'male') {
+                bmr += 5;
+            } else {
+                bmr -= 161;
+            }
+
+            const tdee = bmr * activity;
+            let targetCalo = tdee;
+            let recText = "";
+
+            if (goal === 'weight_loss') {
+                targetCalo = tdee - 500;
+                recText = "Dựa trên mục tiêu Giảm Cân, bạn nên nạp ít hơn TDEE khoảng 500 kcal/ngày. Đề xuất chọn Gói 21 Ngày hoặc Gói 30 Ngày để theo dõi Macro chi tiết!";
+            } else if (goal === 'muscle_gain') {
+                targetCalo = tdee + 300;
+                recText = "Dựa trên mục tiêu Tăng Cơ, bạn cần tăng lượng Protein và nạp nhiều calo hơn TDEE. Đề xuất chọn Gói 30 Ngày kèm cố vấn 1:1!";
+            } else if (goal === 'weight_gain') {
+                targetCalo = tdee + 500;
+                recText = "Dựa trên mục tiêu Tăng Cân lành mạnh, bạn cần dư thừa calo. Đề xuất chọn các suất ăn giàu Protein & Hạt dinh dưỡng!";
+            } else {
+                recText = "Dựa trên mục tiêu Giữ Dáng, bạn chỉ cần duy trì lượng calo cân bằng TDEE mỗi ngày. Đề xuất chọn Gói 7 Ngày trải nghiệm!";
+            }
+
+            document.getElementById('bmrVal').innerText = Math.round(bmr);
+            document.getElementById('tdeeVal').innerText = Math.round(tdee);
+            document.getElementById('targetVal').innerText = Math.round(targetCalo);
+            document.getElementById('recommendationText').innerText = recText;
+
+            document.getElementById('resultBox').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
