@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Một luồng cá nhân hóa duy nhất của FitMeal: khảo sát cơ thể, vận động, mục tiêu, khẩu vị rồi dựng lộ trình suất ăn và chọn món.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="theme-color" content="#16803d">
+    <link rel="canonical" href="https://fiimeal.github.io/FITMEAL/Lotrinhhoa.html">
+    <title>FitMeal — Cá nhân hóa: Khảo sát & Lộ trình suất ăn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #16803d;
+            --primary-light: #eaf7ed;
+            --primary-dark: #0e5f2a;
+            --accent: #2d9a4e;
+            --accent-light: #edf8ef;
+            --bg: #f4f9f5;
+            --text: #16351f;
+            --text-light: #617668;
+            --card-bg: #ffffff;
+            --border: #d6e7d8;
+            --error: #b8434f;
+            --success: #16803d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary);
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .logo span { color: var(--accent); }
+
+        .hero-section {
+            position: absolute;
+            top: 60px; left: 0; width: 100%; height: calc(100vh - 60px);
+            background: linear-gradient(rgba(8,121,178,0.82), rgba(6,56,79,0.92)), url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1600&q=80') center/cover no-repeat;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; padding: 0 20px; z-index: 50;
+            transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s ease;
+        }
+
+        .hero-section.hidden { opacity: 0; visibility: hidden; transform: translateY(-50px); }
+
+        .hero-title {
+            font-size: 48px; font-weight: 800; margin-bottom: 20px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background: linear-gradient(to right, #ffffff, #edfff0);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 20px; max-width: 600px; margin-bottom: 40px;
+            font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.3); color: #dff8e5;
+        }
+
+        .app-container {
+            max-width: 1000px; margin: 40px auto; width: 100%;
+            padding: 0 20px; flex-grow: 1; display: none;
+        }
+
+        .screen {
+            display: none; opacity: 0; transform: translateY(30px);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .screen.active { display: block; opacity: 1; transform: translateY(0); }
+
+        .screen-title { font-size: 32px; color: var(--primary); margin-bottom: 10px; font-weight: 800; text-align: center; }
+        .screen-subtitle { text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 16px; }
+        .section-heading { font-size: 18px; font-weight: 700; margin: 25px 0 15px 0; color: var(--text); display: flex; align-items: center; gap: 10px; }
+        .section-heading i { color: var(--primary); }
+
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 15px; }
+
+        .ui-card {
+            background: var(--card-bg); border: 2px solid var(--border); border-radius: 16px;
+            padding: 20px 15px; text-align: center; cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative;
+        }
+
+        .ui-card i { font-size: 32px; color: var(--text-light); margin-bottom: 12px; transition: color 0.3s ease; }
+        .ui-card .card-title { font-weight: 700; font-size: 16px; margin-bottom: 5px; }
+        .ui-card .card-desc { font-size: 13px; color: var(--text-light); }
+        .ui-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); border-color: #cbd5e1; }
+        .ui-card.selected {
+            border-color: var(--primary); background: var(--primary-light);
+            transform: translateY(-2px); box-shadow: 0 8px 16px rgba(31, 122, 77, 0.1);
+        }
+        .ui-card.selected i, .ui-card.selected .card-title { color: var(--primary); }
+
+        .input-group { margin-bottom: 25px; }
+        .input-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+        .input-group input {
+            width: 100%; padding: 15px; border: 2px solid var(--border);
+            border-radius: 12px; font-size: 16px; transition: all 0.3s; background: #fff;
+        }
+        .input-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-light); }
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+
+        .tags-container { display: flex; flex-wrap: wrap; gap: 12px; }
+        .tag {
+            padding: 10px 20px; border: 2px solid var(--border); border-radius: 30px;
+            background: var(--card-bg); cursor: pointer; font-weight: 600; font-size: 14px;
+            transition: all 0.2s; user-select: none; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .tag:hover { border-color: var(--primary-light); background: #f1f5f9; }
+        .tag.selected { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .btn-container { display: flex; justify-content: space-between; margin-top: 50px; padding-top: 20px; }
+        .btn-container.center { justify-content: center; }
+        .btn {
+            padding: 16px 36px; border: none; border-radius: 12px; font-size: 16px;
+            font-weight: 700; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-large { font-size: 18px; padding: 18px 45px; border-radius: 40px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(31, 122, 77, 0.25); }
+        .btn-secondary { background: white; color: var(--text); border: 2px solid var(--border); }
+        .btn-secondary:hover { background: var(--bg); border-color: #cbd5e1; }
+        .btn-accent { background: var(--accent); color: white; }
+        .btn-accent:hover:not(:disabled) { background: #0e5f2a; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(8,121,178,0.22); }
+
+        .result-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 40px; }
+        .stat-card {
+            background: white; padding: 25px 30px; border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04); text-align: center; border: 1px solid var(--border); flex: 1; min-width: 220px;
+        }
+        .stat-value { font-size: 32px; font-weight: 900; color: var(--primary); margin-bottom: 5px; }
+        .stat-value.accent { color: var(--accent); }
+        .stat-label { font-size: 14px; color: var(--text-light); font-weight: 600; text-transform: uppercase; }
+        .macro-row { display: flex; justify-content: center; gap: 15px; margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border); font-size: 14px; font-weight: 600; }
+
+        /* Packages Grid */
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 40px; }
+        .pkg-card {
+            background: white; border: 2px solid var(--border); border-radius: 16px;
+            padding: 25px 15px; text-align: center; cursor: pointer; transition: 0.3s; position: relative;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .pkg-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .pkg-card.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 10px 25px rgba(230, 81, 0, 0.1); }
+        .pkg-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; white-space: nowrap; z-index: 2; }
+        
+        .pkg-discount-inline {
+            background: #3b9a55; color: white; padding: 3px 8px; border-radius: 6px;
+            font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px;
+        }
+        
+        .pkg-name { font-size: 18px; font-weight: 800; margin-bottom: 5px; color: var(--text); }
+        .pkg-desc { font-size: 13px; color: var(--text-light); margin-bottom: 15px; font-weight: 600; }
+        .pkg-price { font-size: 24px; color: var(--primary); font-weight: 900; }
+        .pkg-card.selected .pkg-price { color: var(--accent); }
+
+        .menu-builder { display: none; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+        .progress-bar {
+            background: white; padding: 15px 25px; border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 25px; display: flex; justify-content: space-between;
+            align-items: center; border-left: 5px solid var(--accent); position: sticky; top: 70px; z-index: 90;
+        }
+        .progress-text { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 15px; }
+        .progress-count { font-size: 20px; color: var(--accent); font-weight: 900; }
+
+        .filter-tabs { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
+        .filter-tab {
+            padding: 8px 16px; border-radius: 20px; background: var(--card-bg); border: 1px solid var(--border);
+            color: var(--text-light); font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap; transition: 0.3s;
+        }
+        .filter-tab:hover { background: var(--bg); }
+        .filter-tab.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 10px rgba(31,122,77,0.2); }
+
+        .meals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .meal-card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 1px solid var(--border); transition: 0.3s;
+            display: flex; flex-direction: column; position: relative;
+        }
+        .meal-badge { position: absolute; top: 10px; left: 10px; background: var(--primary); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; z-index: 2; pointer-events: none; }
+        .meal-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-4px); }
+        .meal-img-container { width: 100%; height: 180px; overflow: hidden; cursor: pointer; }
+        .meal-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .meal-card:hover .meal-img { transform: scale(1.08) rotate(1deg); }
+
+        .meal-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+        .meal-title { font-size: 17px; font-weight: 800; margin-bottom: 10px; line-height: 1.3; cursor: pointer; transition: 0.2s; }
+        .meal-title:hover { color: var(--primary); }
+        
+        .meal-macros-box { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .macro-tag { background: var(--primary-light); color: var(--primary-dark); padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; transition: all 0.3s ease; }
+        .macro-tag.calo { background: #eaf7ed; color: #0e5f2a; }
+        
+        @keyframes flashUpdate { 0% { background-color: #ffd54f; transform: scale(1.1); color: #000; } 100% { background-color: inherit; transform: scale(1); color: inherit; } }
+        .flash-anim { animation: flashUpdate 0.5s ease-out; }
+        
+        .swap-ingredient { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; margin-top: auto; margin-bottom: 15px; font-size: 13px; font-weight: 600; color: var(--text); background-color: var(--bg); cursor: pointer; outline: none; }
+        .swap-ingredient:focus { border-color: var(--primary); }
+
+        .qty-wrapper { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 15px; }
+        .qty-label { font-size: 14px; font-weight: 600; color: var(--text-light); }
+        .qty-control { display: flex; align-items: center; gap: 8px; }
+        .qty-btn { width: 32px; height: 32px; border: 1px solid var(--primary); border-radius: 8px; background: white; color: var(--primary); font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .qty-btn:hover:not(:disabled) { background: var(--primary); color: white; }
+        .qty-btn:disabled { opacity: 0.4; border-color: var(--text-light); color: var(--text-light); cursor: not-allowed; }
+        .qty-val-input { width: 45px; height: 32px; text-align: center; border: 1px solid var(--border); border-radius: 6px; font-size: 15px; font-weight: 800; color: var(--text); outline: none; background: transparent; }
+
+        .random-box { background: var(--primary-light); border: 2px dashed var(--primary); border-radius: 16px; padding: 25px; text-align: center; margin-top: 25px; display: none; }
+        .random-box h4 { color: var(--primary-dark); font-size: 18px; margin-bottom: 10px; }
+        
+        .cuisines-grid-5x2 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .flag-icon { width: 28px; height: auto; border-radius: 4px; margin-bottom: 6px; }
+        .globe-icon { width: 28px; height: 28px; border-radius: 50%; margin-bottom: 6px; }
+        
+        @keyframes diceRoll {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(0.9); }
+            75% { transform: rotate(270deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        .dice-anim { animation: diceRoll 0.5s ease; }
+
+        /* Modals */
+        .custom-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 10000; }
+        .custom-modal-box { background: white; border-radius: 16px; padding: 35px 30px; text-align: center; width: 90%; max-width: 450px; box-shadow: 0 15px 50px rgba(0,0,0,0.3); animation: modalPop 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes modalPop { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        .meal-detail-box { animation: modalPop3D 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; transform-style: preserve-3d; }
+        @keyframes modalPop3D { 0% { transform: perspective(1000px) rotateX(-15deg) scale(0.8); opacity: 0; } 100% { transform: perspective(1000px) rotateX(0deg) scale(1); opacity: 1; } }
+        
+        .custom-modal-icon { width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 35px; margin: 0 auto 20px auto; color: white; }
+        .custom-modal-icon.error { background: var(--error); box-shadow: 0 4px 15px rgba(234,88,12,0.3); }
+        .custom-modal-icon.success { background: var(--primary); box-shadow: 0 4px 15px rgba(31,122,77,0.3); }
+        .custom-modal-icon.ai { background: #16803d; box-shadow: 0 4px 15px rgba(8,121,178,0.25); }
+        
+        .custom-modal-title { font-size: 24px; font-weight: 800; margin-bottom: 12px; color: var(--text); }
+        .custom-modal-text { font-size: 15px; color: var(--text-light); margin-bottom: 30px; line-height: 1.5; }
+        
+        .modal-buttons { display: flex; gap: 10px; justify-content: center; }
+        .custom-modal-btn { background: var(--primary); color: white; border: none; border-radius: 10px; padding: 14px 20px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.2s; flex: 1; }
+        .custom-modal-btn.secondary { background: #e2e8f0; color: var(--text); }
+        .custom-modal-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .custom-modal-btn.secondary:hover { background: #cbd5e1; }
+        .modal-close {
+            position: absolute; top: 12px; right: 14px; width: 36px; height: 36px;
+            border: none; border-radius: 50%; background: #f1f5f9; color: #64748b;
+            font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: 0.2s; z-index: 2;
+        }
+        .modal-close:hover { background: #e2e8f0; color: #1e293b; transform: scale(1.05); }
+
+        #detail-img-container { width: 100%; height: 260px; overflow: hidden; perspective: 800px; }
+        #detail-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.1s; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+        .fab-support { position: fixed; bottom: 30px; right: 30px; background: var(--primary); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; box-shadow: 0 4px 15px rgba(8,121,178,0.35); cursor: pointer; z-index: 999; transition: 0.3s; }
+        .fab-support:hover { transform: scale(1.1); background: var(--primary-dark); }
+        
+        /* Spinner */
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .ai-spinner { width: 60px; height: 60px; border: 5px solid #e8f5ee; border-top-color: #16803d; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        
+        @media (max-width: 768px) {
+            .cuisines-grid-5x2 { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .hero-title { font-size: 36px; }
+            .packages-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+
+<style id="fitmeal-blue-roadmap-overrides">
+:root{--primary:#16803d;--primary-light:#eaf7ed;--primary-dark:#0e5f2a;--accent:#2ba7d3;--accent-light:#eaf7ed;--bg:#f4f9fc;--text:#082a3d;--text-light:#5f7482;--card-bg:#fff;--border:#d8e7ef}
+body{background:linear-gradient(180deg,#f7fbfd 0%,#f4f9fc 100%)}
+header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(216,231,239,.86);box-shadow:0 10px 30px rgba(8,66,98,.07)}
+.logo{color:#16803d}.logo span{color:#2ba7d3}
+.hero-section{box-shadow:inset 0 0 0 2000px rgba(6,56,79,.05)}
+.hero-title{-webkit-text-fill-color:#fff;background:none}
+.ui-card:hover,.pkg-card:hover,.meal-card:hover{border-color:#74c9e6;box-shadow:0 16px 34px rgba(8,121,178,.10)}
+.ui-card.selected,.pkg-card.selected{border-color:#16803d;background:#edfff0;box-shadow:0 14px 34px rgba(8,121,178,.12)}
+.btn-primary,.btn-accent,.custom-modal-btn{background:linear-gradient(135deg,#16803d,#3b9a55);color:#fff}
+.btn-primary:hover,.btn-accent:hover:not(:disabled),.custom-modal-btn:hover{background:linear-gradient(135deg,#0e5f2a,#16803d)}
+.pkg-card.selected .pkg-price{color:#16803d}.pkg-price{color:#16803d}.pkg-badge{background:#16803d}.pkg-discount-inline{background:#3b9a55}
+.progress-bar{border-left-color:#16803d}.progress-fill{background:linear-gradient(90deg,#16803d,#3b9a55)!important}
+.macro-tag{background:#eaf7ed;color:#0e5f2a}.macro-tag.calo{background:#edfff0;color:#16803d}
+.random-box{background:#edfff0;border-color:#16803d}.random-box h4{color:#0e5f2a}
+.stat-card{border-top:3px solid #16803d}.stat-value,.screen-title{color:#16803d}.stat-value.accent{color:#16803d}
+.custom-modal-icon.success,.custom-modal-icon.ai{background:#16803d;box-shadow:0 8px 24px rgba(8,121,178,.22)}
+.fab-support{background:#16803d;box-shadow:0 10px 28px rgba(8,121,178,.25)}
+.fab-support:hover{background:#0e5f2a}
+.ai-spinner{border-color:#e0f4fa;border-top-color:#16803d}
+.survey-link-chip{display:inline-flex;align-items:center;gap:7px;margin-left:16px;padding:7px 11px;border-radius:999px;background:#eaf7ed;color:#0e5f2a;font-weight:800;font-size:12px;text-decoration:none}
+@media(max-width:700px){.survey-link-chip{display:none}}
+</style>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Overlay cho AI -->
+    <div class="custom-modal-overlay" id="ai-loading-overlay" style="z-index: 10001; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.92);">
+        <div class="ai-spinner"></div>
+        <h3 style="color: #16803d; font-size: 22px; font-weight: 800; text-align: center; max-width: 80%;" id="ai-loading-text">Đang phân tích cấu trúc bữa ăn...</h3>
+    </div>
+
+    <div class="custom-modal-overlay" id="custom-modal">
+        <div class="custom-modal-box" style="position:relative;">
+            <button type="button" class="modal-close" onclick="closeModal()" aria-label="Đóng" title="Đóng"><i class="fa-solid fa-xmark"></i></button>
+            <div class="custom-modal-icon" id="modal-icon"></div>
+            <h2 class="custom-modal-title" id="modal-title"></h2>
+            <div class="custom-modal-text" id="modal-text"></div>
+            <div class="modal-buttons" id="modal-buttons"></div>
+        </div>
+    </div>
+    
+    <div class="custom-modal-overlay" id="meal-detail-modal" onclick="if(event.target === this) closeMealDetail()">
+        <div class="custom-modal-box meal-detail-box" style="text-align: left; max-width: 500px; padding: 0; overflow: hidden; position: relative; border-radius: 16px;">
+            <div id="detail-img-container">
+                <img id="detail-img" src="" alt="Food 3D">
+            </div>
+            <div style="padding: 25px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+                    <div class="meal-badge" id="detail-cat" style="position: relative; top: 0; left: 0; font-size: 12px; pointer-events: none;">Category</div>
+                    <div style="color: #16803d; font-size: 13px; font-weight: 700;">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <span style="color: var(--text-light); margin-left: 5px;">4.9</span>
+                    </div>
+                </div>
+                
+                <h2 id="detail-title" style="margin-bottom: 10px; font-size: 24px; color: var(--primary); font-weight: 900;">Title</h2>
+                <div id="detail-tags" style="margin-bottom: 15px; display:flex; flex-wrap:wrap; gap:8px;"></div>
+                <p id="detail-desc" style="color: var(--text-light); margin-bottom: 20px; font-size: 15px; line-height: 1.6;">Description</p>
+                <div class="macro-row" style="margin-top: 0; justify-content: flex-start; padding-top: 0; border: none; margin-bottom: 25px;">
+                    <div class="macro-tag calo" id="detail-calo"></div>
+                    <div class="macro-tag" id="detail-pro"></div>
+                    <div class="macro-tag" id="detail-carb"></div>
+                    <div class="macro-tag" id="detail-fat"></div>
+                </div>
+                <button class="custom-modal-btn" onclick="closeMealDetail()" style="width:100%;"><i class="fa-solid fa-xmark"></i> Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo" onclick="location.reload()">Fit<span>Meal</span></div>
+        <nav class="roadmap-mini-nav"><a href="index.html"><i class="fa-solid fa-house"></i><span>Trang chủ</span></a><a class="active" href="Lotrinhhoa.html"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Cá nhân hóa</span></a><a href="menu.html"><i class="fa-solid fa-utensils"></i><span>Thực đơn</span></a><a href="cart.html"><i class="fa-solid fa-bag-shopping"></i><span>Giỏ hàng</span></a></nav>
+    </header>
+
+    <div class="fab-support" onclick="showModal('success', 'Kết nối hỗ trợ', 'Yêu cầu hỗ trợ của bạn đang được kết nối tới chuyên viên tư vấn. Xin vui lòng chờ trong giây lát...', [{text: 'Đã hiểu', class: 'custom-modal-btn', action: 'closeModal()'}])">
+        <i class="fa-solid fa-headset"></i>
+    </div>
+
+    <div class="hero-section" id="hero">
+        <span class="journey-eyebrow"><i class="fa-solid fa-sparkles"></i> FITMEAL PERSONALIZATION</span><h1 class="hero-title">Khảo sát một lần.<br><span>Nhận trọn lộ trình.</span></h1>
+        <p class="hero-subtitle">Bạn trả lời vài câu hỏi về cơ thể, mục tiêu và khẩu vị. FitMeal dùng chính hồ sơ đó để đề xuất năng lượng, gói suất ăn và món phù hợp — tất cả trong một hành trình.</p>
+        <button type="button" class="btn btn-primary btn-large" onclick="startWizard()">
+            Bắt đầu cá nhân hóa <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <div class="app-container" id="app"><div class="journey-stepper" aria-label="Tiến trình cá nhân hóa"><div class="journey-step active"><span>01</span><div><b>Hồ sơ</b><small>Cơ thể</small></div></div><i class="fa-solid fa-arrow-right"></i><div class="journey-step"><span>02</span><div><b>Mục tiêu</b><small>Vận động & khẩu vị</small></div></div><i class="fa-solid fa-arrow-right"></i><div class="journey-step"><span>03</span><div><b>Lộ trình</b><small>Gói & món</small></div></div><i class="fa-solid fa-arrow-right"></i><div class="journey-step"><span>04</span><div><b>Đặt hàng</b><small>Xác nhận</small></div></div></div>
+        <!-- SCREEN 1 -->
+        <div class="screen" id="screen-1">
+            <h1 class="screen-title"><i class="fa-solid fa-id-card-clip"></i> Hồ sơ cá nhân</h1>
+            <p class="screen-subtitle">Thông tin đầu vào đầu tiên để FitMeal hiểu mức năng lượng và nhu cầu của bạn.</p>
+
+            <h3 class="section-heading"><i class="fa-solid fa-venus-mars"></i> Giới tính</h3>
+            <div class="card-grid" id="gender-select">
+                <div class="ui-card" data-value="male"><i class="fa-solid fa-mars"></i><div class="card-title">Nam</div></div>
+                <div class="ui-card" data-value="female"><i class="fa-solid fa-venus"></i><div class="card-title">Nữ</div></div>
+            </div>
+
+            <h3 class="section-heading"><i class="fa-solid fa-ruler-combined"></i> Chỉ số cơ bản</h3>
+            <div class="form-row">
+                <div class="input-group"><label>Tuổi</label><input type="number" id="age" placeholder="Ví dụ: 25"></div>
+                <div class="input-group"><label>Chiều cao (cm)</label><input type="number" id="height" placeholder="Ví dụ: 170"></div>
+            </div>
+            
+            <div class="form-row">
+                <div class="input-group"><label>Cân nặng hiện tại (kg)</label><input type="number" id="weight" placeholder="Ví dụ: 65"></div>
+                <div class="input-group"><label>Cân nặng lý tưởng (kg) <span style="font-weight:400; color:#888;">(Tùy chọn)</span></label><input type="number" id="ideal-weight" placeholder="Ví dụ: 60"></div>
+            </div>
+
+            <div class="btn-container center">
+                <button type="button" class="btn btn-primary" onclick="nextScreen(1)">Tiếp theo <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- SCREEN 2 -->
+        <div class="screen" id="screen-2">
+            <h1 class="screen-title"><i class="fa-solid fa-sliders"></i> Mục tiêu & khẩu vị</h1>
+            <p class="screen-subtitle">Chọn những điều phản ánh đúng thói quen hiện tại để đề xuất món sát với bạn hơn.</p>
+
+            <h3 class="section-heading"><i class="fa-solid fa-person-running"></i> Mức độ vận động</h3>
+            <div class="card-grid" id="activity-select">
+                <div class="ui-card" data-value="1.2"><i class="fa-solid fa-laptop"></i><div class="card-title">Ít vận động</div><div class="card-desc">Làm việc văn phòng</div></div>
+                <div class="ui-card" data-value="1.375"><i class="fa-solid fa-person-walking"></i><div class="card-title">Vận động nhẹ</div><div class="card-desc">1-3 buổi/tuần</div></div>
+                <div class="ui-card" data-value="1.55"><i class="fa-solid fa-dumbbell"></i><div class="card-title">Vận động vừa</div><div class="card-desc">3-5 buổi/tuần</div></div>
+                <div class="ui-card" data-value="1.725"><i class="fa-solid fa-fire-flame-curved"></i><div class="card-title">Vận động mạnh</div><div class="card-desc">6-7 buổi/tuần</div></div>
+            </div>
+
+            <h3 class="section-heading"><i class="fa-solid fa-bullseye"></i> Mục tiêu dinh dưỡng</h3>
+            <div class="card-grid" id="goal-select">
+                <div class="ui-card" data-value="lose"><i class="fa-solid fa-weight-scale"></i><div class="card-title">Giảm cân</div><div class="card-desc">Giảm mỡ an toàn</div></div>
+                <div class="ui-card" data-value="maintain"><i class="fa-solid fa-heart-pulse"></i><div class="card-title">Giữ dáng</div><div class="card-desc">Duy trì cơ thể</div></div>
+                <div class="ui-card" data-value="gain"><i class="fa-solid fa-arrow-trend-up"></i><div class="card-title">Tăng cơ</div><div class="card-desc">Phát triển cơ bắp</div></div>
+            </div>
+
+            <h3 class="section-heading"><i class="fa-solid fa-utensils"></i> Phong cách ẩm thực</h3>
+            <div class="cuisines-grid-5x2" id="cuisine-select">
+                <div class="ui-card dice-opt" id="dice-btn" title="Lắc ngẫu nhiên!" style="padding: 15px 5px; background: linear-gradient(135deg, #edf9ef 0%, #f6fcf6 100%); border-color: #82c98f; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <i class="fa-solid fa-dice" id="dice-icon" style="color: #1f7a45; font-size: 28px; margin-bottom: 6px;"></i>
+                    <div class="card-title" style="font-size:13px; margin:0; color: #1f7a45;">Ngẫu nhiên</div>
+                </div>
+                
+                <div class="ui-card cuisine-opt" data-value="Đa dạng" style="padding: 15px 5px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/814/814513.png" class="globe-icon">
+                    <div class="card-title" style="font-size:13px; margin:0;">Đa dạng</div>
+                </div>
+                
+                <div class="ui-card cuisine-opt" data-value="Việt Nam" style="padding: 15px 5px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <img src="https://flagcdn.com/w80/vn.png" class="flag-icon">
+                    <div class="card-title" style="font-size:13px; margin:0;">Việt Nam</div>
+                </div>
+                <div class="ui-card cuisine-opt" data-value="Hàn Quốc" style="padding: 15px 5px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <img src="https://flagcdn.com/w80/kr.png" class="flag-icon">
+                    <div class="card-title" style="font-size:13px; margin:0;">Hàn Quốc</div>
+                </div>
+                <div class="ui-card cuisine-opt" data-value="Nhật Bản" style="padding: 15px 5px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <img src="https://flagcdn.com/w80/jp.png" class="flag-icon">
+                    <div class="card-title" style="font-size:13px; margin:0;">Nhật Bản</div>
+                </div>
+                <div class="ui-card cuisine-opt" data-value="Trung Quốc" style="padding: 15px 5px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <img src="https://flagcdn.com/w80/cn.png" class="flag-icon">
+                    <div class="card-title" style="font-size:13px; margin:0;">Trung Quốc</div>
+                </div>
+                <div class="ui-card cuisine-opt" data-value="Mỹ" style="padding: 15px 5px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <img src="https://flagcdn.com/w80/us.png" class="flag-icon">
+                    <div class="card-title" style="font-size:13px; margin:0;">Mỹ</div>
+                </div>
+                <div class="ui-card cuisine-opt" data-value="Ý" style="padding: 15px 5px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <img src="https://flagcdn.com/w80/it.png" class="flag-icon">
+                    <div class="card-title" style="font-size:13px; margin:0;">Ý</div>
+                </div>
+                <div class="ui-card cuisine-opt" data-value="Anh" style="padding: 15px 5px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <img src="https://flagcdn.com/w80/gb.png" class="flag-icon">
+                    <div class="card-title" style="font-size:13px; margin:0;">Anh</div>
+                </div>
+                <div class="ui-card cuisine-opt" data-value="Thái Lan" style="padding: 15px 5px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <img src="https://flagcdn.com/w80/th.png" class="flag-icon">
+                    <div class="card-title" style="font-size:13px; margin:0;">Thái Lan</div>
+                </div>
+            </div>
+
+            <h3 class="section-heading"><i class="fa-solid fa-triangle-exclamation"></i> Dị ứng & Yêu cầu đặc biệt</h3>
+            <div class="tags-container" id="allergy-tags">
+                <div class="tag selected" data-val="none"><i class="fa-solid fa-check"></i> Không có</div>
+                <div class="tag" data-val="Ít đường">Ít đường</div>
+                <div class="tag" data-val="Ăn nhạt">Ăn nhạt</div>
+                <div class="tag" data-val="Không Gluten">Không Gluten</div>
+                <div class="tag" data-val="Hải sản">Hải sản</div>
+                <div class="tag" data-val="Đậu phộng">Đậu phộng</div>
+                <div class="tag" data-val="other" id="tag-other">Khác...</div>
+            </div>
+            
+            <div class="input-group" id="other-allergy-input" style="display: none; margin-top: 15px;">
+                <input type="text" id="other-allergy" placeholder="Nhập loại dị ứng của bạn (Ví dụ: thịt bò, cá)...">
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="btn btn-secondary" onclick="prevScreen(2)"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+                <button type="button" class="btn btn-primary" onclick="nextScreen(2)">Tiến hành Phân tích <i class="fa-solid fa-wand-magic-sparkles"></i></button>
+            </div>
+        </div>
+
+        <!-- SCREEN 3 -->
+        <div class="screen" id="screen-3">
+            <h1 class="screen-title"><i class="fa-solid fa-route"></i> Lộ trình suất ăn</h1>
+            <p class="screen-subtitle">Từ hồ sơ vừa hoàn tất, FitMeal dựng năng lượng tham khảo rồi cho bạn chọn gói và từng món.</p>
+
+            <div class="result-stats">
+                <div class="stat-card stat-card-featured"><div class="stat-icon"><i class="fa-solid fa-fire-flame-curved"></i></div><div class="stat-label">BMR · Năng lượng nền</div><div class="stat-value" id="bmr-display">0</div><div class="stat-unit">KCAL / NGÀY</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-person-running"></i></div><div class="stat-label">TDEE · Tiêu hao</div><div class="stat-value" id="tdee-display">0</div><div class="stat-unit">KCAL / NGÀY</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-scale-balanced"></i></div><div class="stat-label">BMI · Tham khảo</div><div class="stat-value" id="bmi-display">0</div><div class="stat-unit">CHỈ SỐ</div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-utensils"></i></div><div class="stat-label">Mục tiêu / suất</div><div class="stat-value accent" id="meal-calo-display">0</div><div class="stat-unit">KCAL / SUẤT</div><div class="macro-row"><div><b>P</b> <span id="macro-pro">0</span>g</div><div><b>C</b> <span id="macro-carb">0</span>g</div><div><b>F</b> <span id="macro-fat">0</span>g</div></div></div>
+            </div>
+
+            <h3 class="section-heading" style="margin-bottom: 20px;"><i class="fa-solid fa-box-open"></i> 1. Chọn Quy mô Gói</h3>
+            <div class="packages-grid" id="package-select">
+                <div class="pkg-card" data-pkg="1day" data-price="75000" data-servings="1">
+                    <div class="pkg-name">Ăn Thử 1 Bữa</div>
+                    <div class="pkg-desc">1 suất ăn</div>
+                    <div class="pkg-price">75.000đ</div>
+                </div>
+                <div class="pkg-card" data-pkg="7day" data-price="360000" data-servings="5">
+                    <div><span class="pkg-discount-inline">Tiết kiệm 4%</span></div>
+                    <div class="pkg-name">Trải Nghiệm 7 Ngày</div>
+                    <div class="pkg-desc">5 suất ăn</div>
+                    <div class="pkg-price">360.000đ</div>
+                </div>
+                <div class="pkg-card" data-pkg="21day" data-price="1035000" data-servings="15">
+                    <div class="pkg-badge">PHỔ BIẾN NHẤT</div>
+                    <div><span class="pkg-discount-inline">Tiết kiệm 8%</span></div>
+                    <div class="pkg-name">Lộ Trình 21 Ngày</div>
+                    <div class="pkg-desc">15 suất ăn</div>
+                    <div class="pkg-price">1.035.000đ</div>
+                </div>
+                <div class="pkg-card" data-pkg="30day" data-price="1340000" data-servings="20">
+                    <div><span class="pkg-discount-inline">Tiết kiệm 11%</span></div>
+                    <div class="pkg-name">Tiết Kiệm 30 Ngày</div>
+                    <div class="pkg-desc">20 suất ăn</div>
+                    <div class="pkg-price">1.340.000đ</div>
+                </div>
+            </div>
+
+            <div id="menu-builder" class="menu-builder">
+                <div class="progress-bar">
+                    <div class="progress-text">
+                        Tiến độ thực đơn
+                        <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px; margin-left: 10px;" onclick="resetSelections()" title="Xóa toàn bộ món đã chọn để chọn lại từ đầu"><i class="fa-solid fa-rotate-right"></i> Làm mới</button>
+                    </div>
+                    
+                    <div style="display:flex; gap: 20px; align-items:center;">
+                        <div style="text-align: right; border-right: 2px solid var(--border); padding-right: 20px;">
+                            <div style="font-size: 11px; color: var(--text-light); text-transform: uppercase; font-weight:800; margin-bottom:2px;">Thực tế đang chọn</div>
+                            <div style="font-weight: 800; font-size: 14px; color: var(--text);">
+                                Tổng: <span id="actual-total-calo" style="color:var(--primary);">0</span> kcal
+                            </div>
+                        </div>
+                        <div class="progress-count"><span id="selected-count">0</span> / <span id="total-count">0</span> suất</div>
+                    </div>
+                </div>
+
+                <h3 class="section-heading" style="margin-bottom: 15px;"><i class="fa-solid fa-star"></i> 2. Tùy Chỉnh Thực Đơn Đề Xuất</h3>
+                <p style="color: var(--text-light); font-size: 14px; margin-bottom: 20px;">Khám phá bộ lọc để xem thêm nhiều gợi ý hấp dẫn. Tự tay thiết kế từng ngày ăn bằng cách thêm/bớt số lượng hoặc đổi thành phần.</p>
+                
+                <div class="filter-tabs no-scrollbar" id="menu-filters">
+                    <div class="filter-tab active" data-filter="all">Tất cả đề xuất</div>
+                    <div class="filter-tab" data-filter="Thịt Gà">🍗 Thịt Gà</div>
+                    <div class="filter-tab" data-filter="Thịt Bò">🥩 Thịt Bò</div>
+                    <div class="filter-tab" data-filter="Hải Sản">🍤 Hải Sản</div>
+                    <div class="filter-tab" data-filter="Món Chay">🥗 Món Chay</div>
+                </div>
+
+                <div class="meals-grid" id="ai-meals"></div>
+
+                <div class="random-box" id="random-box-container">
+                    <h4 style="margin-top:0;"><i class="fa-solid fa-wand-magic-sparkles"></i> Đề xuất món ăn phù hợp</h4>
+                    <p id="random-missing-text">Bạn đang còn thiếu <strong id="remaining-count" style="color:var(--accent); font-size:16px;">0</strong> suất. Để đa dạng hóa lộ trình mà không bị trùng lặp, Cố vấn sẽ đề xuất thêm các món ăn mới phù hợp. Nếu không đủ món mới, Đầu bếp của chúng tôi sẽ thiết kế và nấu riêng cho bạn!</p>
+                    <button type="button" class="btn btn-secondary" id="btn-fill-random" onclick="fillRandom()" style="margin: 0 auto; display: none;">
+                        <i class="fa-solid fa-bell-concierge"></i> Đề xuất thêm <span id="btn-remain-qty">0</span> suất
+                    </button>
+                    <div id="random-filled-msg" style="display:none; color:var(--primary); font-weight:700; margin-top:15px; font-size:16px;">
+                        <i class="fa-solid fa-check-circle"></i> Đã ủy quyền Cố vấn tự động bổ sung <span id="random-qty-text">0</span> suất.
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="btn btn-secondary" onclick="prevScreen(3)"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+                <button type="button" class="btn btn-accent" id="btn-checkout" onclick="checkout()" disabled style="opacity: 0.5; cursor: not-allowed;"><i class="fa-solid fa-cart-shopping"></i> Xác nhận & Đặt lịch</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 4: CART -->
+        <div class="screen" id="screen-4">
+            <h1 class="screen-title"><i class="fa-solid fa-bag-shopping"></i> Xác nhận lựa chọn</h1>
+            <p class="screen-subtitle">Kiểm tra gói, số suất và món đã chọn trước khi đi tiếp sang bước đặt hàng.</p>
+            
+            <div id="cart-items" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px;"></div>
+            
+            <div class="progress-bar" style="justify-content: space-between; position: relative; top: 0;">
+                <div style="font-size: 18px; font-weight: 800; display:flex; align-items:center; gap:10px;">
+                    <i class="fa-solid fa-wallet" style="color: var(--primary);"></i> Tổng cộng (Giá gói):
+                </div>
+                <div style="font-size: 24px; color: var(--primary); font-weight: 900;" id="cart-total-price">0đ</div>
+            </div>
+            
+            <div class="btn-container">
+                <button type="button" class="btn btn-secondary" onclick="prevScreen(4)"><i class="fa-solid fa-arrow-left"></i> Quay lại chọn lại</button>
+                <div style="display: flex; gap: 15px;">
+                    <button type="button" class="btn btn-secondary" onclick="addToCart()"><i class="fa-solid fa-cart-plus"></i> Bỏ vào giỏ hàng</button>
+                    <button type="button" class="btn btn-primary" onclick="finalCheckout()"><i class="fa-solid fa-credit-card"></i> Thanh Toán Ngay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const menuIndex = [
+            {"id":1,"title":"Cơm Lứt Ức Gà Nướng","category":"Thịt Gà","cuisine":"Việt Nam","calo":"~450 kcal","goal":"Giảm mỡ","tags":["Ít đường", "Cơ bắp"],"img":"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500","desc":"Ức gà ta tẩm ướp thảo mộc nướng nhiệt độ thấp giữ độ mềm ngọt, ăn kèm cơm gạo lứt dẻo Điện Biên và rau củ hấp ngũ sắc. Nguồn protein hoàn hảo cho người tập luyện."},
+            {"id":2,"title":"Salad Cá Hồi Sốt Chanh Dây","category":"Hải Sản","cuisine":"Mỹ","calo":"~350 kcal","goal":"Giữ dáng","tags":["Hải sản", "Tươi mát"],"img":"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500","desc":"Cá hồi Na Uy áp chảo xém cạnh, rưới xốt chanh dây chua ngọt thanh mát. Trộn cùng xà lách giòn, bơ sáp và cà chua bi. Giàu Omega-3 và chất xơ."},
+            {"id":3,"title":"Mì Ý Bò Bằm Keto","category":"Thịt Bò","cuisine":"Ý","calo":"~500 kcal","goal":"Tăng cơ","tags":["Không Gluten", "Low-carb"],"img":"https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500","desc":"Mì Ý làm từ củ cải zucchini (Zoodles) hoàn toàn không tinh bột, sốt bò bằm cà chua slow-cook 4 tiếng chuẩn vị Ý. Cực kỳ thích hợp cho chế độ ăn Keto/Low-carb."},
+            {"id":4,"title":"Cơm Bò Lúc Lắc Gạo Lứt","category":"Thịt Bò","cuisine":"Việt Nam","calo":"~540 kcal","goal":"Tăng cơ","tags":["Không Lactose", "Sắt & Kẽm"],"img":"https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500","desc":"Thăn ngoại bò Úc thượng hạng xào lửa lớn cùng ớt chuông, hành tây. Ăn kèm cơm gạo lứt dẻo. Cung cấp hàm lượng đạm và sắt cao giúp phục hồi cơ bắp."},
+            {"id":5,"title":"Salad Đậu Chickpea","category":"Món Chay","cuisine":"Mỹ","calo":"~360 kcal","goal":"Giữ dáng","tags":["Chay thanh đạm", "Siêu thực phẩm"],"img":"https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500","desc":"Đậu gà (chickpea) giàu protein thực vật, trộn cùng hạt quinoa, ngô ngọt, dưa leo và sốt mè rang bùi béo. Món chay thanh đạm nhưng vẫn nạp đủ năng lượng."},
+            {"id":6,"title":"Cá Tuyết Áp Chảo Sốt Cam","category":"Hải Sản","cuisine":"Anh","calo":"~420 kcal","goal":"Giảm cân","tags":["Hải sản", "Cực ít mỡ"],"img":"https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500","desc":"Phi lê cá tuyết nhập khẩu áp chảo giòn da thịt mềm, kết hợp sốt cam tươi giảm mỡ tự nhiên. Ăn kèm măng tây áp chảo tỏi. Cực kỳ ngon miệng và ít calo."},
+            {"id":7,"title":"Gà Teriyaki & Nấm","category":"Thịt Gà","cuisine":"Nhật Bản","calo":"~480 kcal","goal":"Giữ dáng","tags":["Ít đường", "Thơm béo"],"img":"https://images.unsplash.com/photo-1562967914-608f82629710?w=500","desc":"Thịt đùi gà rút xương áp chảo với sốt Teriyaki làm từ táo và lê (không dùng đường hóa học). Xào cùng nấm đùi gà và bông cải xanh rực rỡ."},
+            {"id":8,"title":"Súp Bí Đỏ Kem Hạnh Nhân","category":"Món Chay","cuisine":"Anh","calo":"~250 kcal","goal":"Giảm mỡ","tags":["Chay thanh đạm", "Dễ tiêu"],"img":"https://images.unsplash.com/photo-1547592180-85f173990554?w=500","desc":"Bí đỏ hồ lô nướng mật ong xay nhuyễn cùng sữa hạnh nhân tự làm. Món súp sánh mịn, ngọt thanh tự nhiên, vô cùng nhẹ bụng cho bữa tối."},
+            {"id":9,"title":"Bún Lứt Trộn Bò Nam Bộ","category":"Thịt Bò","cuisine":"Việt Nam","calo":"~480 kcal","goal":"Giữ dáng","tags":["Ít đường", "Đậm đà"],"img":"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500","desc":"Biến tấu healthy của bún bò Nam Bộ. Dùng bún gạo lứt huyết rồng, thịt bò xào giá đỗ, rắc đậu phộng rang và chan mắm dứa chua ngọt chuẩn vị."},
+            {"id":10,"title":"Combo Ức Gà Healthy","category":"Thịt Gà","cuisine":"Mỹ","calo":"~520 kcal","goal":"Tăng cơ","tags":["Ít đường", "Chuyên Gymer"],"img":"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500","desc":"Giải pháp toàn diện cho Gymer: 200g ức gà hấp lá chanh, 1 quả trứng luộc, súp lơ xanh và một phần khoai lang luộc. Lượng protein cực khủng."},
+            {"id":11,"title":"Bibimbap Gạo Lứt Chay","category":"Món Chay","cuisine":"Hàn Quốc","calo":"~410 kcal","goal":"Giữ dáng","tags":["Chay thanh đạm", "Nhiều rau"],"img":"https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=500","desc":"Cơm trộn Hàn Quốc thanh đạm với gạo lứt dẻo, nấm đông cô, giá đỗ, cà rốt và rau bina. Kèm sốt Gochujang thuần chay lên men tự nhiên."},
+            {"id":12,"title":"Pad Thái Bún Lứt Tôm","category":"Hải Sản","cuisine":"Thái Lan","calo":"~460 kcal","goal":"Giữ dáng","tags":["Hải sản", "Đậm đà"],"img":"https://images.unsplash.com/photo-1559314809-0d155014e29e?w=500","desc":"Pad Thái làm từ bún gạo lứt ít calo, xào cùng tôm sú tươi, đậu hũ, giá đỗ và hẹ. Vị chua ngọt đặc trưng của me và đường thốt nốt."},
+            {"id":13,"title":"Gà Xào Hạt Điều","category":"Thịt Gà","cuisine":"Trung Quốc","calo":"~490 kcal","goal":"Tăng cơ","tags":["Nhiều đạm", "Cơ bắp"],"img":"https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500","desc":"Ức gà thái hạt lựu xào mềm mọng cùng hạt điều rang giòn, ớt chuông và hành tây. Sốt xì dầu nấm đậm đà không dùng bột ngọt."}
+        ];
+
+        const state = {
+            gender: '', age: '', height: '', weight: '', idealWeight: '', activity: '', goal: '',
+            cuisines: [], tags: [], targetCalo: 0, recommendedMeals: [], currentFilter: 'all',
+            package: null, selections: {}, swaps: {}, randomQty: 0, customQty: 0
+        };
+
+        function showModal(type, title, text, buttons = [{text: 'Đã hiểu', class: 'custom-modal-btn', action: 'closeModal()'}]) {
+            const modal = document.getElementById('custom-modal');
+            const icon = document.getElementById('modal-icon');
+            
+            if (type === 'error') {
+                icon.className = 'custom-modal-icon error';
+                icon.innerHTML = '<i class="fa-solid fa-exclamation"></i>';
+                icon.style.background = ''; icon.style.boxShadow = '';
+            } else if (type === 'ai') {
+                icon.className = 'custom-modal-icon ai';
+                icon.innerHTML = '<i class="fa-solid fa-robot"></i>';
+            } else {
+                icon.className = 'custom-modal-icon success';
+                icon.innerHTML = '<i class="fa-solid fa-check"></i>';
+                icon.style.background = ''; icon.style.boxShadow = '';
+            }
+            
+            document.getElementById('modal-title').innerHTML = title;
+            document.getElementById('modal-text').innerHTML = text;
+            
+            const btnsContainer = document.getElementById('modal-buttons');
+            btnsContainer.innerHTML = '';
+            buttons.forEach(btn => {
+                const btnEl = document.createElement('button');
+                btnEl.className = btn.class || 'custom-modal-btn';
+                btnEl.innerHTML = btn.text;
+                btnEl.onclick = () => { if(btn.action === 'closeModal()') closeModal(); else if(typeof btn.action === 'function') { btn.action(); closeModal(); } };
+                btnsContainer.appendChild(btnEl);
+            });
+            modal.style.display = 'flex';
+        }
+        function closeModal() { document.getElementById('custom-modal').style.display = 'none'; }
+        
+        const detailImgContainer = document.getElementById('detail-img-container');
+        detailImgContainer.addEventListener('mousemove', (e) => {
+            const rect = detailImgContainer.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            document.getElementById('detail-img').style.transform = `scale(1.15) rotateY(${x * 25}deg) rotateX(${-y * 25}deg)`;
+        });
+        detailImgContainer.addEventListener('mouseleave', () => {
+            document.getElementById('detail-img').style.transform = `scale(1) rotateY(0) rotateX(0)`;
+        });
+        
+        function openMealDetail(id) {
+            const meal = menuIndex.find(m => m.id === id);
+            if(!meal) return;
+            const imgEl = document.getElementById('detail-img');
+            imgEl.src = meal.img; imgEl.style.transform = 'scale(1)';
+            
+            const swapType = state.swaps[id] || 'default';
+            let calo = extractNumber(meal.calo);
+            let macros = generateMacros(calo);
+            
+            let displayTitle = meal.title;
+            if (swapType === 'low-carb') { calo -= 40; macros.carb -= 15; displayTitle += ' (Đổi Khoai lang)'; }
+            else if (swapType === 'salad') { calo -= 100; macros.carb -= 20; displayTitle += ' (Đổi Salad)'; }
+            else if (swapType === 'extra-protein') { calo += 110; macros.pro += 20; displayTitle += ' (Thêm Ức gà)'; }
+            
+            document.getElementById('detail-title').innerText = displayTitle;
+            document.getElementById('detail-cat').innerHTML = meal.category + ` &nbsp;|&nbsp; <i class="fa-solid fa-earth-americas"></i> ` + meal.cuisine;
+            document.getElementById('detail-desc').innerText = meal.desc;
+            
+            const tagsHtml = (meal.tags || []).map(t => `<span style="background:var(--bg); padding:4px 10px; border-radius:4px; font-size:12px; border: 1px solid var(--border); color:var(--text-light);"><i class="fa-solid fa-tag"></i> ${t}</span>`).join('');
+            document.getElementById('detail-tags').innerHTML = tagsHtml;
+            
+            document.getElementById('detail-calo').innerHTML = `<i class="fa-solid fa-fire"></i> ${calo} kcal`;
+            document.getElementById('detail-pro').innerText = `P: ${macros.pro}g`;
+            document.getElementById('detail-carb').innerText = `C: ${macros.carb}g`;
+            document.getElementById('detail-fat').innerText = `F: ${macros.fat}g`;
+            document.getElementById('meal-detail-modal').style.display = 'flex';
+        }
+        function closeMealDetail() { document.getElementById('meal-detail-modal').style.display = 'none'; }
+
+        function startWizard() {
+            const hero = document.getElementById('hero'); const app = document.getElementById('app');
+            hero.classList.add('hidden');
+            setTimeout(() => { hero.style.display = 'none'; app.style.display = 'block'; void app.offsetWidth; showScreen(1); }, 800);
+        }
+        function showScreen(num) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.journey-step').forEach((step, index) => { step.classList.toggle('active', index === Number(num) - 1); });
+            setTimeout(() => { document.getElementById('screen-' + num).classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }, 50);
+        }
+        function nextScreen(current) {
+            if (current === 1) {
+                state.age = document.getElementById('age').value; 
+                state.height = document.getElementById('height').value;
+                state.weight = document.getElementById('weight').value; 
+                state.idealWeight = document.getElementById('ideal-weight').value;
+                
+                let missing = [];
+                if (!state.gender) missing.push("Giới tính");
+                
+                let ageNum = parseFloat(state.age);
+                if (!state.age || isNaN(ageNum) || ageNum < 10 || ageNum > 100) missing.push("Tuổi (vui lòng nhập số thực tế từ 10 - 100)");
+                
+                let heightNum = parseFloat(state.height);
+                if (!state.height || isNaN(heightNum) || heightNum < 100 || heightNum > 250) missing.push("Chiều cao (vui lòng nhập số thực tế từ 100cm - 250cm)");
+                
+                let weightNum = parseFloat(state.weight);
+                if (!state.weight || isNaN(weightNum) || weightNum < 30 || weightNum > 200) missing.push("Cân nặng (vui lòng nhập số thực tế từ 30kg - 200kg)");
+                
+                if (state.idealWeight) {
+                    let idealNum = parseFloat(state.idealWeight);
+                    if (isNaN(idealNum) || idealNum < 30 || idealNum > 200) missing.push("Cân nặng lý tưởng (nếu có, vui lòng nhập số thực tế từ 30kg - 200kg)");
+                }
+                
+                if (missing.length > 0) { 
+                    showModal('error', 'Cảnh báo nhập liệu', `Hệ thống phát hiện thông tin chưa hợp lệ. Vui lòng kiểm tra lại:<br><div style="text-align:left; margin-left:30px; margin-top:10px;"><b>- ${missing.join('<br>- ')}</b></div>`); 
+                    return; 
+                }
+            }
+            if (current === 2) {
+                const otherInput = document.getElementById('other-allergy').value.trim();
+                if (document.getElementById('tag-other').classList.contains('selected') && otherInput) { if (!state.tags.includes(otherInput)) state.tags.push(otherInput); }
+                let missing2 = [];
+                if (!state.activity) missing2.push("Mức độ vận động");
+                if (!state.goal) missing2.push("Mục tiêu dinh dưỡng");
+                if (state.cuisines.length === 0) missing2.push("Ít nhất 1 Phong cách ẩm thực");
+                if (missing2.length > 0) { showModal('error', 'Trang này cho biết', `Vui lòng hoàn thiện các thông tin sau:<br><div style="text-align:left; margin-left:30px; margin-top:10px;"><b>- ${missing2.join('<br>- ')}</b></div>`); return; }
+                calculateNutrition();
+                generateRecommendations();
+            }
+            const currentScreen = document.getElementById('screen-' + current);
+            currentScreen.style.opacity = '0'; currentScreen.style.transform = 'translateY(-20px)';
+            setTimeout(() => { currentScreen.classList.remove('active'); currentScreen.style.opacity = ''; currentScreen.style.transform = ''; showScreen(current + 1); }, 400);
+        }
+        function prevScreen(current) {
+            if (current === 4) { document.getElementById('screen-4').classList.remove('active'); document.getElementById('screen-3').classList.add('active'); renderMeals(); return; }
+            const currentScreen = document.getElementById('screen-' + current);
+            currentScreen.style.opacity = '0'; currentScreen.style.transform = 'translateY(20px)';
+            setTimeout(() => { currentScreen.classList.remove('active'); currentScreen.style.opacity = ''; currentScreen.style.transform = ''; showScreen(current - 1); }, 400);
+        }
+
+        function setupSingleSelect(containerId, stateKey) {
+            document.querySelectorAll(`#${containerId} .ui-card`).forEach(card => {
+                card.addEventListener('click', function() { document.querySelectorAll(`#${containerId} .ui-card`).forEach(c => c.classList.remove('selected')); this.classList.add('selected'); state[stateKey] = this.dataset.value || this.dataset.pkg; });
+            });
+        }
+        
+        document.getElementById('dice-btn').addEventListener('click', function() {
+            const icon = document.getElementById('dice-icon');
+            icon.classList.remove('dice-anim'); void icon.offsetWidth; icon.classList.add('dice-anim');
+            document.querySelectorAll('.cuisine-opt').forEach(c => c.classList.remove('selected')); state.cuisines = [];
+            
+            const opts = Array.from(document.querySelectorAll('.cuisine-opt:not([data-value="Đa dạng"])'));
+            opts.sort(() => 0.5 - Math.random());
+            const picked = opts.slice(0, Math.random() > 0.5 ? 2 : 1);
+            picked.forEach(c => { c.classList.add('selected'); state.cuisines.push(c.dataset.value); });
+        });
+        
+        document.querySelectorAll('.cuisine-opt').forEach(card => {
+            card.addEventListener('click', function() {
+                const val = this.dataset.value;
+                const dadang = document.querySelector('.cuisine-opt[data-value="Đa dạng"]');
+                if (val === 'Đa dạng') {
+                    document.querySelectorAll('.cuisine-opt').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected'); state.cuisines = ['Đa dạng'];
+                } else {
+                    if (dadang) dadang.classList.remove('selected');
+                    this.classList.toggle('selected');
+                    const active = Array.from(document.querySelectorAll('.cuisine-opt.selected')).map(c => c.dataset.value);
+                    if (active.length === 0 && dadang) { dadang.classList.add('selected'); state.cuisines = ['Đa dạng']; } 
+                    else { state.cuisines = active; }
+                }
+            });
+        });
+        
+        setupSingleSelect('gender-select', 'gender'); setupSingleSelect('activity-select', 'activity'); setupSingleSelect('goal-select', 'goal');
+
+        document.querySelectorAll('#allergy-tags .tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                const val = this.dataset.val;
+                if (val === 'none') { document.querySelectorAll('#allergy-tags .tag').forEach(t => t.classList.remove('selected')); this.classList.add('selected'); state.tags = []; document.getElementById('other-allergy-input').style.display = 'none'; } 
+                else {
+                    document.querySelector('.tag[data-val="none"]').classList.remove('selected'); this.classList.toggle('selected');
+                    if (val === 'other') { document.getElementById('other-allergy-input').style.display = this.classList.contains('selected') ? 'block' : 'none'; }
+                    const activeTags = Array.from(document.querySelectorAll('#allergy-tags .tag.selected')).filter(t => t.dataset.val !== 'none' && t.dataset.val !== 'other').map(t => t.dataset.val);
+                    if (document.querySelectorAll('#allergy-tags .tag.selected').length === 0) { document.querySelector('.tag[data-val="none"]').classList.add('selected'); }
+                    state.tags = activeTags;
+                }
+            });
+        });
+
+        document.querySelectorAll('#package-select .pkg-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('#package-select .pkg-card').forEach(c => c.classList.remove('selected')); this.classList.add('selected');
+                state.package = { id: this.dataset.pkg, price: parseInt(this.dataset.price), servings: parseInt(this.dataset.servings) };
+                const currentTotal = getSelectedTotal();
+                if(currentTotal > state.package.servings) resetSelections(); 
+                else { 
+                    // Adjust randomQty and customQty if they exceed new servings
+                    const allowed = state.package.servings - (currentTotal - state.randomQty - state.customQty);
+                    if(state.randomQty + state.customQty > allowed) {
+                        if (state.randomQty >= allowed) { state.randomQty = allowed; state.customQty = 0; }
+                        else { state.customQty = allowed - state.randomQty; }
+                    }
+                    updateProgress(); 
+                }
+                document.getElementById('total-count').innerText = state.package.servings;
+                document.getElementById('menu-builder').style.display = 'block';
+                generateRecommendations();
+            });
+        });
+        
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() { document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active')); this.classList.add('active'); state.currentFilter = this.dataset.filter; generateRecommendations(); });
+        });
+
+        function resetSelections() { state.selections = {}; state.randomQty = 0; state.customQty = 0; updateProgress(); renderMeals(); }
+
+        function calculateNutrition() {
+            const w = parseFloat(state.weight); const h = parseFloat(state.height); const a = parseFloat(state.age);
+            let bmr = (10 * w) + (6.25 * h) - (5 * a); bmr = state.gender === 'male' ? bmr + 5 : bmr - 161;
+            const bmi = h > 0 ? w / Math.pow(h / 100, 2) : 0;
+            let tdee = bmr * state.activity; let target = tdee;
+            if (state.goal === 'lose') target -= 400; if (state.goal === 'gain') target += 300;
+            state.targetCalo = Math.round(target / 3);
+            
+            document.getElementById('bmr-display').innerText = Math.round(bmr).toLocaleString();
+            document.getElementById('tdee-display').innerText = Math.round(tdee).toLocaleString();
+            document.getElementById('bmi-display').innerText = bmi.toFixed(1);
+            document.getElementById('meal-calo-display').innerText = state.targetCalo;
+            const macros = generateMacros(state.targetCalo);
+            document.getElementById('macro-pro').innerText = macros.pro; document.getElementById('macro-carb').innerText = macros.carb; document.getElementById('macro-fat').innerText = macros.fat;
+        }
+        
+        function extractNumber(str) { const match = String(str || '').match(/(\d+(?:\.\d+)?)/); return match ? Number(match[1]) : 0; }
+        function generateMacros(calo) { const pro = Math.round((calo * 0.3) / 4); const carb = Math.round((calo * 0.4) / 4); const fat = Math.round((calo * 0.3) / 9); return { pro, carb, fat }; }
+        function getSwapCalo(base, swap) {
+            if (swap === 'low-carb') return base - 40;
+            if (swap === 'salad') return base - 100;
+            if (swap === 'extra-protein') return base + 110;
+            return base;
+        }
+        
+        function isAllergic(meal, allergies) {
+            if(allergies.length === 0) return false;
+            let mealStr = (meal.title + " " + meal.category + " " + meal.cuisine + " " + (meal.tags||[]).join(" ")).toLowerCase();
+            const mealWords = mealStr.split(/[\s,.-]+/);
+            for (let al of allergies) {
+                al = al.toLowerCase().trim(); if(al === 'none' || al === '') continue;
+                const alParts = al.split(/\s+/);
+                for(let p of alParts) { for(let w of mealWords) { if(w === p) return true; } }
+            }
+            return false;
+        }
+        
+        function generateRecommendations() {
+    let pool = [...menuIndex];
+
+    // 1. Lọc theo phong cách ẩm thực
+    if (state.cuisines.length > 0 && !state.cuisines.includes('Đa dạng')) {
+        pool = pool.filter(m => state.cuisines.includes(String(m.cuisine || '').trim()));
+    }
+
+    // 2. Lọc theo loại món
+    if (state.currentFilter !== 'all') {
+        pool = pool.filter(m => m.category === state.currentFilter);
+    }
+
+    // 3. Lọc món có thành phần dị ứng
+    pool = pool.filter(m => !isAllergic(m, state.tags));
+
+    // 4. Tìm thành phần thay thế giúp calo gần mục tiêu nhất
+    const options = ['default', 'low-carb', 'salad', 'extra-protein'];
+
+    pool.forEach(meal => {
+        const baseCalo = extractNumber(meal.calo);
+
+        let bestSwap = 'default';
+        let bestCalo = getSwapCalo(baseCalo, 'default');
+        let minDiff = Math.abs(bestCalo - state.targetCalo);
+
+        options.forEach(opt => {
+            const newCalo = getSwapCalo(baseCalo, opt);
+            const diff = Math.abs(newCalo - state.targetCalo);
+
+            if (diff < minDiff) {
+                minDiff = diff;
+                bestSwap = opt;
+                bestCalo = newCalo;
+            }
+        });
+
+        state.swaps[meal.id] = bestSwap;
+        meal._finalCalo = bestCalo;
+        meal._caloDiff = minDiff;
+    });
+
+    // 5. Ưu tiên các món nằm trong khoảng ±40 kcal so với mục tiêu
+    const closeMeals = pool.filter(meal => meal._caloDiff <= 40);
+
+    if (closeMeals.length > 0) {
+        pool = closeMeals;
+    } else {
+        // Nếu chưa có món nào đạt ±40 kcal, chỉ lấy các món gần mục tiêu nhất.
+        // Không nới tolerance lên 100% để tránh mục tiêu 800 kcal vẫn ra món 300 kcal.
+        pool.sort((a, b) => a._caloDiff - b._caloDiff);
+        pool = pool.slice(0, 4);
+    }
+
+    // 6. Sắp xếp theo độ gần mục tiêu calo
+    pool.sort((a, b) => a._caloDiff - b._caloDiff);
+
+    // 7. Tối đa 15 món đề xuất
+    state.recommendedMeals = pool.slice(0, 15);
+
+    // 8. Hiển thị danh sách
+    renderMeals();
+}
+
+
+        function renderMeals() {
+            const container = document.getElementById('ai-meals'); container.innerHTML = '';
+            if(state.recommendedMeals.length === 0) {
+                container.innerHTML = `
+                <div style="padding:40px 20px; text-align:center; grid-column:1/-1; background: #eaf7ed; border: 2px dashed var(--accent); border-radius: 16px;">
+                    <i class="fa-solid fa-phone-volume" style="font-size:40px; margin-bottom:15px; color: var(--accent);"></i>
+                    <h3 style="color: var(--accent); margin-bottom: 10px;">Cần thiết kế thực đơn đặc biệt?</h3>
+                    <p style="color: var(--text); margin-bottom: 15px; font-weight: 500;">Hệ thống hiện không có sẵn các món ăn đáp ứng chính xác các yêu cầu khắt khe của bạn. Tuy nhiên, Đầu bếp của chúng tôi có thể thiết kế một thực đơn hoàn toàn mới dành riêng cho bạn!</p>
+                    <a href="tel:0901234567" class="btn btn-accent" style="text-decoration: none; display: inline-flex;"><i class="fa-solid fa-phone"></i> Gọi ngay Cố vấn: 090 123 4567</a>
+                </div>`;
+                return;
+            }
+            state.recommendedMeals.forEach((meal) => {
+                let calo = extractNumber(meal.calo); let macros = generateMacros(calo);
+                const currentQty = state.selections[meal.id] || 0; const swapVal = state.swaps[meal.id] || 'default';
+                if (swapVal === 'low-carb') { calo -= 40; macros.carb -= 15; }
+                else if (swapVal === 'salad') { calo -= 100; macros.carb -= 20; }
+                else if (swapVal === 'extra-protein') { calo += 110; macros.pro += 20; }
+                
+                const html = `
+                <div class="meal-card">
+                    <div class="meal-badge"><i class="fa-solid fa-star"></i> Best Match</div>
+                    <div class="meal-img-container" onclick="openMealDetail(${meal.id})">
+                        <img src="${meal.img}" alt="${meal.title}" class="meal-img">
+                    </div>
+                    <div class="meal-info">
+                        <div class="meal-title" onclick="openMealDetail(${meal.id})">${meal.title}</div>
+                        <div class="meal-macros-box">
+                            <div class="macro-tag calo" id="macro-box-calo-${meal.id}"><i class="fa-solid fa-fire"></i> <span id="calo-val-${meal.id}">${calo}</span></div>
+                            <div class="macro-tag" id="macro-box-pro-${meal.id}">P: <span id="pro-val-${meal.id}">${macros.pro}</span></div>
+                            <div class="macro-tag" id="macro-box-carb-${meal.id}">C: <span id="carb-val-${meal.id}">${macros.carb}</span></div>
+                            <div class="macro-tag" id="macro-box-fat-${meal.id}">F: <span id="fat-val-${meal.id}">${macros.fat}</span></div>
+                        </div>
+                        <select class="swap-ingredient" onchange="handleSwap(this, ${meal.id}, ${extractNumber(meal.calo)}, ${generateMacros(extractNumber(meal.calo)).pro}, ${generateMacros(extractNumber(meal.calo)).carb}, ${generateMacros(extractNumber(meal.calo)).fat})">
+                            <option value="default" ${swapVal === 'default' ? 'selected' : ''}>Thành phần mặc định</option>
+                            <option value="low-carb" ${swapVal === 'low-carb' ? 'selected' : ''}>Đổi Khoai lang (Low Carb)</option>
+                            <option value="salad" ${swapVal === 'salad' ? 'selected' : ''}>Đổi Salad (Cực ít Calo)</option>
+                            <option value="extra-protein" ${swapVal === 'extra-protein' ? 'selected' : ''}>Thêm Ức gà (Tăng Cơ)</option>
+                        </select>
+                        <div class="qty-wrapper">
+                            <div class="qty-label">Số lượng:</div>
+                            <div class="qty-control">
+                                <button type="button" class="qty-btn" onclick="updateMealQty(${meal.id}, -1)" ${currentQty === 0 ? 'disabled' : ''}>-</button>
+                                <input type="number" class="qty-val-input" id="qty-val-${meal.id}" value="${currentQty}" min="0" onchange="manualUpdateQty(${meal.id}, this)">
+                                <button type="button" class="qty-btn" onclick="updateMealQty(${meal.id}, 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        }
+        
+        function handleSwap(selectElement, mealId, baseCalo, basePro, baseCarb, baseFat) {
+            const val = selectElement.value; state.swaps[mealId] = val; 
+            let newCalo = baseCalo; let newPro = basePro; let newCarb = baseCarb; let newFat = baseFat;
+            if (val === 'low-carb') { newCalo -= 40; newCarb -= 15; }
+            else if (val === 'salad') { newCalo -= 100; newCarb -= 20; }
+            else if (val === 'extra-protein') { newCalo += 110; newPro += 20; }
+            document.getElementById(`calo-val-${mealId}`).innerText = newCalo; document.getElementById(`pro-val-${mealId}`).innerText = newPro; document.getElementById(`carb-val-${mealId}`).innerText = newCarb; document.getElementById(`fat-val-${mealId}`).innerText = newFat;
+            const boxes = [ document.getElementById(`macro-box-calo-${mealId}`), document.getElementById(`macro-box-pro-${mealId}`), document.getElementById(`macro-box-carb-${mealId}`), document.getElementById(`macro-box-fat-${mealId}`) ];
+            boxes.forEach(box => { if(box) { box.classList.remove('flash-anim'); void box.offsetWidth; box.classList.add('flash-anim'); } });
+            updateProgress();
+        }
+        
+        function manualUpdateQty(mealId, inputElem) {
+            let newVal = parseInt(inputElem.value); if (isNaN(newVal) || newVal < 0) newVal = 0;
+            const currentTotal = getSelectedTotal(); const currentQty = state.selections[mealId] || 0; const diff = newVal - currentQty;
+            if (diff > 0 && currentTotal + diff > state.package.servings) {
+                const allowed = state.package.servings - currentTotal;
+                if(allowed > 0) {
+                    newVal = currentQty + allowed; 
+                    if(state.randomQty >= allowed) state.randomQty -= allowed;
+                    else if(state.customQty >= allowed) state.customQty -= allowed;
+                    showModal('error', 'Trang này cho biết', `Bạn chỉ có thể thêm tối đa ${allowed} suất nữa vào gói!`);
+                } else {
+                    if(state.randomQty >= diff) { state.randomQty -= diff; } 
+                    else if (state.customQty >= diff) { state.customQty -= diff; }
+                    else if(state.randomQty > 0 || state.customQty > 0) { 
+                        newVal = currentQty + state.randomQty + state.customQty; 
+                        state.randomQty = 0; state.customQty = 0;
+                        showModal('error', 'Trang này cho biết', `Chỉ có thể thay thế suất chưa chọn bằng món bạn tự chọn.`); 
+                    } 
+                    else { inputElem.value = currentQty; showModal('error', 'Trang này cho biết', `Gói của bạn đã đủ ${state.package.servings} suất. Vui lòng giảm món khác trước khi thêm!`); return; }
+                }
+            } else if (diff > 0) { 
+                if(state.randomQty >= diff) state.randomQty -= diff; 
+                else if (state.customQty >= diff) state.customQty -= diff;
+            }
+            state.selections[mealId] = newVal; inputElem.value = newVal;
+            document.querySelectorAll('.qty-btn').forEach(btn => { if(btn.textContent === '-' && btn.getAttribute('onclick').includes(mealId)) btn.disabled = newVal === 0; });
+            updateProgress();
+        }
+
+        function updateMealQty(mealId, delta) {
+            const currentTotal = getSelectedTotal(); const currentQty = state.selections[mealId] || 0; let newQty = currentQty + delta; if (newQty < 0) newQty = 0; const diff = newQty - currentQty;
+            if (diff > 0 && currentTotal + diff > state.package.servings) {
+                if (state.randomQty >= diff) { state.randomQty -= diff; } 
+                else if (state.customQty >= diff) { state.customQty -= diff; }
+                else { showModal('error', 'Trang này cho biết', `Gói của bạn đã đủ ${state.package.servings} suất. Vui lòng giảm món khác trước khi thêm!`); return; }
+            } else if (diff > 0) { 
+                if (state.randomQty >= diff) state.randomQty -= diff; 
+                else if (state.customQty >= diff) state.customQty -= diff;
+            }
+            state.selections[mealId] = newQty; const qtyElement = document.getElementById(`qty-val-${mealId}`); if(qtyElement) qtyElement.value = newQty;
+            document.querySelectorAll('.qty-btn').forEach(btn => { if(btn.textContent === '-' && btn.getAttribute('onclick').includes(mealId)) btn.disabled = newQty === 0; });
+            updateProgress();
+        }
+        
+        function getSelectedTotal() { let sum = 0; for (const key in state.selections) sum += state.selections[key]; return sum + state.randomQty + (state.customQty || 0); }
+        
+        function fillRandom() { 
+            const currentTotal = getSelectedTotal() - state.randomQty - state.customQty; 
+            const remaining = state.package.servings - currentTotal; 
+            if (remaining > 0) { 
+                state.randomQty = remaining; 
+                updateProgress(); 
+            } 
+        }
+
+        function updateProgress() {
+            let totalQty = 0; let totalCalo = 0;
+            for (const id in state.selections) {
+                const qty = state.selections[id];
+                if (qty > 0) {
+                    totalQty += qty; const meal = menuIndex.find(m => m.id == id);
+                    if (meal) { let calo = extractNumber(meal.calo); const swapVal = state.swaps[id] || 'default'; calo = getSwapCalo(calo, swapVal); totalCalo += (calo * qty); }
+                }
+            }
+            if (state.randomQty > 0) { totalQty += state.randomQty; totalCalo += (state.targetCalo * state.randomQty); }
+            if (state.customQty > 0) { totalQty += state.customQty; totalCalo += (state.targetCalo * state.customQty); }
+            
+            const max = state.package ? state.package.servings : 0; document.getElementById('selected-count').innerText = totalQty;
+            const currentManualTotal = getSelectedTotal() - state.randomQty - state.customQty; const remaining = Math.max(0, max - currentManualTotal - state.randomQty - state.customQty);
+            const totalElem = document.getElementById('actual-total-calo'); if (totalElem) totalElem.innerText = totalCalo;
+            
+            const checkoutBtn = document.getElementById('btn-checkout');
+            if (totalQty === max && max > 0) { checkoutBtn.disabled = false; checkoutBtn.style.opacity = '1'; checkoutBtn.style.cursor = 'pointer'; } 
+            else { checkoutBtn.disabled = true; checkoutBtn.style.opacity = '0.5'; checkoutBtn.style.cursor = 'not-allowed'; }
+            
+            const randomBoxContainer = document.getElementById('random-box-container'); const randomBoxMsg = document.getElementById('random-filled-msg'); const randomBoxBtn = document.getElementById('btn-fill-random');
+            if (remaining === 0 && state.randomQty === 0) { randomBoxContainer.style.display = 'none'; } 
+            else {
+                randomBoxContainer.style.display = 'block';
+                if (state.randomQty > 0) { randomBoxMsg.style.display = 'block'; document.getElementById('random-qty-text').innerText = state.randomQty; } else { randomBoxMsg.style.display = 'none'; }
+                if (remaining > 0) { randomBoxBtn.style.display = 'inline-block'; document.getElementById('btn-remain-qty').innerText = remaining; } else { randomBoxBtn.style.display = 'none'; }
+            }
+        }
+
+        function convertRandomToMeals() {
+            if (state.randomQty <= 0) return;
+            let pool = [...state.recommendedMeals]; 
+            
+            // Lọc ra các món mà người dùng CHƯA CHỌN (số lượng = 0 hoặc undefined)
+            let availableDistinctMeals = pool.filter(m => !state.selections[m.id] || state.selections[m.id] === 0);
+            
+            // Xáo trộn mảng ngẫu nhiên
+            availableDistinctMeals.sort(() => 0.5 - Math.random());
+            
+            let customNeeded = 0;
+            
+            while(state.randomQty > 0) {
+                if (availableDistinctMeals.length > 0) {
+                    const m = availableDistinctMeals.pop(); // Lấy ra 1 món mới không trùng lặp
+                    state.selections[m.id] = 1; // Chọn 1 suất
+                    state.randomQty--;
+                } else {
+                    // Đã hết món không trùng lặp trong thực đơn!
+                    customNeeded += state.randomQty;
+                    state.randomQty = 0;
+                }
+            }
+            
+            if (customNeeded > 0) {
+                state.customQty = (state.customQty || 0) + customNeeded;
+            }
+            
+            updateProgress();
+        }
+
+        function checkout() {
+            if (state.randomQty > 0) convertRandomToMeals();
+            
+            const target = state.targetCalo;
+            let maxDevMeal = null;
+            let maxDev = 0;
+            
+            for (const id in state.selections) {
+                const qty = state.selections[id];
+                if (qty > 0) {
+                    const meal = menuIndex.find(m => m.id == id);
+                    if (meal) {
+                        let calo = extractNumber(meal.calo);
+                        calo = getSwapCalo(calo, state.swaps[id] || 'default');
+                        
+                        const dev = calo - target;
+                        if (Math.abs(dev) > Math.abs(maxDev)) { maxDev = dev; maxDevMeal = meal; }
+                    }
+                }
+            }
+            
+            if (Math.abs(maxDev) > 40 && maxDevMeal) {
+                let html = `Món <b>${maxDevMeal.title}</b> đang bị ${maxDev > 0 ? 'dư' : 'thiếu'} <b style="color:var(--error);">${Math.abs(maxDev)} kcal</b> so với mục tiêu từng bữa của bạn (${target} kcal).<br><br>
+                <div style="background:#fff0e6; padding:15px; border-radius:10px; border-left:4px solid var(--error); margin-bottom:20px; font-size:14px; color:#0e5f2a; text-align: left;">
+                <b><i class="fa-solid fa-triangle-exclamation"></i> Cảnh báo "Ngày no ngày đói":</b><br>
+                Việc chỉ tính lượng Calo trung bình cả lộ trình là không đủ! Bạn cần đảm bảo <b>từng bữa ăn</b> đều bám sát mục tiêu để tránh tình trạng ngày ăn quá no (tích mỡ), ngày ăn quá đói (mất cơ).
+                </div>
+                Bạn có muốn Hệ thống tự động <b>tối ưu lại thành phần phụ (đổi Salad, thêm thịt...) cho TỪNG MÓN</b> để đảm bảo ngày nào bạn cũng nạp lượng Calo đồng đều không?`;
+                
+                showModal('ai', 'Hệ thống Cố vấn Dinh dưỡng 🧑‍⚕️', html, [
+                    {
+                        text: '<i class="fa-solid fa-wand-magic-sparkles"></i> Nhờ Cố vấn tối ưu',
+                        class: 'custom-modal-btn',
+                        action: function() { aiAutoBalance(); }
+                    },
+                    { text: 'Vẫn Đặt hàng', class: 'custom-modal-btn secondary', action: function() { goToCart(); } }
+                ]);
+                return;
+            }
+            
+            goToCart();
+        }
+        
+        function aiAutoBalance() {
+            closeModal();
+            
+            const loadingOverlay = document.getElementById('ai-loading-overlay');
+            const loadingText = document.getElementById('ai-loading-text');
+            loadingOverlay.style.display = 'flex';
+            
+            loadingText.innerText = 'Đang phân tích cấu trúc bữa ăn...';
+            
+            setTimeout(() => {
+                loadingText.innerText = 'Đang tiến hành tối ưu và loại bỏ món ăn không phù hợp...';
+                
+                setTimeout(() => {
+                    let changed = false;
+                    let report = [];
+                    let removedCount = 0;
+                    let removedMeals = [];
+                    
+                    for (const id in state.selections) {
+                        const qty = state.selections[id];
+                        if (qty > 0) {
+                            const meal = menuIndex.find(m => m.id == id);
+                            if (meal) {
+                                let baseCalo = extractNumber(meal.calo);
+                                
+                                const options = ['default', 'low-carb', 'salad', 'extra-protein'];
+                                let bestSwap = state.swaps[id] || 'default';
+                                let minDiff = Math.abs(getSwapCalo(baseCalo, bestSwap) - state.targetCalo);
+                                
+                                options.forEach(opt => {
+                                    let c = getSwapCalo(baseCalo, opt);
+                                    let diff = Math.abs(c - state.targetCalo);
+                                    if (diff < minDiff) { minDiff = diff; bestSwap = opt; }
+                                });
+                                
+                                if (minDiff > 40) {
+                                    // Bàn tay sắt - Dù đã đổi thành phần vẫn lệch > 40 kcal -> XÓA!
+                                    delete state.selections[id];
+                                    state.customQty = (state.customQty || 0) + qty;
+                                    removedCount += qty;
+                                    removedMeals.push(meal.title);
+                                    changed = true;
+                                } else {
+                                    if (state.swaps[id] !== bestSwap) { 
+                                        state.swaps[id] = bestSwap; 
+                                        changed = true; 
+                                        let swapName = bestSwap === 'low-carb' ? 'Đổi Khoai lang' : (bestSwap === 'salad' ? 'Đổi Salad' : 'Thêm Ức gà');
+                                        if (bestSwap === 'default') swapName = 'Thành phần mặc định';
+                                        report.push(`- <b>${meal.title}</b>: ${swapName}`);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    updateProgress(); 
+                    renderMeals(); 
+                    loadingOverlay.style.display = 'none';
+                    
+                    if (changed) { 
+                        let htmlReport = '';
+                        if (report.length > 0) {
+                            htmlReport += `<div style="text-align:left; max-height: 100px; overflow-y: auto; background: var(--bg); padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 13px;"><b>Đã tối ưu thành phần phụ:</b><br>${report.join('<br>')}</div>`;
+                        }
+                        
+                        if (removedCount > 0) {
+                            let uniqueRemoved = [...new Set(removedMeals)];
+                            htmlReport += `
+                            <div style="text-align:left; max-height: 120px; overflow-y: auto; background: #eaf7ed; color: #0e5f2a; padding: 15px; border-radius: 8px; margin-top: 10px; font-size: 13px;">
+                                <b><i class="fa-solid fa-trash-can"></i> Đã LOẠI BỎ do quá lệch Calo:</b><br>- ${uniqueRemoved.join('<br>- ')}<br><br>
+                                <i class="fa-solid fa-arrow-right-arrow-left"></i> Chuyển <b>${removedCount} suất</b> bị thiếu thành món <b>Đầu bếp nấu riêng</b> (Cửa hàng sẽ liên hệ xác nhận món với bạn).
+                            </div>`;
+                        }
+                        
+                        showModal('success', 'Đã Tối ưu xong!', 'Hệ thống đã tự động điều chỉnh các món có thể cứu vãn, và loại bỏ triệt để các món không thể đạt chuẩn Calo!' + htmlReport, [
+                            { text: 'Đến Giỏ hàng', class: 'custom-modal-btn', action: function() { goToCart(); } },
+                            { text: 'Ở lại xem', class: 'custom-modal-btn secondary', action: 'closeModal()' }
+                        ]);
+                    } else {
+                        showModal('success', 'Đã Tối ưu tối đa!', 'Hệ thống đã kiểm tra và nhận thấy các món ăn hiện tại đã là lựa chọn sát với mục tiêu nhất.', [
+                            { text: 'Đến Giỏ hàng', class: 'custom-modal-btn', action: function() { goToCart(); } },
+                            { text: 'Ở lại xem', class: 'custom-modal-btn secondary', action: 'closeModal()' }
+                        ]);
+                    }
+                }, 1500);
+            }, 1000);
+        }
+        
+        function goToCart() {
+            // Đảm bảo lớp loading AI không còn chặn thao tác khi chuyển sang giỏ hàng.
+            const loadingOverlay = document.getElementById('ai-loading-overlay');
+            if (loadingOverlay) loadingOverlay.style.display = 'none';
+            if (!state.package) {
+                showModal('error', 'Chưa chọn gói', 'Vui lòng chọn một gói thực đơn trước khi chuyển sang giỏ hàng.');
+                return;
+            }
+            const cartContainer = document.getElementById('cart-items');
+            cartContainer.innerHTML = '';
+            const unitPrice = Math.round(state.package.price / state.package.servings);
+            const unifiedCart = [];
+            
+            for (const id in state.selections) {
+                const qty = state.selections[id];
+                if (qty > 0) {
+                    const meal = menuIndex.find(m => m.id == id);
+                    if (meal) {
+                        let calo = extractNumber(meal.calo);
+                        const swapVal = state.swaps[id] || 'default'; let swapText = 'Thành phần mặc định';
+                        if (swapVal === 'low-carb') { calo -= 40; swapText = 'Đổi Khoai lang'; }
+                        else if (swapVal === 'salad') { calo -= 100; swapText = 'Đổi Salad'; }
+                        else if (swapVal === 'extra-protein') { calo += 110; swapText = 'Thêm Ức gà'; }
+                        unifiedCart.push({key:`roadmap|${meal.id}|${swapVal}`,id:meal.id,title:meal.title,price:unitPrice,image:meal.img,qty, rice:'Gạo lứt', note:`${swapText} · Gói ${state.package.id}`});
+                        
+                        cartContainer.innerHTML += `
+                        <div style="display: flex; gap: 15px; background: white; padding: 15px; border-radius: 12px; border: 1px solid var(--border); align-items: center;">
+                            <img src="${meal.img}" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover;">
+                            <div style="flex-grow: 1;">
+                                <div style="font-weight: 800; font-size: 16px; color: var(--text);">${meal.title}</div>
+                                <div style="color: var(--text-light); font-size: 13px;">${swapText}</div>
+                                <div style="color: #16803d; font-weight: 700; font-size: 13px;"><i class="fa-solid fa-fire"></i> ${calo} kcal</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 800; font-size: 16px; color: var(--primary);">${(state.package.price / state.package.servings).toLocaleString()}đ</div>
+                                <div style="font-weight: 800; font-size: 18px; color: var(--text);">x${qty}</div>
+                            </div>
+                        </div>`;
+                    }
+                }
+            }
+            
+            if (state.customQty > 0) {
+                cartContainer.innerHTML += `
+                <div style="display: flex; gap: 15px; background: #eaf7ed; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); align-items: center;">
+                    <div style="width: 80px; height: 80px; border-radius: 8px; background: var(--accent); color: white; display:flex; justify-content:center; align-items:center; font-size: 30px;">
+                        <i class="fa-solid fa-bell-concierge"></i>
+                    </div>
+                    <div style="flex-grow: 1;">
+                        <div style="font-weight: 800; font-size: 16px; color: var(--accent);">Thực đơn Đầu Bếp Nấu Riêng</div>
+                        <div style="color: var(--text-light); font-size: 13px;">Đầu bếp sẽ liên hệ với bạn để thỏa thuận và nấu riêng các món mới bù vào những món đã bị hệ thống loại bỏ do không đạt chuẩn Calo.</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 800; font-size: 16px; color: var(--primary);">${(state.package.price / state.package.servings).toLocaleString()}đ</div>
+                        <div style="font-weight: 800; font-size: 18px; color: var(--text);">x${state.customQty}</div>
+                    </div>
+                </div>`;
+            }
+            
+            localStorage.setItem('fitmeal_cart', JSON.stringify(unifiedCart));
+            if (state.customQty > 0) {
+                sessionStorage.setItem('fitmeal_roadmap_note', `Gói ${state.package.id} có ${state.customQty} suất cần đầu bếp tư vấn riêng.`);
+            } else {
+                sessionStorage.removeItem('fitmeal_roadmap_note');
+            }
+            document.getElementById('cart-total-price').innerText = (state.package.price).toLocaleString() + 'đ';
+            document.getElementById('screen-3').classList.remove('active'); document.getElementById('screen-4').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function addToCart() {
+            showModal('success', 'Đã thêm vào giỏ hàng!', 'Lộ trình cá nhân hóa của bạn đã được lưu vào giỏ hàng. Bạn có thể tiếp tục xem các món khác hoặc thiết kế lộ trình cho người thân.', [
+                { text: '<i class="fa-solid fa-house"></i> Trở về Trang chủ', class: 'custom-modal-btn secondary', action: function() { location.reload(); } },
+                { text: '<i class="fa-solid fa-credit-card"></i> Đến trang Thanh toán', class: 'custom-modal-btn', action: function() { finalCheckout(); } }
+            ]);
+        }
+
+        function finalCheckout() {
+            if (!state.package) {
+                showModal('error', 'Chưa có đơn hàng', 'Vui lòng chọn gói và hoàn tất lộ trình trước khi thanh toán.');
+                return;
+            }
+            const orderData = { profile: state, timestamp: new Date().toISOString() };
+            localStorage.setItem('foodJourneyOrder', JSON.stringify(orderData));
+            localStorage.setItem('fitmeal_plan', JSON.stringify(state));
+            goToCart();
+        }
+    </script>
+
+<script>
+(function(){try{const profile=JSON.parse(localStorage.getItem('fitmeal_user_profile')||'null');if(!profile)return;setTimeout(()=>{if(profile.gender)state.gender=profile.gender;if(profile.age)document.getElementById('age').value=profile.age;if(profile.height)document.getElementById('height').value=profile.height;if(profile.weight)document.getElementById('weight').value=profile.weight;document.querySelectorAll('#gender-select .ui-card').forEach(card=>card.classList.toggle('selected',card.dataset.value===profile.gender));},80)}catch(e){}})();
+</script>
+
+<script src="assistant.js"></script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+[
+  {
+    "id": 1,
+    "title": "Combo Ức Gà Healthy",
+    "region": "Việt Nam",
+    "country": "Việt Nam",
+    "cal": 520,
+    "goal": "Giảm mỡ",
+    "tags": [
+      "Healthy",
+      "Giàu đạm"
+    ],
+    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500",
+    "desc": "Ức gà áp chảo sốt tiêu xanh, ăn kèm gạo lứt Điện Biên và rau củ luộc.",
+    "price": 79000
+  },
+  {
+    "id": 2,
+    "title": "Bún Lứt Trộn Bò Nam Bộ",
+    "region": "Việt Nam",
+    "country": "Việt Nam",
+    "cal": 480,
+    "goal": "Giữ dáng",
+    "tags": [
+      "Bún lứt",
+      "Thịt bò"
+    ],
+    "image": "https://images.unsplash.com/photo-1559847844-5315695dadae?w=500",
+    "desc": "Thịt bò mềm xào tỏi ít dầu, ăn kèm bún gạo lứt tươi và nước mắm chua ngọt ăn kiêng.",
+    "price": 74000
+  },
+  {
+    "id": 3,
+    "title": "Cơm Gạo Lứt Chả Cá Thát Lát",
+    "region": "Việt Nam",
+    "country": "Việt Nam",
+    "cal": 500,
+    "goal": "Tăng cơ",
+    "tags": [
+      "Cá tươi",
+      "Omega 3"
+    ],
+    "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500",
+    "desc": "Chả cá thát lát hấp sả ăn kèm cơm gạo lứt và súp lơ xanh.",
+    "price": 84000
+  },
+  {
+    "id": 4,
+    "title": "Phở Bò Gạo Lứt Chuẩn Vị",
+    "region": "Việt Nam",
+    "country": "Việt Nam",
+    "cal": 450,
+    "goal": "Ít Calo",
+    "tags": [
+      "Bánh phở lứt",
+      "Nước dùng trong"
+    ],
+    "image": "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=500",
+    "desc": "Phở bò tái nạm sử dụng bánh phở lứt ninh từ xương bò tách mỡ.",
+    "price": 74000
+  },
+  {
+    "id": 5,
+    "title": "Gỏi Gà Xé Phay Hạt Quinoa",
+    "region": "Việt Nam",
+    "country": "Việt Nam",
+    "cal": 410,
+    "goal": "Giảm mỡ",
+    "tags": [
+      "Gà thả vườn",
+      "Quinoa"
+    ],
+    "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500",
+    "desc": "Ức gà xé phay trộn bắp cải tím, ngó sen và hạt diêm mạch.",
+    "price": 74000
+  },
+  {
+    "id": 6,
+    "title": "Cơm Bò Lúc Lắc Gạo Lứt",
+    "region": "Việt Nam",
+    "country": "Việt Nam",
+    "cal": 540,
+    "goal": "Tăng cơ",
+    "tags": [
+      "Bò Úc",
+      "Ớt chuông"
+    ],
+    "image": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500",
+    "desc": "Thịt bò cắt khối vuông xào vừa chín tới giữ nguyên vị ngọt mọng nước.",
+    "price": 85000
+  },
+  {
+    "id": 11,
+    "title": "Cơm Trộn Bibimbap Gạo Lứt",
+    "region": "Châu Á",
+    "country": "Hàn Quốc",
+    "cal": 550,
+    "goal": "Cân bằng",
+    "tags": [
+      "Kim chi",
+      "Rau củ"
+    ],
+    "image": "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=500",
+    "desc": "Cơm gạo lứt ăn kèm thịt bò xào, trứng ốp la và 6 loại rau củ Hàn Quốc.",
+    "price": 85000
+  },
+  {
+    "id": 13,
+    "title": "Cá Hồi Nướng Teriyaki Gạo Lứt",
+    "region": "Châu Á",
+    "country": "Nhật Bản",
+    "cal": 580,
+    "goal": "Tăng cơ",
+    "tags": [
+      "Omega 3",
+      "Cá hồi"
+    ],
+    "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500",
+    "desc": "Phi lê cá hồi áp chảo sốt Teriyaki ăn kiêng, đi kèm rong biển và cơm lứt.",
+    "price": 99000
+  },
+  {
+    "id": 14,
+    "title": "Bento Gà Nướng Yakitori Healthy",
+    "region": "Châu Á",
+    "country": "Nhật Bản",
+    "cal": 500,
+    "goal": "Cân bằng",
+    "tags": [
+      "Bento Nhật",
+      "Gà nướng"
+    ],
+    "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500",
+    "desc": "Hộp bento Nhật gồm gà nướng sả xiên, trứng cuộn Tamagoyaki và bắp cải.",
+    "price": 79000
+  },
+  {
+    "id": 16,
+    "title": "Pad Thai Tôm Cơm Lứt",
+    "region": "Châu Á",
+    "country": "Thái Lan",
+    "cal": 510,
+    "goal": "Đổi vị",
+    "tags": [
+      "Chua cay",
+      "Tôm sú"
+    ],
+    "image": "https://images.unsplash.com/photo-1559847844-5315695dadae?w=500",
+    "desc": "Hủ tiếu lứt xào kiểu Thái với tôm sú, giá đỗ và đậu hũ rán kiềm mỡ.",
+    "price": 84000
+  },
+  {
+    "id": 17,
+    "title": "Cà Ruy Xanh Gà Nướng Chuẩn Thái",
+    "region": "Châu Á",
+    "country": "Thái Lan",
+    "cal": 540,
+    "goal": "Thơm béo",
+    "tags": [
+      "Sữa hạnh nhân",
+      "Cà ri"
+    ],
+    "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500",
+    "desc": "Ức gà nấu cà ri xanh sử dụng sữa hạnh nhân thay nước cốt dừa đậm đà.",
+    "price": 85000
+  },
+  {
+    "id": 18,
+    "title": "Cà Ri Bò Ấn Độ Tikka Masala Light",
+    "region": "Châu Á",
+    "country": "Ấn Độ",
+    "cal": 560,
+    "goal": "Giàu gia vị",
+    "tags": [
+      "Tikka Masala",
+      "Bò Úc"
+    ],
+    "image": "https://images.unsplash.com/photo-1545247181-516773cae754?w=500",
+    "desc": "Bò Úc hầm sốt Masala kiểu Ấn dùng sữa chua Hy Lạp không béo.",
+    "price": 94000
+  },
+  {
+    "id": 26,
+    "title": "Mì Ý Carbonara Sốt Kem Yến Mạch",
+    "region": "Châu Âu",
+    "country": "Ý",
+    "cal": 520,
+    "goal": "Dinh dưỡng",
+    "tags": [
+      "Pasta nguyên cám",
+      "Kem yến mạch"
+    ],
+    "image": "https://images.unsplash.com/photo-1621996346565-e3def616403c?w=500",
+    "desc": "Mì Spaghetti nguyên cám hòa quyện cùng sốt kem yến mạch và dăm bông nạc.",
+    "price": 79000
+  },
+  {
+    "id": 27,
+    "title": "Mì Ý Sốt Bò Băm Bolognese Healthy",
+    "region": "Châu Âu",
+    "country": "Ý",
+    "cal": 490,
+    "goal": "Tăng cơ",
+    "tags": [
+      "Bò băm",
+      "Cà chua tươi"
+    ],
+    "image": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500",
+    "desc": "Pasta làm từ lúa mì lứt sốt bò Úc băm tươi và sốt cà chua tự nấu không đường.",
+    "price": 79000
+  },
+  {
+    "id": 28,
+    "title": "Salad Cá Ngừ Ngô Ngọt Sốt Yogurt",
+    "region": "Châu Âu",
+    "country": "Anh",
+    "cal": 380,
+    "goal": "Giảm cân",
+    "tags": [
+      "Cá ngừ",
+      "Sốt Yogurt"
+    ],
+    "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500",
+    "desc": "Cá ngừ ngâm nước, xà lách Romaine, ngô ngọt và sốt Hy Lạp Yogurt.",
+    "price": 74000
+  },
+  {
+    "id": 30,
+    "title": "Salad Caesar Ức Gà Nướng lá Thơm",
+    "region": "Châu Âu",
+    "country": "Ý",
+    "cal": 420,
+    "goal": "Low Carb",
+    "tags": [
+      "Salad Caesar",
+      "Gà nướng"
+    ],
+    "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500",
+    "desc": "Rau xà lách Mỹ tươi giòn, ức gà nướng áp chảo và sốt Caesar ít béo.",
+    "price": 74000
+  },
+  {
+    "id": 32,
+    "title": "Ức Vịt Nướng Sốt Cam Hy Lạp Cơm Lứt",
+    "region": "Châu Âu",
+    "country": "Pháp",
+    "cal": 540,
+    "goal": "Tăng cơ",
+    "tags": [
+      "Ức vịt",
+      "Sốt cam Pháp"
+    ],
+    "image": "https://images.unsplash.com/photo-1514944288352-fffac99f0bdf?w=500",
+    "desc": "Ức vịt áp chảo bỏ da sốt cam tươi thanh mát ngọt dịu chuẩn ẩm thực Pháp.",
+    "price": 88000
+  },
+  {
+    "id": 34,
+    "title": "Cơm Paella Hải Sản Tây Ban Nha Healthy",
+    "region": "Châu Âu",
+    "country": "Tây Ban Nha",
+    "cal": 530,
+    "goal": "Giàu Omega",
+    "tags": [
+      "Cơm Paella",
+      "Tôm mực"
+    ],
+    "image": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500",
+    "desc": "Cơm nghệ gạo lứt xào tôm sú, mực tươi và nghêu nghệ kiểu Tây Ban Nha.",
+    "price": 90000
+  },
+  {
+    "id": 39,
+    "title": "Steak Bò Áp Chảo Kèm Măng Tây",
+    "region": "Châu Mỹ",
+    "country": "Mỹ",
+    "cal": 610,
+    "goal": "Tăng cơ",
+    "tags": [
+      "Bò Úc",
+      "Bít tết"
+    ],
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=500",
+    "desc": "Bít tết bò nạc áp chảo thảo mộc rosemary, măng tây và khoai tây nướng nguyên vỏ.",
+    "price": 108000
+  },
+  {
+    "id": 40,
+    "title": "Burger Gà Lúa Mạch Kèm Salad",
+    "region": "Châu Mỹ",
+    "country": "Mỹ",
+    "cal": 490,
+    "goal": "Cheat Clean",
+    "tags": [
+      "Burger nguyên cám",
+      "Ức gà"
+    ],
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500",
+    "desc": "Vỏ bánh burger nguyên cám, nhân ức gà xay nướng lá oregano và cà chua.",
+    "price": 79000
+  },
+  {
+    "id": 41,
+    "title": "Tôm Sốt Bơ Tỏi Kèm Bánh Mỳ Lúa Mạch",
+    "region": "Châu Mỹ",
+    "country": "Mỹ",
+    "cal": 510,
+    "goal": "Tăng cơ",
+    "tags": [
+      "Tôm sú",
+      "Bơ ghee"
+    ],
+    "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500",
+    "desc": "Tôm sú sốt bơ ghee thảo mộc ăn kèm bánh mì đen lúa mạch nướng giòn.",
+    "price": 84000
+  },
+  {
+    "id": 43,
+    "title": "Taco Bò Băm Vỏ Bánh Ngô Mexico",
+    "region": "Châu Mỹ",
+    "country": "Mexico",
+    "cal": 470,
+    "goal": "Ít béo",
+    "tags": [
+      "Taco",
+      "Vỏ ngô"
+    ],
+    "image": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500",
+    "desc": "Bánh Taco vỏ ngô nguyên giòn nhồi bò nạc xào ớt chuông Salsa Mexico.",
+    "price": 74000
+  },
+  {
+    "id": 44,
+    "title": "Burrito Ức Gà Đậu Đen Giảm Cân",
+    "region": "Châu Mỹ",
+    "country": "Mexico",
+    "cal": 500,
+    "goal": "Giàu chất xơ",
+    "tags": [
+      "Burrito",
+      "Đậu đen"
+    ],
+    "image": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=500",
+    "desc": "Bánh cuộn Burrito nguyên cám nhồi ức gà nướng, đậu đen Mexico và sốt bơ avocado.",
+    "price": 79000
+  },
+  {
+    "id": 46,
+    "title": "Churrasco Bò Úc Nướng Than Argentina",
+    "region": "Châu Mỹ",
+    "country": "Argentina",
+    "cal": 580,
+    "goal": "Tăng cơ mạnh",
+    "tags": [
+      "Sốt Chimichurri",
+      "Bò nướng"
+    ],
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=500",
+    "desc": "Bò Úc nướng than sốt Chimichurri thảo mộc ngò tây chanh tỏi thơm ngon.",
+    "price": 97000
+  },
+  {
+    "id": 47,
+    "title": "Lườn Cừu Nướng Lá Hương Thảo Úc",
+    "region": "Châu Đại Dương",
+    "country": "Úc",
+    "cal": 590,
+    "goal": "Giàu Sắt",
+    "tags": [
+      "Thịt cừu Úc",
+      "Rosemary"
+    ],
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=500",
+    "desc": "Sườn cừu Úc nướng lá hương thảo ăn kèm khoai tây nghiền sữa hạnh nhân.",
+    "price": 97000
+  },
+  {
+    "id": 48,
+    "title": "Barramundi Cá Chẽm Nướng Bơ Chanh Úc",
+    "region": "Châu Đại Dương",
+    "country": "Úc",
+    "cal": 470,
+    "goal": "Tăng Đạm",
+    "tags": [
+      "Cá Chẽm Úc",
+      "Sốt bơ chanh"
+    ],
+    "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500",
+    "desc": "Phi lê cá chẽm Barramundi biển Úc nướng bơ ghee chanh vàng măng tây.",
+    "price": 79000
+  },
+  {
+    "id": 49,
+    "title": "Bowl Bơ Trừng Poached Kiểu Melbourne",
+    "region": "Châu Đại Dương",
+    "country": "Úc",
+    "cal": 430,
+    "goal": "Eat Clean",
+    "tags": [
+      "Quả bơ",
+      "Trứng chần"
+    ],
+    "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500",
+    "desc": "Bát dinh dưỡng gồm bơ sáp lát, trứng Poached lòng đào, hạt chia và rau mầm.",
+    "price": 74000
+  },
+  {
+    "id": 50,
+    "title": "Súp Hải Sản Kiwi Đảo New Zealand",
+    "region": "Châu Đại Dương",
+    "country": "New Zealand",
+    "cal": 450,
+    "goal": "Giảm béo",
+    "tags": [
+      "Vẹm xanh",
+      "Súp hải sản"
+    ],
+    "image": "https://images.unsplash.com/photo-1547592180-85f173990554?w=500",
+    "desc": "Súp vẹm xanh New Zealand hầm cùng cà chua tươi và cần tây thanh lọc.",
+    "price": 79000
+  },
+  {
+    "id": 501,
+    "title": "Cơm Lứt Bò Úc Sốt Tiêu Rừng Sydney",
+    "region": "Châu Đại Dương",
+    "country": "Úc",
+    "cal": 560,
+    "goal": "Tăng cơ",
+    "tags": [
+      "Bò Úc",
+      "Tiêu rừng"
+    ],
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=500",
+    "desc": "Bò Úc nạc xào tiêu rừng Tasmania thơm nức kèm cơm gạo lứt.",
+    "price": 94000
+  },
+  {
+    "id": 504,
+    "title": "Ức Gà Nướng Sốt Bơ Hạt Macca Úc",
+    "region": "Châu Đại Dương",
+    "country": "Úc",
+    "cal": 520,
+    "goal": "Tăng cơ",
+    "tags": [
+      "Ức gà",
+      "Hạt Macca"
+    ],
+    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500",
+    "desc": "Ức gà áp chảo phủ sốt hạt Macca bùi béo tự nhiên.",
+    "price": 79000
+  },
+  {
+    "id": 701,
+    "title": "Cơm Couscous Thịt Bò Hầm Tagine Morocco",
+    "region": "Châu Phi",
+    "country": "Morocco",
+    "cal": 530,
+    "goal": "Giàu xơ",
+    "tags": [
+      "Couscous",
+      "Bò hầm Tagine"
+    ],
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=500",
+    "desc": "Thịt bò thăn hầm nghệ, quế tươi nướng trong nồi gốm Tagine ăn kèm hạt Couscous lúa mì.",
+    "price": 85000
+  },
+  {
+    "id": 702,
+    "title": "Gà Nướng Gia Vị Peri-Peri Nam Phi Cơm Lứt",
+    "region": "Châu Phi",
+    "country": "Nam Phi",
+    "cal": 510,
+    "goal": "Đổi vị",
+    "tags": [
+      "Peri-Peri",
+      "Gà nướng"
+    ],
+    "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500",
+    "desc": "Ức gà nướng sốt ớt Peri-Peri chuẩn vị Nam Phi thơm cay nồng ấm.",
+    "price": 79000
+  },
+  {
+    "id": 703,
+    "title": "Cơm Jollof Gạo Lứt Tôm Sú Nigeria",
+    "region": "Châu Phi",
+    "country": "Nigeria",
+    "cal": 490,
+    "goal": "Cân bằng",
+    "tags": [
+      "Jollof Rice",
+      "Tôm sú"
+    ],
+    "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500",
+    "desc": "Cơm gạo lứt nấu với cà chua tươi, hành tây và tôm sú nướng mộc.",
+    "price": 84000
+  },
+  {
+    "id": 704,
+    "title": "Súp Đậu Phộng Gà Nướng Kiểu Ghana",
+    "region": "Châu Phi",
+    "country": "Ghana",
+    "cal": 520,
+    "goal": "Giàu đạm",
+    "tags": [
+      "Súp đậu phộng",
+      "Gà ta"
+    ],
+    "image": "https://images.unsplash.com/photo-1547592180-85f173990554?w=500",
+    "desc": "Súp bơ đậu phộng tự nhiên ninh cùng ức gà và cà chua thơm bùi.",
+    "price": 79000
+  },
+  {
+    "id": 708,
+    "title": "Cơm Couscous Cá Hồi Sốt Chanh Thảo Mộc Morocco",
+    "region": "Châu Phi",
+    "country": "Morocco",
+    "cal": 540,
+    "goal": "Omega 3",
+    "tags": [
+      "Cá hồi",
+      "Couscous"
+    ],
+    "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500",
+    "desc": "Phi lê cá hồi áp chảo đặt trên thảm hạt Couscous trộn rau ngò tươi.",
+    "price": 90000
+  },
+  {
+    "id": 711,
+    "title": "Cá Tuyết Nướng Sốt Harissa Tunisia Cơm Lứt",
+    "region": "Châu Phi",
+    "country": "Tunisia",
+    "cal": 490,
+    "goal": "Đậm vị",
+    "tags": [
+      "Cá tuyết",
+      "Harissa"
+    ],
+    "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500",
+    "desc": "Cá tuyết nướng phủ sốt ớt ngọt Harissa đặc sản Bắc Phi.",
+    "price": 84000
+  },
+  {
+    "id": 51,
+    "title": "Bowl Hạt Quinoa & Đậu Nành Edamame",
+    "region": "Chay",
+    "country": "Quốc tế",
+    "cal": 390,
+    "goal": "Pure Vegan",
+    "tags": [
+      "100% Chay",
+      "Quinoa"
+    ],
+    "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500",
+    "desc": "Bát dinh dưỡng chay với Quinoa, đậu Nhật Edamame, bơ chín và hạt ốc chó.",
+    "price": 69000
+  },
+  {
+    "id": 52,
+    "title": "Cơm Lứt Nấm Mối Đen Kho Tiêu",
+    "region": "Chay",
+    "country": "Việt Nam",
+    "cal": 410,
+    "goal": "Thanh lọc",
+    "tags": [
+      "Nấm tươi",
+      "Cơm lứt"
+    ],
+    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500",
+    "desc": "Nấm mối đen mọng nước kho tiêu xanh ăn cùng cơm gạo lứt huyết rồng.",
+    "price": 74000
+  },
+  {
+    "id": 53,
+    "title": "Lẩu Nấm Mini Đơn Chiết Keto",
+    "region": "Chay",
+    "country": "Quốc tế",
+    "cal": 380,
+    "goal": "Keto Chay",
+    "tags": [
+      "5 Loại nấm",
+      "Tàu hũ"
+    ],
+    "image": "https://images.unsplash.com/photo-1547592180-85f173990554?w=500",
+    "desc": "Suất lẩu cá nhân với 5 loại nấm tươi quý và đậu hũ non ăn kèm bún lứt.",
+    "price": 69000
+  },
+  {
+    "id": 54,
+    "title": "Salad Đậu Chickpea Hạt Mè",
+    "region": "Chay",
+    "country": "Địa Trung Hải",
+    "cal": 360,
+    "goal": "Giảm mỡ",
+    "tags": [
+      "Đậu gà",
+      "Mè rang"
+    ],
+    "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500",
+    "desc": "Đậu gà nướng giòn trộn xà lách, dưa chuột và nước sốt mè rang béo nhẹ.",
+    "price": 69000
+  },
+  {
+    "id": 55,
+    "title": "Curry Đậu Lăng Vàng Kiểu Ấn Chay",
+    "region": "Chay",
+    "country": "Ấn Độ",
+    "cal": 400,
+    "goal": "Thanh lọc",
+    "tags": [
+      "Đậu lăng",
+      "Cà ri chay"
+    ],
+    "image": "https://images.unsplash.com/photo-1545247181-516773cae754?w=500",
+    "desc": "Đậu lăng vàng hầm cà ri nước cốt hạnh nhân ăn kèm cơm gạo lứt.",
+    "price": 69000
+  },
+  {
+    "id": 56,
+    "title": "Mì Ý Sốt Nấm Mỡ & Truffle Chay",
+    "region": "Chay",
+    "country": "Ý",
+    "cal": 420,
+    "goal": "Gourmet",
+    "tags": [
+      "Sốt Truffle",
+      "Nấm mỡ"
+    ],
+    "image": "https://images.unsplash.com/photo-1621996346565-e3def616403c?w=500",
+    "desc": "Pasta nguyên cám sốt nấm mỡ kem yến mạch hương nấm Truffle quý giá.",
+    "price": 74000
+  }
+]
